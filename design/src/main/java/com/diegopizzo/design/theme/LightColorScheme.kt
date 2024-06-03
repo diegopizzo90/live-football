@@ -1,0 +1,35 @@
+package com.diegopizzo.design.theme
+
+import androidx.compose.material3.lightColorScheme
+
+internal val LightColorScheme = lightColorScheme(
+    primary = ColorPalette.Primary,
+    onPrimary = ColorPalette.White,
+    primaryContainer = ColorPalette.BackgroundPink,
+    onPrimaryContainer = ColorPalette.Primary,
+    secondary = ColorPalette.Secondary,
+    onSecondary = ColorPalette.White,
+    secondaryContainer = ColorPalette.BackgroundPurple,
+    onSecondaryContainer = ColorPalette.Secondary,
+    tertiary = ColorPalette.GradientBlue,
+    onTertiary = ColorPalette.White,
+    tertiaryContainer = ColorPalette.BackgroundBlue,
+    onTertiaryContainer = ColorPalette.GradientBlue,
+    background = ColorPalette.White,
+    onBackground = ColorPalette.Grey900,
+    surface = ColorPalette.Grey50,
+    onSurface = ColorPalette.Grey900,
+    surfaceVariant = ColorPalette.Grey200,
+    onSurfaceVariant = ColorPalette.Grey700,
+    error = ColorPalette.Error,
+    onError = ColorPalette.White,
+    errorContainer = ColorPalette.BackgroundRed,
+    onErrorContainer = ColorPalette.Error,
+    outline = ColorPalette.Grey500,
+    inverseOnSurface = ColorPalette.Grey50,
+    inverseSurface = ColorPalette.Grey800,
+    inversePrimary = ColorPalette.Pink,
+    surfaceTint = ColorPalette.Primary,
+    outlineVariant = ColorPalette.Grey400,
+    scrim = ColorPalette.Grey900,
+)
