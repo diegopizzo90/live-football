@@ -1,0 +1,79 @@
+complexity:
+  active: true
+  TooManyFunctions:
+    active: true
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**', '**/*Module.kt', '**/*Ext.kt' ]
+    thresholdInFiles: 15
+    thresholdInClasses: 15
+    thresholdInInterfaces: 15
+    thresholdInObjects: 15
+    thresholdInEnums: 15
+    ignoreDeprecated: false
+    ignorePrivate: true
+    ignoreOverridden: true
+  LongParameterList:
+    active: true
+    functionThreshold: 6
+    constructorThreshold: 7
+    ignoreDefaultParameters: true
+    ignoreDataClasses: true
+  NestedBlockDepth:
+    active: true
+    threshold: 5
+
+exceptions:
+  active: true
+  TooGenericExceptionCaught:
+    active: false
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    exceptionNames:
+      - ArrayIndexOutOfBoundsException
+      - Error
+      - Exception
+      - IllegalMonitorStateException
+      - NullPointerException
+      - IndexOutOfBoundsException
+      - RuntimeException
+      - Throwable
+    allowedExceptionNameRegex: '_|(ignore|expected).*'
+  TooGenericExceptionThrown:
+    active: true
+    exceptionNames:
+      #     - Error
+      - Exception
+      - Throwable
+      - RuntimeException
+
+style:
+  active: true
+  ReturnCount:
+    active: true
+    max: 2
+    excludedFunctions: 'equals'
+    excludeLabeled: false
+    excludeReturnFromLambda: true
+    excludeGuardClauses: true
+  WildcardImport:
+    active: false
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    excludeImports: [ 'java.util.*' ]
+  UnnecessaryAbstractClass:
+    active: false
+  UnusedPrivateMember:
+    active: true
+    allowedNames: '[A-Za-z0-9]*Preview$'
+
+naming:
+  active: true
+  PackageNaming:
+    active: true
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9_]*)*'
+  TopLevelPropertyNaming:
+    active: true
+    excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**' ]
+    constantPattern: '[A-Z][_A-Za-z0-9]*'
+    propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
+    privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
+  FunctionNaming:
+    functionPattern: "([A-Za-z][a-zA-Z0-9]*)|(`.*`)"

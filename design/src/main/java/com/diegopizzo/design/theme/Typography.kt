@@ -12,83 +12,83 @@ internal val LFFontFamily = FontFamily(
     Font(R.font.urbanist_bold, FontWeight.Bold),
     Font(R.font.urbanist_semibold, FontWeight.SemiBold),
     Font(R.font.urbanist_medium, FontWeight.Medium),
-    Font(R.font.urbanist_regular, FontWeight.Normal)
+    Font(R.font.urbanist_regular, FontWeight.Normal),
 )
 
 internal val Typography = Typography(
     displayLarge = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 48.sp
+        fontSize = 48.sp,
     ),
     displayMedium = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 40.sp
+        fontSize = 40.sp,
     ),
     displaySmall = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 32.sp
+        fontSize = 32.sp,
     ),
     headlineLarge = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp
+        fontSize = 24.sp,
     ),
     headlineMedium = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
+        fontSize = 20.sp,
     ),
     headlineSmall = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 18.sp
+        fontSize = 18.sp,
     ),
     titleLarge = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     titleMedium = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     titleSmall = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     bodyLarge = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
     ),
     bodyMedium = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 14.sp,
     ),
     bodySmall = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 12.sp,
     ),
     labelLarge = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 14.sp
+        fontSize = 14.sp,
     ),
     labelMedium = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 12.sp
+        fontSize = 12.sp,
     ),
     labelSmall = TextStyle(
         fontFamily = LFFontFamily,
         fontWeight = FontWeight.Bold,
-        fontSize = 10.sp
-    )
+        fontSize = 10.sp,
+    ),
 )

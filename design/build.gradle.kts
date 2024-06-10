@@ -1,34 +1,11 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    id(libs.plugins.android.library.get().pluginId)
+    id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
+    id(libs.plugins.liveFootball.plugin.get().pluginId)
 }
 
 android {
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.kotlinComposeCompiler.get()
-    }
-
     namespace = "com.diegopizzo.design"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility = rootProject.extra["javaVersion"] as JavaVersion
-        targetCompatibility = rootProject.extra["javaVersion"] as JavaVersion
-    }
-
-    kotlinOptions {
-        jvmTarget = (rootProject.extra["javaVersion"] as JavaVersion).toString()
-    }
 }
 
 dependencies {
