@@ -89,6 +89,6 @@ internal fun Color.toHex(): String {
         (alpha * 255).toInt(),
         (red * 255).toInt(),
         (green * 255).toInt(),
-        (blue * 255).toInt()
+        (blue * 255).toInt(),
     )
 }
