@@ -96,4 +96,3 @@ internal fun Color.toHex(): String {
 
 fun Color.disabled(enabled: Boolean): Color =
     copy(alpha = if (enabled) ContentAlphaTokens.High else ContentAlphaTokens.Disabled)
-

@@ -24,7 +24,7 @@ detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-p
 
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
-compose-coil = { module = "io.coil-kt:coil", version.ref = "compose-coil" }
+compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "compose-coil" }
 compose-design = { module = "androidx.compose.material3:material3" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-ui = { module = "androidx.compose.ui:ui" }
