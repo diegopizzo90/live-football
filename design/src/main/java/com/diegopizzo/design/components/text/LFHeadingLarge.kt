@@ -38,8 +38,8 @@ fun LFHeadingLarge(
         minLines = minLines,
         onTextLayout = onTextLayout,
         style = MaterialTheme.typography.headlineLarge,
-        enabled = enabled,
         modifier = modifier,
+        enabled = enabled,
     )
 }
 

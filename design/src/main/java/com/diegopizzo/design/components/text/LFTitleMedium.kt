@@ -3,6 +3,7 @@ package com.diegopizzo.design.components.text
 import android.content.res.Configuration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.text.TextLayoutResult
@@ -18,6 +19,7 @@ import java.util.Locale
 @Composable
 fun LFTitleMedium(
     text: String,
+    modifier: Modifier = Modifier,
     color: Color? = Color.Unspecified,
     textAlign: TextAlign? = null,
     overflow: TextOverflow? = null,
@@ -37,6 +39,7 @@ fun LFTitleMedium(
         minLines = minLines,
         onTextLayout = onTextLayout,
         style = MaterialTheme.typography.titleMedium,
+        modifier = modifier,
         enabled = enabled,
     )
 }
