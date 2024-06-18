@@ -58,8 +58,8 @@ internal val Typography = Typography(
     ),
     titleSmall = TextStyle(
         fontFamily = LFFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
     ),
     bodyLarge = TextStyle(
         fontFamily = LFFontFamily,
