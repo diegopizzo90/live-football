@@ -58,7 +58,7 @@ private fun LFHeadlineMediumPreview(
     }
 }
 
-data class LFHeadlineMediumViewData(val text: String, val enabled: Boolean)
+private data class LFHeadlineMediumViewData(val text: String, val enabled: Boolean)
 
 private class LFHeadlineMediumPreviewParameterProvider : PreviewParameterProvider<LFHeadlineMediumViewData> {
     override val values: Sequence<LFHeadlineMediumViewData>

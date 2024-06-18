@@ -16,7 +16,7 @@ import com.diegopizzo.design.theme.LFTheme
 import com.diegopizzo.design.theme.disabled
 
 @Composable
-fun LFHeadlineSmall(
+fun LFTitleSmall(
     text: String,
     modifier: Modifier = Modifier,
     color: Color? = Color.Unspecified,
@@ -37,33 +37,33 @@ fun LFHeadlineSmall(
         maxLines = maxLines,
         minLines = minLines,
         onTextLayout = onTextLayout,
-        style = MaterialTheme.typography.headlineSmall,
+        style = MaterialTheme.typography.titleSmall,
         modifier = modifier,
         enabled = enabled,
     )
 }
 
-@Preview("Default", "LFHeadlineSmall", showBackground = true)
-@Preview("Dark theme", "LFHeadlineSmall", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("Default", "LFTitleSmall", showBackground = true)
+@Preview("Dark theme", "LFTitleSmall", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun LFHeadlineSmallPreview(
-    @PreviewParameter(LFHeadlineSmallPreviewParameterProvider::class)
-    viewData: LFHeadlineSmallViewData,
+private fun LFTitleSmallPreview(
+    @PreviewParameter(LFTitleSmallPreviewParameterProvider::class)
+    viewData: LFTitleSmallViewData,
 ) {
     LFTheme {
-        LFHeadlineSmall(
+        LFTitleSmall(
             text = viewData.text,
             enabled = viewData.enabled,
         )
     }
 }
 
-private data class LFHeadlineSmallViewData(val text: String, val enabled: Boolean)
+private data class LFTitleSmallViewData(val text: String, val enabled: Boolean)
 
-private class LFHeadlineSmallPreviewParameterProvider : PreviewParameterProvider<LFHeadlineSmallViewData> {
-    override val values: Sequence<LFHeadlineSmallViewData>
+private class LFTitleSmallPreviewParameterProvider : PreviewParameterProvider<LFTitleSmallViewData> {
+    override val values: Sequence<LFTitleSmallViewData>
         get() = listOf(
-            LFHeadlineSmallViewData("HeadlineSmall", true),
-            LFHeadlineSmallViewData("HeadlineSmall", false),
+            LFTitleSmallViewData("TitleSmall", true),
+            LFTitleSmallViewData("TitleSmall", false),
         ).asSequence()
 }

@@ -58,7 +58,7 @@ private fun LFLabelLargePreview(
     }
 }
 
-data class LFLabelLargeViewData(val text: String, val enabled: Boolean)
+private data class LFLabelLargeViewData(val text: String, val enabled: Boolean)
 
 private class LFLabelLargePreviewParameterProvider : PreviewParameterProvider<LFLabelLargeViewData> {
     override val values: Sequence<LFLabelLargeViewData>

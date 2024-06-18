@@ -58,7 +58,7 @@ private fun LFBodyLargePreview(
     }
 }
 
-data class LFBodyLargeViewData(val text: String, val enabled: Boolean)
+private data class LFBodyLargeViewData(val text: String, val enabled: Boolean)
 
 private class LFBodyLargePreviewParameterProvider : PreviewParameterProvider<LFBodyLargeViewData> {
     override val values: Sequence<LFBodyLargeViewData>

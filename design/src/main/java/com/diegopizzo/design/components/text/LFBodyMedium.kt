@@ -58,7 +58,7 @@ private fun LFBodyMediumPreview(
     }
 }
 
-data class LFBodyMediumViewData(val text: String, val enabled: Boolean)
+private data class LFBodyMediumViewData(val text: String, val enabled: Boolean)
 
 private class LFBodyMediumPreviewParameterProvider : PreviewParameterProvider<LFBodyMediumViewData> {
     override val values: Sequence<LFBodyMediumViewData>

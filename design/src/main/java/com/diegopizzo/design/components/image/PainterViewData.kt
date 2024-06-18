@@ -1,6 +1,6 @@
 package com.diegopizzo.design.components.image
 
-import androidx.annotation.DrawableRes
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.isUnspecified
@@ -15,12 +15,13 @@ import androidx.compose.ui.res.painterResource
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Scale
+import com.diegopizzo.design.theme.Icons
 
 data class PainterViewData private constructor(
     private val imageVector: ImageVector? = null,
     private val url: String? = null,
     private val urlOptions: PainterUrlOptionsViewData? = null,
-    @DrawableRes private val drawableRes: Int? = null,
+    private val drawableRes: Icons? = null,
     private val color: Color? = null,
 ) {
 
@@ -42,7 +43,7 @@ data class PainterViewData private constructor(
             }
 
             drawableRes != null -> {
-                painterResource(id = drawableRes)
+                painterResource(id = if (isSystemInDarkTheme()) drawableRes.idDarkTheme else drawableRes.idLightTheme)
             }
 
             else -> {
@@ -96,7 +97,7 @@ data class PainterViewData private constructor(
             urlOptions = options,
         )
 
-        fun drawableResourcePainter(@DrawableRes drawableRes: Int) =
+        fun drawableResourcePainter(drawableRes: Icons) =
             PainterViewData(drawableRes = drawableRes)
 
         fun colorPainter(color: Color) = PainterViewData(color = color)

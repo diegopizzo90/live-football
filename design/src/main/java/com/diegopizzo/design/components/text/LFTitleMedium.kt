@@ -28,9 +28,10 @@ fun LFTitleMedium(
     minLines: Int? = null,
     onTextLayout: (TextLayoutResult) -> Unit = {},
     enabled: Boolean = true,
+    isUppercase: Boolean = true,
 ) {
     LFBaseText(
-        text = text.uppercase(Locale.getDefault()),
+        text = if (isUppercase) text.uppercase(Locale.getDefault()) else text,
         color = color?.takeOrElse { MaterialTheme.colorScheme.primary.disabled(enabled) },
         textAlign = textAlign,
         overflow = overflow,
@@ -59,7 +60,7 @@ private fun LFTitleMediumPreview(
     }
 }
 
-data class LFTitleMediumViewData(val text: String, val enabled: Boolean)
+private data class LFTitleMediumViewData(val text: String, val enabled: Boolean)
 
 private class LFTitleMediumPreviewParameterProvider : PreviewParameterProvider<LFTitleMediumViewData> {
     override val values: Sequence<LFTitleMediumViewData>

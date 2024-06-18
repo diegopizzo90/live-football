@@ -58,7 +58,7 @@ private fun LFLabelMediumPreview(
     }
 }
 
-data class LFLabelMediumViewData(val text: String, val enabled: Boolean)
+private data class LFLabelMediumViewData(val text: String, val enabled: Boolean)
 
 private class LFLabelMediumPreviewParameterProvider : PreviewParameterProvider<LFLabelMediumViewData> {
     override val values: Sequence<LFLabelMediumViewData>
