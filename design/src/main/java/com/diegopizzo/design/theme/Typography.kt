@@ -58,17 +58,17 @@ internal val Typography = Typography(
     ),
     titleSmall = TextStyle(
         fontFamily = LFFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 14.sp,
     ),
     bodyLarge = TextStyle(
         fontFamily = LFFontFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
     ),
     bodyMedium = TextStyle(
         fontFamily = LFFontFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
     ),
     bodySmall = TextStyle(
@@ -83,7 +83,7 @@ internal val Typography = Typography(
     ),
     labelMedium = TextStyle(
         fontFamily = LFFontFamily,
-        fontWeight = FontWeight.Bold,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
     ),
     labelSmall = TextStyle(

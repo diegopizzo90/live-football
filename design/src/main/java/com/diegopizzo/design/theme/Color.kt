@@ -1,6 +1,7 @@
 package com.diegopizzo.design.theme
 
 import androidx.compose.ui.graphics.Color
+import com.diegopizzo.design.tokens.ContentAlphaTokens
 
 object ColorPalette {
 
@@ -92,3 +93,6 @@ internal fun Color.toHex(): String {
         (blue * 255).toInt(),
     )
 }
+
+fun Color.disabled(enabled: Boolean): Color =
+    copy(alpha = if (enabled) ContentAlphaTokens.High else ContentAlphaTokens.Disabled)

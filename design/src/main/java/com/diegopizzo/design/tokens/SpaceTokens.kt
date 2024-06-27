@@ -48,6 +48,11 @@ object SpaceTokens {
     val Large = 16.dp
 
     /**
+     * Medium large space (20dp)
+     */
+    val MediumLarge = 20.dp
+
+    /**
      * Extra large space (24dp)
      */
     val ExtraLarge = 24.dp
