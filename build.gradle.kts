@@ -17,6 +17,12 @@ buildscript {
         }
         mavenCentral()
     }
+
+    dependencies {
+        classpath(libs.gradlePlugin.agp)
+        classpath(libs.gradlePlugin.kotlin)
+        classpath(libs.gradlePlugin.kotlinSerialization)
+    }
 }
 
 plugins {
