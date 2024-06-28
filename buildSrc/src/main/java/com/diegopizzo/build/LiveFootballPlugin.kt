@@ -38,8 +38,13 @@ class LiveFootballPlugin : Plugin<Project> {
                 }
 
                 is AppPlugin -> {
+                    val localPropertiesFile = target.rootProject.file("local.properties")
+                    val apiKey = Properties().apply {
+                        load(FileInputStream(localPropertiesFile))
+                    }.getProperty("API_KEY_VALUE")
+
                     target.extensions.configure(ApplicationExtension::class.java) {
-                        configureApp(this, getAppVersion())
+                        configureApp(this, getAppVersion(), apiKey)
                     }
                 }
             }
@@ -67,7 +72,7 @@ class LiveFootballPlugin : Plugin<Project> {
         }
     }
 
-    private val configureApp: (ApplicationExtension, AppVersion) -> Unit = { app, appVersion ->
+    private val configureApp: (ApplicationExtension, AppVersion, String) -> Unit = { app, appVersion, apiKey ->
         app.apply {
             compileSdk = COMPILE_SDK
             compileOptions {
@@ -82,10 +87,12 @@ class LiveFootballPlugin : Plugin<Project> {
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 versionCode = appVersion.versionCode
                 versionName = appVersion.versionName
+                buildConfigField("String", "API_KEY", apiKey)
             }
 
             sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("src/androidTest/assets"))
 
+            buildFeatures.buildConfig = true
             buildFeatures.compose = true
             composeOptions.kotlinCompilerExtensionVersion =
                 versionCatalog.findVersion("kotlinComposeCompiler").get().requiredVersion
