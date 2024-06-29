@@ -12,7 +12,11 @@ class MainViewModel(private val appNavigator: AppNavigator) : ViewModel() {
 
     fun onSplashScreenAnimationFinished() {
         viewModelScope.launch {
-            appNavigator.navigateTo(Destination.Home.route)
+            appNavigator.navigateTo(
+                route = Destination.Home.route,
+                popUpToRoute = Destination.Splash.route,
+                isInclusive = true,
+            )
         }
     }
 }
