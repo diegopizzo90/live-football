@@ -24,6 +24,7 @@ dependencies {
         exclude(group = "androidx.compose.material", module = "material")
     }
     api(libs.compose.design)
+    api(libs.compose.activity)
 
     api(libs.android.coroutines.test)
 }

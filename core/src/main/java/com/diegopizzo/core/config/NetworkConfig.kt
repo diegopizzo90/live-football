@@ -27,7 +27,6 @@ private const val BASE_URL = "https://api-football-v1.p.rapidapi.com/v3/"
 fun ktorHttpClient(apiKey: String) = module {
     single {
         HttpClient(Android) {
-
             install(JsonFeature) {
                 serializer = KotlinxSerializer(
                     Json {
@@ -48,7 +47,6 @@ fun ktorHttpClient(apiKey: String) = module {
                     override fun log(message: String) {
                         Log.v("Logger Ktor =>", message)
                     }
-
                 }
                 level = LogLevel.ALL
             }
