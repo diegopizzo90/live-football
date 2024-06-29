@@ -2,6 +2,7 @@
 agp = "8.4.2"
 kotlin = "1.9.24"
 coreKtx = "1.13.1"
+androidx-core-splashscreen = "1.0.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -9,6 +10,7 @@ appcompat = "1.7.0"
 kotlinComposeCompiler = "1.5.14"
 compose-bom = "2024.05.00"
 compose-coil = "2.6.0"
+compose-activity = "1.9.0"
 jvmTarget = "11"
 ktlint = "1.1.1"
 detekt = "1.23.6"
@@ -16,6 +18,8 @@ coroutines = "1.7.3"
 koin = "3.4.0"
 ktor = "1.5.0"
 kotlinSerialization = "1.4.1"
+compose-lottie = "6.3.0"
+compose-navigation = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +36,7 @@ ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = 
 ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
 ktor-logging = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "compose-lottie" }
 
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -40,10 +45,12 @@ compose-design = { module = "androidx.compose.material3:material3" }
 compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 
 gradlePlugin-agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin"}
+gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
