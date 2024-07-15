@@ -1,4 +1,5 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import java.net.URI
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -30,11 +31,16 @@ plugins {
     id(libs.plugins.android.application.get().pluginId) apply false
     id(libs.plugins.android.library.get().pluginId) apply false
     id(libs.plugins.jetbrains.kotlin.android.get().pluginId) apply false
+    id(libs.plugins.compose.compiler.get().pluginId) version libs.versions.kotlin apply false
+    id(libs.plugins.jetbrains.kotlin.serialization.get().pluginId) version libs.versions.kotlin
 }
 
 allprojects {
-    tasks.withType<KotlinCompile> {
-        kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
+    tasks.withType<KotlinJvmCompile> {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+            freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+        }
     }
 
     tasks.withType<JavaCompile> {

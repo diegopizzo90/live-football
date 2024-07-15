@@ -11,8 +11,11 @@ android {
 dependencies {
     api(libs.android.coroutines)
     api(libs.koin)
+    api(platform(libs.ktor.bom))
     api(libs.ktor.android)
     api(libs.ktor.serialization)
+    api(libs.ktor.serialization.json)
+    api(libs.ktor.content.negotiation)
     api(libs.ktor.logging)
     api(libs.kotlin.serialization)
 
@@ -27,4 +30,6 @@ dependencies {
     api(libs.compose.activity)
 
     api(libs.android.coroutines.test)
+
+    api(libs.ktor.test.mock)
 }
