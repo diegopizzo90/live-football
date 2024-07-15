@@ -1,4 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     `kotlin-dsl`
@@ -6,8 +8,11 @@ plugins {
     `java-gradle-plugin`
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = libs.versions.jvmTarget.get()
+tasks.withType<KotlinJvmCompile> {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmTarget.get()))
+        freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+    }
 }
 
 tasks.withType<JavaCompile> {
@@ -34,4 +39,5 @@ dependencies {
     implementation(libs.gradlePlugin.agp)
     implementation(libs.gradlePlugin.kotlin)
     implementation(libs.detekt.plugin)
+    implementation(libs.kotlin.serialization)
 }

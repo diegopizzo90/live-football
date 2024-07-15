@@ -35,6 +35,7 @@ class LiveFootballPlugin : Plugin<Project> {
             when (this) {
                 is LibraryPlugin -> {
                     target.extensions.configure(LibraryExtension::class.java, configureLibrary)
+                    target.configureComposeCompiler()
                 }
 
                 is AppPlugin -> {
@@ -46,6 +47,7 @@ class LiveFootballPlugin : Plugin<Project> {
                     target.extensions.configure(ApplicationExtension::class.java) {
                         configureApp(this, getAppVersion(), apiKey)
                     }
+                    target.configureComposeCompiler()
                 }
             }
         }
@@ -67,8 +69,6 @@ class LiveFootballPlugin : Plugin<Project> {
 
             buildFeatures.buildConfig = false
             buildFeatures.compose = true
-            composeOptions.kotlinCompilerExtensionVersion =
-                versionCatalog.findVersion("kotlinComposeCompiler").get().requiredVersion
         }
     }
 
@@ -94,8 +94,6 @@ class LiveFootballPlugin : Plugin<Project> {
 
             buildFeatures.buildConfig = true
             buildFeatures.compose = true
-            composeOptions.kotlinCompilerExtensionVersion =
-                versionCatalog.findVersion("kotlinComposeCompiler").get().requiredVersion
         }
     }
 
@@ -117,7 +115,12 @@ class LiveFootballPlugin : Plugin<Project> {
             "implementation",
             versionCatalog.findLibrary("kotlin-serialization").get(),
         )
-        plugins.apply("org.jetbrains.kotlin.plugin.serialization")
+        plugins.apply("kotlinx-serialization")
+    }
+
+    private fun Project.configureComposeCompiler() {
+        val plugin = versionCatalog.findPlugin("compose-compiler").get().get().pluginId
+        plugins.apply(plugin)
     }
 }
 
