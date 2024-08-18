@@ -9,6 +9,10 @@ android {
     namespace = "com.diegopizzo.league"
 }
 
+ksp {
+    arg("room.schemaLocation", "${projectDir}/schemas")
+}
+
 dependencies {
     implementation(project(path = ":core"))
 
