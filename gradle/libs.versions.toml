@@ -20,9 +20,14 @@ compose-lottie = "6.3.0"
 compose-navigation = "2.7.7"
 material = "1.12.0"
 mockk = "1.13.11"
+store5 = "5.1.0-alpha04"
+room = "2.6.1"
+ksp = "2.0.0-1.0.23"
+lifecycle_version = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-compose-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -43,6 +48,10 @@ ktor-test-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "compose-lottie" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+store5 = { module = "org.mobilenativefoundation.store:store5", version.ref = "store5" }
+room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-coroutines = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
@@ -66,3 +75,4 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 liveFootball-plugin = { id = "lf-plugin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }

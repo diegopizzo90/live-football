@@ -2,6 +2,7 @@ package com.diegopizzo.livefootball.config
 
 import android.app.Application
 import com.diegopizzo.core.config.ktorHttpClient
+import com.diegopizzo.league.config.leagueModule
 import com.diegopizzo.livefootball.BuildConfig
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
 import com.diegopizzo.livefootball.presentation.viewmodel.config.mainViewModelModule
@@ -18,6 +19,7 @@ class LiveFootballApplication : Application() {
                 ktorHttpClient(BuildConfig.API_KEY),
                 appNavigatorModule,
                 mainViewModelModule,
+                leagueModule,
             )
         }
     }

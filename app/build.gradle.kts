@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(project(":design"))
     implementation(project(":core"))
+    implementation(project(":league"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
