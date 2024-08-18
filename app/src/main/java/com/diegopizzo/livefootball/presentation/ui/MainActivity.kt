@@ -39,6 +39,8 @@ class MainActivity : ComponentActivity() {
                 SetupNavGraph(mainViewModel)
             }
         }
+
+        mainViewModel.startFetchingLeagues()
     }
 }
 
