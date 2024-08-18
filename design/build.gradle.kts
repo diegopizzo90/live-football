@@ -21,8 +21,4 @@ dependencies {
         exclude(group = "androidx.compose.material", module = "material")
     }
     implementation(libs.compose.design)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

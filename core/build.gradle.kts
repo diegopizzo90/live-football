@@ -31,8 +31,5 @@ dependencies {
     api(libs.compose.design)
     api(libs.compose.activity)
     api(libs.store5)
-
-    api(libs.android.coroutines.test)
-    api(libs.junit)
-    api(libs.ktor.test.mock)
+    implementation(libs.ktor.test.mock)
 }

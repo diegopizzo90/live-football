@@ -23,6 +23,5 @@ dependencies {
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    testImplementation(libs.junit)
-    testImplementation(libs.mockk)
+    testImplementation(project(":test_utils"))
 }

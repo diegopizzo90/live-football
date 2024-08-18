@@ -39,7 +39,7 @@ dependencies {
     implementation(project(":design"))
     implementation(project(":core"))
     implementation(project(":league"))
-    testImplementation(libs.junit)
+    testImplementation(project(":test_utils"))
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
