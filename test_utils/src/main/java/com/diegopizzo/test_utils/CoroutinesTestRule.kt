@@ -1,4 +1,4 @@
-package com.diegopizzo.core.config
+package com.diegopizzo.test_utils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,9 +1,9 @@
 package com.diegopizzo.league.repository
 
-import com.diegopizzo.core.config.CoroutinesTestRule
 import com.diegopizzo.league.data.leagueData
 import com.diegopizzo.league.repository.mapper.LeagueDataMapper
 import com.diegopizzo.league.repository.store.LeagueStore
+import com.diegopizzo.test_utils.CoroutinesTestRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
