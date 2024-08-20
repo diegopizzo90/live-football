@@ -40,6 +40,5 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":league"))
     testImplementation(project(":test_utils"))
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(project(":android_test_utils"))
 }
