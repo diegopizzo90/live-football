@@ -21,7 +21,6 @@ dependencies {
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
 
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(project(":android_test_utils"))
     testImplementation(project(":test_utils"))
 }
