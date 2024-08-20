@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.test_utils"
+    namespace = "com.diegopizzo.android_test_utils"
 }
 
 dependencies {
