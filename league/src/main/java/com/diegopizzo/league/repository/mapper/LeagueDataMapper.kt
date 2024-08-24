@@ -1,13 +1,13 @@
 package com.diegopizzo.league.repository.mapper
 
-import com.diegopizzo.league.api.model.LeagueResponse
+import com.diegopizzo.league.api.model.LeagueResponseDto
 import com.diegopizzo.league.config.LeagueType
 import com.diegopizzo.league.repository.model.LeagueData
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
 class LeagueDataMapper {
 
-    fun mapLeagueData(leagueResponse: LeagueResponse, leagueType: LeagueType): LeagueData {
+    fun mapLeagueData(leagueResponse: LeagueResponseDto, leagueType: LeagueType): LeagueData {
         with(leagueResponse) {
             return LeagueData(
                 id = league.id,
@@ -22,7 +22,7 @@ class LeagueDataMapper {
 
     fun mapLeagueData(leagueEntity: LeagueEntity): LeagueData {
         with(leagueEntity) {
-            LeagueResponse
+            LeagueResponseDto
             return LeagueData(
                 id = leagueId.toInt(),
                 name = name,
@@ -34,7 +34,7 @@ class LeagueDataMapper {
         }
     }
 
-    fun mapLeagueEntity(leagueResponse: LeagueResponse): LeagueEntity {
+    fun mapLeagueEntity(leagueResponse: LeagueResponseDto): LeagueEntity {
         with(leagueResponse) {
             return LeagueEntity(
                 leagueId = league.id.toLong(),

@@ -1,9 +1,9 @@
 package com.diegopizzo.league.data
 
-import com.diegopizzo.league.api.model.CountryInfo
-import com.diegopizzo.league.api.model.League
-import com.diegopizzo.league.api.model.LeagueInfo
-import com.diegopizzo.league.api.model.LeagueResponse
+import com.diegopizzo.league.api.model.CountryInfoDto
+import com.diegopizzo.league.api.model.LeagueDto
+import com.diegopizzo.league.api.model.LeagueInfoDto
+import com.diegopizzo.league.api.model.LeagueResponseDto
 import com.diegopizzo.league.config.CountryCode
 import com.diegopizzo.league.config.LeagueType
 import com.diegopizzo.league.config.LeaguesAvailable
@@ -11,16 +11,16 @@ import com.diegopizzo.league.repository.model.LeagueData
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
 val leagueResponse =
-    League(
+    LeagueDto(
         response = listOf(
-            LeagueResponse(
-                league = LeagueInfo(
+            LeagueResponseDto(
+                league = LeagueInfoDto(
                     id = 1,
                     name = LeaguesAvailable.SERIE_A.leagueName,
                     type = LeagueType.LEAGUE.type,
                     logo = "logo",
                 ),
-                country = CountryInfo(
+                country = CountryInfoDto(
                     name = CountryCode.ITALY.name,
                     code = CountryCode.ITALY.code,
                 ),
