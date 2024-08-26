@@ -55,7 +55,6 @@ internal class MatchStoreImpl(
         season: String,
         forceRefresh: Boolean,
     ): Result<List<MatchData>> {
-
         val key = MatchStoreKey(
             leagueId = leagueId,
             from = from,

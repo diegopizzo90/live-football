@@ -1,10 +1,10 @@
 package com.diegopizzo.match.api.repository.store.data
 
 import com.diegopizzo.match.api.repository.store.model.AwayData
-import com.diegopizzo.match.api.repository.store.model.MatchData
-import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.GoalsData
 import com.diegopizzo.match.api.repository.store.model.HomeData
+import com.diegopizzo.match.api.repository.store.model.MatchData
+import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.api.repository.store.model.TeamsData
 

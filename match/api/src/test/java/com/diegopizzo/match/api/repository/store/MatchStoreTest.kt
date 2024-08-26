@@ -18,7 +18,7 @@ class MatchStoreTest {
 
     @Before
     fun setUp() {
-        store = FixtureStoreImpl(
+        store = MatchStoreImpl(
             api = api,
             mapper = MatchDataMapperImpl(),
             ttlCacheInMinutes = 10,
@@ -35,9 +35,9 @@ class MatchStoreTest {
         coEvery { api.getMatches(leagueId, from, to, season) } returns Result.success(matchResponseDto)
 
         // First call
-        store.getFixtures(leagueId, from, to, season)
+        store.getMatches(leagueId, from, to, season)
         // Second call
-        val actualCached = store.getFixtures(leagueId, from, to, season)
+        val actualCached = store.getMatches(leagueId, from, to, season)
         val expected = Result.success(matchDataList)
 
         assertEquals(actualCached, expected)
@@ -56,11 +56,10 @@ class MatchStoreTest {
         coEvery { api.getMatches(leagueId1, from, to, season) } returns Result.success(matchResponseDto)
         coEvery { api.getMatches(leagueId2, from, to, season) } returns Result.success(matchResponseDto)
 
-
         // First call
-        store.getFixtures(leagueId1, from, to, season)
+        store.getMatches(leagueId1, from, to, season)
         // Second call
-        val actualCached = store.getFixtures(leagueId2, from, to, season)
+        val actualCached = store.getMatches(leagueId2, from, to, season)
         val expected = Result.success(matchDataList)
 
         assertEquals(actualCached, expected)

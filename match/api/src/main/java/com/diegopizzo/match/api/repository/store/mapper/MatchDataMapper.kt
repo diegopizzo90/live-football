@@ -1,18 +1,17 @@
 package com.diegopizzo.match.api.repository.store.mapper
 
+import com.diegopizzo.match.api.network.model.GoalsDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
 import com.diegopizzo.match.api.network.model.MatchStatusDto
-import com.diegopizzo.match.api.network.model.GoalsDto
 import com.diegopizzo.match.api.network.model.StatusDto
 import com.diegopizzo.match.api.network.model.TeamsDto
 import com.diegopizzo.match.api.repository.store.model.AwayData
-import com.diegopizzo.match.api.repository.store.model.MatchData
-import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.GoalsData
 import com.diegopizzo.match.api.repository.store.model.HomeData
+import com.diegopizzo.match.api.repository.store.model.MatchData
+import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.api.repository.store.model.TeamsData
-
 
 internal interface MatchDataMapper {
     fun mapToMatchData(dto: MatchResponseDto): List<MatchData>

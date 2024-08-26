@@ -1,12 +1,12 @@
 package com.diegopizzo.match.api.network.util
 
 import com.diegopizzo.match.api.network.model.AwayDto
+import com.diegopizzo.match.api.network.model.GoalsDto
+import com.diegopizzo.match.api.network.model.HomeDto
 import com.diegopizzo.match.api.network.model.MatchDto
 import com.diegopizzo.match.api.network.model.MatchMainDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
 import com.diegopizzo.match.api.network.model.MatchStatusDto
-import com.diegopizzo.match.api.network.model.GoalsDto
-import com.diegopizzo.match.api.network.model.HomeDto
 import com.diegopizzo.match.api.network.model.StatusDto
 import com.diegopizzo.match.api.network.model.TeamsDto
 
