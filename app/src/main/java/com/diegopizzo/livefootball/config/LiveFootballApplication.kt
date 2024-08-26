@@ -2,7 +2,7 @@ package com.diegopizzo.livefootball.config
 
 import android.app.Application
 import com.diegopizzo.core.config.ktorHttpClient
-import com.diegopizzo.fixture.api.config.fixtureApiModule
+import com.diegopizzo.match.api.config.matchApiModule
 import com.diegopizzo.league.config.leagueModule
 import com.diegopizzo.livefootball.BuildConfig
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
@@ -21,7 +21,7 @@ class LiveFootballApplication : Application() {
                 appNavigatorModule,
                 mainViewModelModule,
                 leagueModule,
-                fixtureApiModule,
+                matchApiModule,
             )
         }
     }
