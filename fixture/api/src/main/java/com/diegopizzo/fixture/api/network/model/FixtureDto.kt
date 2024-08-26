@@ -1,17 +1,22 @@
-package com.diegopizzo.fixture.api.model
+package com.diegopizzo.fixture.api.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FixtureResponseDto(
+internal data class FixtureResponseDto(
+    @SerialName("response") val response: List<FixtureMainDto>,
+)
+
+@Serializable
+internal data class FixtureMainDto(
     @SerialName("fixture") val fixture: FixtureDto,
     @SerialName("teams") val teams: TeamsDto,
     @SerialName("goals") val goals: GoalsDto,
 )
 
 @Serializable
-data class FixtureDto(
+internal data class FixtureDto(
     @SerialName("id") val id: Long,
     @SerialName("timezone") val timezone: String,
     @SerialName("date") val date: String,
@@ -19,39 +24,39 @@ data class FixtureDto(
 )
 
 @Serializable
-data class StatusDto(
-    @SerialName("short") val statusValue: StatusValue? = StatusValue.NOT_AVAILABLE,
+internal data class StatusDto(
+    @SerialName("short") val status: FixtureStatusDto? = FixtureStatusDto.NOT_AVAILABLE,
     @SerialName("elapsed") val elapsed: Int? = null,
 )
 
 @Serializable
-data class TeamsDto(
+internal data class TeamsDto(
     @SerialName("home") val home: HomeDto,
     @SerialName("away") val away: AwayDto,
 )
 
 @Serializable
-data class HomeDto(
+internal data class HomeDto(
     @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
     @SerialName("logo") val logo: String,
 )
 
 @Serializable
-data class AwayDto(
+internal data class AwayDto(
     @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
     @SerialName("logo") val logo: String,
 )
 
 @Serializable
-data class GoalsDto(
+internal data class GoalsDto(
     @SerialName("home") val home: Int? = null,
     @SerialName("away") val away: Int? = null,
 )
 
 @Serializable
-enum class StatusValue(val status: String) {
+internal enum class FixtureStatusDto(val status: String) {
     @SerialName("TBD")
     TIME_TO_BE_DEFINED("TBD"),
 
@@ -110,10 +115,11 @@ enum class StatusValue(val status: String) {
     LIVE("LIVE"),
 
     @SerialName("NA")
-    NOT_AVAILABLE("NA");
+    NOT_AVAILABLE("NA"),
+    ;
 
     companion object {
-        fun getStatusValue(stringValue: String?): StatusValue {
+        fun fromValue(stringValue: String?): FixtureStatusDto {
             return entries.firstOrNull { it.status == stringValue } ?: NOT_AVAILABLE
         }
     }
