@@ -10,6 +10,9 @@ android {
 
 dependencies {
     implementation(project(path = ":core"))
+    implementation(project(path = ":design"))
+    implementation(project(":league"))
+    implementation(project(path = ":match:api"))
 
     androidTestImplementation(project(":android_test_utils"))
     testImplementation(project(":test_utils"))

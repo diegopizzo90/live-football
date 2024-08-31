@@ -82,7 +82,7 @@ internal class MatchDataMapperImpl : MatchDataMapper {
             null -> MatchStatus.NOT_AVAILABLE
         }
         return StatusData(
-            status = matchStatus,
+            matchStatus = matchStatus,
             elapsed = statusDto.elapsed,
         )
     }

@@ -19,7 +19,7 @@ class LeagueApiTest {
 
         assert(results.isSuccess)
         assert(results.getOrNull()!!.response.first().league.name == LeaguesAvailable.SERIE_A.leagueName)
-        assert(results.getOrNull()!!.response.first().league.id == 135)
+        assert(results.getOrNull()!!.response.first().league.id == 135L)
     }
 
     @Test

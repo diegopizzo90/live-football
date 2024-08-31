@@ -14,7 +14,7 @@ internal val matchDataList = listOf(
         timezone = "UTC",
         date = "2024-08-25T16:30:00+00:00",
         status = StatusData(
-            status = MatchStatus.NOT_STARTED,
+            matchStatus = MatchStatus.NOT_STARTED,
             elapsed = null,
         ),
         teams = TeamsData(
@@ -39,7 +39,7 @@ internal val matchDataList = listOf(
         timezone = "UTC",
         date = "2024-08-24T18:45:00+00:00",
         status = StatusData(
-            status = MatchStatus.MATCH_FINISHED,
+            matchStatus = MatchStatus.MATCH_FINISHED,
             elapsed = 90,
         ),
         teams = TeamsData(
@@ -64,7 +64,7 @@ internal val matchDataList = listOf(
         timezone = "UTC",
         date = "2024-08-25T18:45:00+00:00",
         status = StatusData(
-            status = MatchStatus.NOT_STARTED,
+            matchStatus = MatchStatus.NOT_STARTED,
             elapsed = null,
         ),
         teams = TeamsData(
@@ -89,7 +89,7 @@ internal val matchDataList = listOf(
         timezone = "UTC",
         date = "2024-08-24T16:30:00+00:00",
         status = StatusData(
-            status = MatchStatus.MATCH_FINISHED,
+            matchStatus = MatchStatus.MATCH_FINISHED,
             elapsed = 90,
         ),
         teams = TeamsData(

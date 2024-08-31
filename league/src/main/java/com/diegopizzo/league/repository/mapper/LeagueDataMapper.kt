@@ -22,9 +22,8 @@ class LeagueDataMapper {
 
     fun mapLeagueData(leagueEntity: LeagueEntity): LeagueData {
         with(leagueEntity) {
-            LeagueResponseDto
             return LeagueData(
-                id = leagueId.toInt(),
+                id = leagueId,
                 name = name,
                 type = leagueType,
                 logo = logo,
@@ -37,7 +36,7 @@ class LeagueDataMapper {
     fun mapLeagueEntity(leagueResponse: LeagueResponseDto): LeagueEntity {
         with(leagueResponse) {
             return LeagueEntity(
-                leagueId = league.id.toLong(),
+                leagueId = league.id,
                 name = league.name,
                 logo = league.logo,
                 countryName = country.name,

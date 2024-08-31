@@ -1,6 +1,6 @@
 package com.diegopizzo.match.api.repository.store.model
 
-internal data class MatchData(
+data class MatchData(
     val id: Long,
     val timezone: String,
     val date: String,
@@ -9,34 +9,34 @@ internal data class MatchData(
     val goals: GoalsData,
 )
 
-internal data class StatusData(
-    val status: MatchStatus? = MatchStatus.NOT_AVAILABLE,
+data class StatusData(
+    val matchStatus: MatchStatus? = MatchStatus.NOT_AVAILABLE,
     val elapsed: Int? = null,
 )
 
-internal data class TeamsData(
+data class TeamsData(
     val home: HomeData,
     val away: AwayData,
 )
 
-internal data class HomeData(
+data class HomeData(
     val id: Long,
     val name: String,
     val logo: String,
 )
 
-internal data class AwayData(
+data class AwayData(
     val id: Long,
     val name: String,
     val logo: String,
 )
 
-internal data class GoalsData(
+data class GoalsData(
     val home: Int? = null,
     val away: Int? = null,
 )
 
-internal enum class MatchStatus(val status: String) {
+enum class MatchStatus(val shortName: String) {
     TIME_TO_BE_DEFINED("TBD"),
     NOT_STARTED("NS"),
     FIRST_HALF_KICK_OFF("1H"),
@@ -60,8 +60,8 @@ internal enum class MatchStatus(val status: String) {
     ;
 
     companion object {
-        fun fromValue(stringValue: String?): MatchStatus {
-            return entries.firstOrNull { it.status == stringValue } ?: NOT_AVAILABLE
+        fun fromShortNameValue(stringValue: String?): MatchStatus {
+            return entries.firstOrNull { it.shortName == stringValue } ?: NOT_AVAILABLE
         }
     }
 }

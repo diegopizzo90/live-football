@@ -10,7 +10,7 @@ import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.repository.model.LeagueData
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
-val leagueResponse =
+internal val leagueResponse =
     LeagueDto(
         response = listOf(
             LeagueResponseDto(
@@ -28,7 +28,7 @@ val leagueResponse =
         ),
     )
 
-val leagueData = LeagueData(
+internal val leagueData = LeagueData(
     id = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
     type = LeagueType.LEAGUE,
@@ -37,7 +37,7 @@ val leagueData = LeagueData(
     countryCode = CountryCode.ITALY.code,
 )
 
-val leagueEntity = LeagueEntity(
+internal val leagueEntity = LeagueEntity(
     leagueId = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
     logo = "logo",

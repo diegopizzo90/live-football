@@ -16,7 +16,7 @@ data class LeagueResponseDto(
 
 @Serializable
 data class LeagueInfoDto(
-    @SerialName("id") val id: Int,
+    @SerialName("id") val id: Long,
     @SerialName("name") val name: String,
     @SerialName("type") val type: String,
     @SerialName("logo") val logo: String,
