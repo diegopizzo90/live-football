@@ -21,4 +21,5 @@ dependencies {
         exclude(group = "androidx.compose.material", module = "material")
     }
     implementation(libs.compose.design)
+    api(libs.compose.lottie)
 }

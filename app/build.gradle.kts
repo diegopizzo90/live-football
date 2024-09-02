@@ -34,7 +34,6 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.compose.lottie)
     implementation(libs.compose.navigation)
     implementation(project(":design"))
     implementation(project(":core"))

@@ -23,7 +23,7 @@ class LeagueRepositoryTest {
     @Before
     fun setUp() {
         mapper = LeagueDataMapper()
-        repository = LeagueRepositoryImpl(store, coroutinesTestRule.testDispatcher)
+        repository = LeagueRepositoryImpl(store)
     }
 
     @Test

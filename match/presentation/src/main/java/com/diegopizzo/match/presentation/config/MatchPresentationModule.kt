@@ -4,6 +4,9 @@ import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapperImpl
 import com.diegopizzo.match.presentation.usecase.GetMatchesByDateUseCase
 import com.diegopizzo.match.presentation.usecase.GetMatchesByDateUseCaseImpl
+import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
+import kotlinx.coroutines.Dispatchers
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private val matchViewDataMapperModule = module {
@@ -23,9 +26,16 @@ private val getMatchesByDateUseCaseModule = module {
     }
 }
 
+private val matchViewModel = module {
+    viewModel {
+        MatchViewModel(get(), Dispatchers.IO)
+    }
+}
+
 val matchPresentationModule = module {
     includes(
         matchViewDataMapperModule,
         getMatchesByDateUseCaseModule,
+        matchViewModel,
     )
 }
