@@ -1,6 +1,6 @@
 package com.diegopizzo.match.api.network
 
-import com.diegopizzo.core.config.mockHttpClient
+import com.diegopizzo.test_utils.mockHttpClient
 import com.diegopizzo.match.api.network.util.matchApiResponse
 import com.diegopizzo.match.api.network.util.matchResponseDto
 import io.ktor.http.HttpStatusCode

@@ -1,6 +1,6 @@
 package com.diegopizzo.league.api
 
-import com.diegopizzo.core.config.mockHttpClient
+import com.diegopizzo.test_utils.mockHttpClient
 import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.data.leaguesByNameResponse
 import io.ktor.http.HttpStatusCode

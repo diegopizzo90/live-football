@@ -35,7 +35,7 @@ fun LFErrorScreen(
     ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.error))
         val logoAnimationState =
-            animateLottieCompositionAsState(composition = composition)
+            animateLottieCompositionAsState(composition = composition, iterations = 1)
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

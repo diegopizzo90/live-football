@@ -1,4 +1,4 @@
-package com.diegopizzo.core.config
+package com.diegopizzo.test_utils
 
 import androidx.annotation.VisibleForTesting
 import io.ktor.client.HttpClient
@@ -14,6 +14,8 @@ import io.ktor.http.contentType
 import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+
+private const val BASE_URL = "https://baseurl/v3/"
 
 private fun mockEngine(
     jsonResponse: String? = null,

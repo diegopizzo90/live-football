@@ -2,31 +2,26 @@ package com.diegopizzo.core.config
 
 import android.util.Log
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.DefaultRequest
+import io.ktor.client.engine.mock.MockEngine
+import io.ktor.client.engine.mock.respond
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.observer.ResponseObserver
-import io.ktor.client.request.accept
-import io.ktor.client.request.header
 import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
-import io.ktor.http.contentType
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-internal const val NETWORK_TIME_OUT = 6_000L
-internal const val RAPID_API_HEADER_KEY_NAME = "x-rapidapi-key"
-internal const val BASE_URL = "https://api-football-v1.p.rapidapi.com/v3/"
+private val responseHeaders = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
-fun ktorHttpClient(apiKey: String) = module {
+fun fakeKtorHttpClient() = module {
     single {
-        HttpClient(Android) {
+        HttpClient(MockEngine) {
             install(ContentNegotiation) {
                 json(
                     Json {
@@ -56,19 +51,22 @@ fun ktorHttpClient(apiKey: String) = module {
 
             install(ResponseObserver) {
                 onResponse { response ->
-                    Log.d("HTTP status:", "${response.status.value}")
+                    Log.d("FAKE HTTP call:", "${response.status.value}")
                 }
             }
 
-            install(DefaultRequest) {
-                header(HttpHeaders.ContentType, ContentType.Application.Json)
-            }
+            engine {
+                addHandler { request ->
+                    when {
+                        request.url.encodedPath.contains("/fixtures") -> {
+                            respond(fixtures, HttpStatusCode.Accepted, responseHeaders)
+                        }
 
-            defaultRequest {
-                contentType(ContentType.Application.Json)
-                accept(ContentType.Application.Json)
-                header(RAPID_API_HEADER_KEY_NAME, apiKey)
-                url(BASE_URL)
+                        else -> {
+                            error("Unhandled ${request.url}")
+                        }
+                    }
+                }
             }
         }
     }
