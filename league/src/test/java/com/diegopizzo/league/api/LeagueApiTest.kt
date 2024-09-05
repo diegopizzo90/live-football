@@ -1,8 +1,8 @@
 package com.diegopizzo.league.api
 
-import com.diegopizzo.test_utils.mockHttpClient
 import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.data.leaguesByNameResponse
+import com.diegopizzo.test_utils.mockHttpClient
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.test.runTest
 import org.junit.Test

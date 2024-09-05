@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModel()
     private val matchViewModel: MatchViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.hide()

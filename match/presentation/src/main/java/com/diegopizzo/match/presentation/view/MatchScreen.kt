@@ -18,6 +18,7 @@ import com.diegopizzo.core.base.ViewState
 import com.diegopizzo.design.components.card.LFCardMatch
 import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.design.components.toolbar.LFTopAppBar
+import com.diegopizzo.design.screen.LFEmptyScreen
 import com.diegopizzo.design.screen.LFErrorScreen
 import com.diegopizzo.design.screen.LFLoadingScreen
 import com.diegopizzo.design.theme.LFTheme
@@ -25,7 +26,6 @@ import com.diegopizzo.design.tokens.SpaceTokens
 import com.diegopizzo.match.presentation.R
 import com.diegopizzo.match.presentation.view.util.MatchScreenPreviewParameterProvider
 import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
-
 
 @Composable
 fun MatchScreen(
@@ -44,10 +44,14 @@ fun MatchScreen(
         }
 
         is ViewState.Success -> {
-            MatchScreenContent(
-                modifier = Modifier,
-                matches = viewState.data.matches,
-            )
+            if (viewState.data.matches.isEmpty()) {
+                LFEmptyScreen()
+            } else {
+                MatchScreenContent(
+                    modifier = Modifier,
+                    matches = viewState.data.matches,
+                )
+            }
         }
     }
 }

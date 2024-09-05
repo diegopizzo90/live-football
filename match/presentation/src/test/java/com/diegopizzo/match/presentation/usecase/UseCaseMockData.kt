@@ -85,7 +85,7 @@ internal val matchDataList: List<MatchData>
                     home = null,
                     away = null,
                 ),
-            )
+            ),
         )
     }
 
@@ -131,7 +131,7 @@ internal val matchViewDataList: List<LFCardMatchViewData>
                         resultHome = "",
                         resultAway = "",
                     ),
-                )
+                ),
             ),
             default,
             default.copy(
@@ -151,7 +151,7 @@ internal val matchViewDataList: List<LFCardMatchViewData>
                         resultHome = "",
                         resultAway = "",
                     ),
-                )
+                ),
             ),
         )
     }

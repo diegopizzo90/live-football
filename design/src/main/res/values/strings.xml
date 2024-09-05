@@ -3,4 +3,6 @@
     <string name="loading">Loading...</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="please_try_again_later">Please try again later</string>
+    <string name="no_matches_found_details">No matches were found for the selected day.</string>
+    <string name="no_matches_found">No matches found</string>
 </resources>

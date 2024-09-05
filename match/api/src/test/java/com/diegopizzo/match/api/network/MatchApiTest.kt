@@ -1,8 +1,8 @@
 package com.diegopizzo.match.api.network
 
-import com.diegopizzo.test_utils.mockHttpClient
 import com.diegopizzo.match.api.network.util.matchApiResponse
 import com.diegopizzo.match.api.network.util.matchResponseDto
+import com.diegopizzo.test_utils.mockHttpClient
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
