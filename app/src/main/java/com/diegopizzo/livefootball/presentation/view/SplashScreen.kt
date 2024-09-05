@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.presentation.ui
+package com.diegopizzo.livefootball.presentation.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -18,6 +19,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.diegopizzo.core.base.ViewState
 import com.diegopizzo.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.design.components.text.LFDisplayLarge
+import com.diegopizzo.design.screen.LFErrorScreen
 import com.diegopizzo.design.tokens.SpaceTokens
 import com.diegopizzo.livefootball.R
 import com.diegopizzo.livefootball.presentation.viewmodel.MainViewModel
@@ -37,9 +39,11 @@ fun SplashScreen(
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) {
-                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash_screen_ball))
-                val logoAnimationState = animateLottieCompositionAsState(composition = composition, iterations = 5)
-                Column {
+                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.splash_screen))
+                val logoAnimationState = animateLottieCompositionAsState(composition = composition, iterations = 1)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     LottieAnimation(
                         composition = composition,
                         progress = { logoAnimationState.progress },
@@ -52,11 +56,15 @@ fun SplashScreen(
                     }
                     LFVerticalSpacer(height = SpaceTokens.Large)
                     LFDisplayLarge(
-                        text = "LiveFootball",
+                        text = stringResource(R.string.livefootball),
                         textAlign = TextAlign.Center,
                     )
                 }
             }
+        }
+
+        is ViewState.Error -> {
+            LFErrorScreen()
         }
 
         else -> Unit

@@ -1,8 +1,8 @@
 package com.diegopizzo.league.api
 
-import com.diegopizzo.core.config.mockHttpClient
 import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.data.leaguesByNameResponse
+import com.diegopizzo.test_utils.mockHttpClient
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -19,7 +19,7 @@ class LeagueApiTest {
 
         assert(results.isSuccess)
         assert(results.getOrNull()!!.response.first().league.name == LeaguesAvailable.SERIE_A.leagueName)
-        assert(results.getOrNull()!!.response.first().league.id == 135)
+        assert(results.getOrNull()!!.response.first().league.id == 135L)
     }
 
     @Test

@@ -1,26 +1,26 @@
 package com.diegopizzo.league.data
 
-import com.diegopizzo.league.api.model.CountryInfo
-import com.diegopizzo.league.api.model.League
-import com.diegopizzo.league.api.model.LeagueInfo
-import com.diegopizzo.league.api.model.LeagueResponse
+import com.diegopizzo.league.api.model.CountryInfoDto
+import com.diegopizzo.league.api.model.LeagueDto
+import com.diegopizzo.league.api.model.LeagueInfoDto
+import com.diegopizzo.league.api.model.LeagueResponseDto
 import com.diegopizzo.league.config.CountryCode
 import com.diegopizzo.league.config.LeagueType
 import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.repository.model.LeagueData
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
-val leagueResponse =
-    League(
+internal val leagueResponse =
+    LeagueDto(
         response = listOf(
-            LeagueResponse(
-                league = LeagueInfo(
+            LeagueResponseDto(
+                league = LeagueInfoDto(
                     id = 1,
                     name = LeaguesAvailable.SERIE_A.leagueName,
                     type = LeagueType.LEAGUE.type,
                     logo = "logo",
                 ),
-                country = CountryInfo(
+                country = CountryInfoDto(
                     name = CountryCode.ITALY.name,
                     code = CountryCode.ITALY.code,
                 ),
@@ -28,7 +28,7 @@ val leagueResponse =
         ),
     )
 
-val leagueData = LeagueData(
+internal val leagueData = LeagueData(
     id = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
     type = LeagueType.LEAGUE,
@@ -37,7 +37,7 @@ val leagueData = LeagueData(
     countryCode = CountryCode.ITALY.code,
 )
 
-val leagueEntity = LeagueEntity(
+internal val leagueEntity = LeagueEntity(
     leagueId = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
     logo = "logo",

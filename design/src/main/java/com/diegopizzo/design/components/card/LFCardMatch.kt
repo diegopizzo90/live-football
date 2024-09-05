@@ -40,6 +40,7 @@ fun LFCardMatch(
 @Immutable
 data class LFCardMatchViewData(
     val match: LFCellMatchViewData,
+    val isLiveMatch: Boolean = false,
 )
 
 private class LFCardMatchPreviewParameterProvider : PreviewParameterProvider<LFCardMatchViewData> {

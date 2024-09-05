@@ -5,7 +5,7 @@ import com.diegopizzo.league.config.LeagueType
 import com.diegopizzo.league.config.LeaguesAvailable
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
-val leagueEntity1 = LeagueEntity(
+internal val leagueEntity1 = LeagueEntity(
     leagueId = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
     logo = "logo",
@@ -14,7 +14,7 @@ val leagueEntity1 = LeagueEntity(
     leagueType = LeagueType.LEAGUE,
 )
 
-val leagueEntity2 = LeagueEntity(
+internal val leagueEntity2 = LeagueEntity(
     leagueId = 2,
     name = LeaguesAvailable.PREMIER_LEAGUE.leagueName,
     logo = "logo",

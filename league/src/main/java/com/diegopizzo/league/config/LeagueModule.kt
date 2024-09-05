@@ -10,7 +10,6 @@ import com.diegopizzo.league.repository.store.LeagueStore
 import com.diegopizzo.league.repository.store.LeagueStoreImpl
 import com.diegopizzo.league.repository.store.config.AppDatabase
 import com.diegopizzo.league.repository.store.dao.LeagueDao
-import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -22,7 +21,7 @@ private val leagueApiModule = module {
 
 private val leagueRepositoryModule = module {
     factory<LeagueRepository> {
-        LeagueRepositoryImpl(get(), Dispatchers.IO)
+        LeagueRepositoryImpl(get())
     }
 }
 

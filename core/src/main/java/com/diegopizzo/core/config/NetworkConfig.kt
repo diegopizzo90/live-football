@@ -20,8 +20,8 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
-private const val NETWORK_TIME_OUT = 6_000L
-private const val RAPID_API_HEADER_KEY_NAME = "x-rapidapi-key"
+internal const val NETWORK_TIME_OUT = 6_000L
+internal const val RAPID_API_HEADER_KEY_NAME = "x-rapidapi-key"
 internal const val BASE_URL = "https://api-football-v1.p.rapidapi.com/v3/"
 
 fun ktorHttpClient(apiKey: String) = module {
