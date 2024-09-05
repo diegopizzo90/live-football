@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.airbnb.lottie.compose.LottieAnimation
@@ -45,12 +46,12 @@ fun LFErrorScreen(
             )
             LFVerticalSpacer(height = SpaceTokens.Large)
             LFHeadingLarge(
-                text = "Something went wrong",
+                text = stringResource(R.string.something_went_wrong),
                 textAlign = TextAlign.Center,
             )
             LFVerticalSpacer(height = SpaceTokens.Small)
             LFBodyLarge(
-                text = "Please try again later",
+                text = stringResource(R.string.please_try_again_later),
                 textAlign = TextAlign.Center,
                 color = MaterialTheme.colorScheme.onSurface,
             )
