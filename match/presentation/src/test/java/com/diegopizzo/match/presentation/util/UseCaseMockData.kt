@@ -1,9 +1,10 @@
-package com.diegopizzo.match.presentation.usecase
+package com.diegopizzo.match.presentation.util
 
 import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.design.components.cell.LFCellIconViewData
 import com.diegopizzo.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.design.components.cell.LFCellResultViewData
+import com.diegopizzo.design.components.chips.LFChipViewData
 import com.diegopizzo.design.components.image.LFIconViewData
 import com.diegopizzo.design.components.image.PainterViewData
 import com.diegopizzo.league.config.CountryCode
@@ -59,6 +60,11 @@ internal val matchDataList: List<MatchData>
                     logo = "",
                 ),
             ),
+            league = com.diegopizzo.match.api.repository.store.model.LeagueData(
+                id = 135,
+                name = "Serie A",
+                logo = "",
+            ),
             goals = GoalsData(
                 home = 0,
                 away = 2,
@@ -89,10 +95,90 @@ internal val matchDataList: List<MatchData>
         )
     }
 
+internal val matchDataListUseCase: List<MatchData>
+    get() {
+        val default = MatchData(
+            id = 8675,
+            timezone = "UTC",
+            date = "2024-08-25T16:30:00+00:00",
+            status = StatusData(
+                matchStatus = MatchStatus.MATCH_FINISHED,
+                elapsed = null,
+            ),
+            teams = TeamsData(
+                home = HomeData(
+                    id = 8140,
+                    name = "name",
+                    logo = "",
+                ),
+                away = AwayData(
+                    id = 5080,
+                    name = "name",
+                    logo = "",
+                ),
+            ),
+            league = com.diegopizzo.match.api.repository.store.model.LeagueData(
+                id = 135,
+                name = "Serie A",
+                logo = "",
+            ),
+            goals = GoalsData(
+                home = 0,
+                away = 2,
+            ),
+        )
+        return listOf(
+            default,
+            default.copy(
+                status = StatusData(
+                    matchStatus = MatchStatus.FIRST_HALF_KICK_OFF,
+                    elapsed = 34,
+                ),
+                goals = GoalsData(
+                    home = 0,
+                    away = 0,
+                ),
+            ),
+            default.copy(
+                status = StatusData(
+                    matchStatus = MatchStatus.NOT_STARTED,
+                    elapsed = null,
+                ),
+                goals = GoalsData(
+                    home = null,
+                    away = null,
+                ),
+            ),
+            default,
+            default.copy(
+                status = StatusData(
+                    matchStatus = MatchStatus.FIRST_HALF_KICK_OFF,
+                    elapsed = 34,
+                ),
+                goals = GoalsData(
+                    home = 0,
+                    away = 0,
+                ),
+            ),
+            default.copy(
+                status = StatusData(
+                    matchStatus = MatchStatus.NOT_STARTED,
+                    elapsed = null,
+                ),
+                goals = GoalsData(
+                    home = null,
+                    away = null,
+                ),
+            ),
+        )
+    }
+
 internal val matchViewDataList: List<LFCardMatchViewData>
     get() {
         val default = LFCardMatchViewData(
             match = LFCellMatchViewData(
+                id = 8675,
+                leagueId = 135,
                 cellIconHome = LFCellIconViewData(
                     icon = LFIconViewData(
                         painter = PainterViewData.urlPainter(""),
@@ -151,6 +237,23 @@ internal val matchViewDataList: List<LFCardMatchViewData>
                         resultHome = "",
                         resultAway = "",
                     ),
+                ),
+            ),
+        )
+    }
+
+internal val leagueViewDataList: List<LFChipViewData>
+    get() {
+        return listOf(
+            LFChipViewData(
+                id = 0,
+                text = "Live",
+            ),
+            LFChipViewData(
+                id = 135,
+                text = "Serie A",
+                icon = LFIconViewData(
+                    painter = PainterViewData.urlPainter(""),
                 ),
             ),
         )

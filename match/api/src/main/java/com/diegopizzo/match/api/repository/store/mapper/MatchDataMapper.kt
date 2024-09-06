@@ -1,6 +1,7 @@
 package com.diegopizzo.match.api.repository.store.mapper
 
 import com.diegopizzo.match.api.network.model.GoalsDto
+import com.diegopizzo.match.api.network.model.LeagueDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
 import com.diegopizzo.match.api.network.model.MatchStatusDto
 import com.diegopizzo.match.api.network.model.StatusDto
@@ -8,6 +9,7 @@ import com.diegopizzo.match.api.network.model.TeamsDto
 import com.diegopizzo.match.api.repository.store.model.AwayData
 import com.diegopizzo.match.api.repository.store.model.GoalsData
 import com.diegopizzo.match.api.repository.store.model.HomeData
+import com.diegopizzo.match.api.repository.store.model.LeagueData
 import com.diegopizzo.match.api.repository.store.model.MatchData
 import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.StatusData
@@ -25,6 +27,7 @@ internal class MatchDataMapperImpl : MatchDataMapper {
                 timezone = it.match.timezone,
                 date = it.match.date,
                 status = mapToStatusData(it.match.status),
+                league = mapToLeagueData(it.league),
                 teams = mapToTeamsData(it.teams),
                 goals = mapToGoalsData(it.goals),
             )
@@ -85,5 +88,15 @@ internal class MatchDataMapperImpl : MatchDataMapper {
             matchStatus = matchStatus,
             elapsed = statusDto.elapsed,
         )
+    }
+
+    private fun mapToLeagueData(leagueDto: LeagueDto): LeagueData {
+        with(leagueDto) {
+            return LeagueData(
+                id = id,
+                name = name,
+                logo = logo,
+            )
+        }
     }
 }

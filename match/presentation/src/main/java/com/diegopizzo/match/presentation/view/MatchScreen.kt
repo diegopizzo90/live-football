@@ -2,12 +2,14 @@ package com.diegopizzo.match.presentation.view
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -16,7 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.diegopizzo.core.base.ViewState
 import com.diegopizzo.design.components.card.LFCardMatch
-import com.diegopizzo.design.components.card.LFCardMatchViewData
+import com.diegopizzo.design.components.chips.LFChipViewData
+import com.diegopizzo.design.components.chips.LFChips
 import com.diegopizzo.design.components.toolbar.LFTopAppBar
 import com.diegopizzo.design.screen.LFEmptyScreen
 import com.diegopizzo.design.screen.LFErrorScreen
@@ -26,12 +29,20 @@ import com.diegopizzo.design.tokens.SpaceTokens
 import com.diegopizzo.match.presentation.R
 import com.diegopizzo.match.presentation.view.util.MatchScreenPreviewParameterProvider
 import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
+import com.diegopizzo.match.presentation.viewmodel.MatchViewState
+import com.diegopizzo.match.presentation.viewmodel.filterByMatchCriteria
 
 @Composable
 fun MatchScreen(
     viewModel: MatchViewModel,
 ) {
+
     val nullableViewState by viewModel.viewStates.observeAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchMatches()
+    }
+
     val viewState = nullableViewState ?: return
 
     when (viewState) {
@@ -49,7 +60,13 @@ fun MatchScreen(
             } else {
                 MatchScreenContent(
                     modifier = Modifier,
-                    matches = viewState.data.matches,
+                    viewData = viewState.data,
+                    onChipClick = {
+                        viewModel.onChipClick(
+                            chip = it,
+                            currentViewState = viewState.data,
+                        )
+                    },
                 )
             }
         }
@@ -59,7 +76,8 @@ fun MatchScreen(
 @Composable
 private fun MatchScreenContent(
     modifier: Modifier = Modifier,
-    matches: List<LFCardMatchViewData>,
+    viewData: MatchViewState,
+    onChipClick: (viewData: LFChipViewData) -> Unit = {},
 ) {
     Scaffold(
         modifier = modifier,
@@ -67,16 +85,26 @@ private fun MatchScreenContent(
             LFTopAppBar(title = stringResource(R.string.matches))
         },
     ) {
-        LazyColumn(
+        Column(
             modifier = Modifier.padding(it),
-            contentPadding = PaddingValues(
-                horizontal = SpaceTokens.ExtraLarge,
-                vertical = SpaceTokens.Medium,
-            ),
-            verticalArrangement = Arrangement.spacedBy(SpaceTokens.ExtraLarge),
         ) {
-            items(matches) { result ->
-                LFCardMatch(viewData = result)
+            LFChips(
+                viewData = viewData.leagues,
+                onClick = onChipClick,
+            )
+            LazyColumn(
+                contentPadding = PaddingValues(
+                    horizontal = SpaceTokens.ExtraLarge,
+                    vertical = SpaceTokens.Medium,
+                ),
+                verticalArrangement = Arrangement.spacedBy(SpaceTokens.ExtraLarge),
+            ) {
+
+                val matchesFiltered = viewData.matches.filterByMatchCriteria(viewData.filterCriteria)
+
+                items(matchesFiltered) { matchFiltered ->
+                    LFCardMatch(viewData = matchFiltered)
+                }
             }
         }
     }
@@ -87,9 +115,9 @@ private fun MatchScreenContent(
 @Composable
 fun MatchScreenPreview(
     @PreviewParameter(MatchScreenPreviewParameterProvider::class)
-    viewData: List<LFCardMatchViewData>,
+    viewData: MatchViewState,
 ) {
     LFTheme {
-        MatchScreenContent(matches = viewData)
+        MatchScreenContent(viewData = viewData)
     }
 }

@@ -5,6 +5,7 @@ data class MatchData(
     val timezone: String,
     val date: String,
     val status: StatusData,
+    val league: LeagueData,
     val teams: TeamsData,
     val goals: GoalsData,
 )
@@ -12,6 +13,12 @@ data class MatchData(
 data class StatusData(
     val matchStatus: MatchStatus? = MatchStatus.NOT_AVAILABLE,
     val elapsed: Int? = null,
+)
+
+data class LeagueData(
+    val id: Long,
+    val name: String,
+    val logo: String? = null,
 )
 
 data class TeamsData(

@@ -11,8 +11,16 @@ internal data class MatchResponseDto(
 @Serializable
 internal data class MatchMainDto(
     @SerialName("fixture") val match: MatchDto,
+    @SerialName("league") val league: LeagueDto,
     @SerialName("teams") val teams: TeamsDto,
     @SerialName("goals") val goals: GoalsDto,
+)
+
+@Serializable
+data class LeagueDto(
+    @SerialName("id") val id: Long,
+    @SerialName("name") val name: String,
+    @SerialName("logo") val logo: String? = null,
 )
 
 @Serializable

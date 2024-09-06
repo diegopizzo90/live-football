@@ -68,6 +68,8 @@ fun LFCellMatch(
 
 @Immutable
 data class LFCellMatchViewData(
+    val id: Long = 0,
+    val leagueId: Long = 0,
     val cellIconHome: LFCellIconViewData,
     val cellIconAway: LFCellIconViewData,
     val result: LFCellResultViewData? = null,

@@ -3,6 +3,7 @@ package com.diegopizzo.match.api.network.util
 import com.diegopizzo.match.api.network.model.AwayDto
 import com.diegopizzo.match.api.network.model.GoalsDto
 import com.diegopizzo.match.api.network.model.HomeDto
+import com.diegopizzo.match.api.network.model.LeagueDto
 import com.diegopizzo.match.api.network.model.MatchDto
 import com.diegopizzo.match.api.network.model.MatchMainDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
@@ -34,6 +35,11 @@ internal val matchResponseDto = MatchResponseDto(
                     logo = "https://media.api-sports.io/football/teams/517.png",
                 ),
             ),
+            league = LeagueDto(
+                id = 135,
+                name = "Serie A",
+                logo = "https://media.api-sports.io/football/leagues/135.png",
+            ),
             goals = GoalsDto(
                 home = null,
                 away = null,
@@ -60,6 +66,11 @@ internal val matchResponseDto = MatchResponseDto(
                     name = "Genoa",
                     logo = "https://media.api-sports.io/football/teams/495.png",
                 ),
+            ),
+            league = LeagueDto(
+                id = 135,
+                name = "Serie A",
+                logo = "https://media.api-sports.io/football/leagues/135.png",
             ),
             goals = GoalsDto(
                 home = 0,
@@ -88,6 +99,11 @@ internal val matchResponseDto = MatchResponseDto(
                     logo = "https://media.api-sports.io/football/teams/500.png",
                 ),
             ),
+            league = LeagueDto(
+                id = 135,
+                name = "Serie A",
+                logo = "https://media.api-sports.io/football/leagues/135.png",
+            ),
             goals = GoalsDto(
                 home = null,
                 away = null,
@@ -114,6 +130,11 @@ internal val matchResponseDto = MatchResponseDto(
                     name = "Lazio",
                     logo = "https://media.api-sports.io/football/teams/487.png",
                 ),
+            ),
+            league = LeagueDto(
+                id = 135,
+                name = "Serie A",
+                logo = "https://media.api-sports.io/football/leagues/135.png",
             ),
             goals = GoalsDto(
                 home = 2,

@@ -20,7 +20,6 @@ private val getMatchesByDateUseCaseModule = module {
         GetMatchesByDateUseCaseImpl(
             matchRepository = get(),
             leagueRepository = get(),
-            matchViewDataMapper = get(),
             refreshIntervalMs = 120000L, // 120 seconds,
         )
     }
@@ -28,7 +27,7 @@ private val getMatchesByDateUseCaseModule = module {
 
 private val matchViewModel = module {
     viewModel {
-        MatchViewModel(get(), Dispatchers.IO)
+        MatchViewModel(get(), Dispatchers.IO, get())
     }
 }
 

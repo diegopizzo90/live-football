@@ -38,6 +38,7 @@ import com.diegopizzo.design.util.conditional
 fun LFChips(
     viewData: List<LFChipViewData>,
     modifier: Modifier = Modifier,
+    onClick: (viewData: LFChipViewData) -> Unit = {},
 ) {
     FlowRow(
         modifier = modifier
@@ -52,6 +53,7 @@ fun LFChips(
                     .conditional(index != viewData.lastIndex) {
                         padding(end = SpaceTokens.Medium)
                     },
+                onClick = onClick,
             )
         }
     }
@@ -61,13 +63,13 @@ fun LFChips(
 private fun LFChip(
     viewData: LFChipViewData,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (viewData: LFChipViewData) -> Unit = {},
 ) {
     val chipColor = MaterialTheme.colorScheme.primary
     with(viewData) {
         LFSurface(
             modifier = modifier,
-            onClick = onClick,
+            onClick = { onClick(viewData) },
             color = Color.Unspecified,
             shape = LFSurfaceShape.Big,
             border = BorderStrokeTokens.Medium(chipColor),
@@ -101,6 +103,7 @@ private fun LFChip(
 
 @Immutable
 data class LFChipViewData(
+    val id: Long = 0,
     val icon: LFIconViewData? = null,
     val text: String,
     val isTextUppercase: Boolean = false,
