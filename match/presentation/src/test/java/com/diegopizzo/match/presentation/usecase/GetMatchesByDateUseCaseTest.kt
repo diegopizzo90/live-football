@@ -3,7 +3,9 @@ package com.diegopizzo.match.presentation.usecase
 import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.league.repository.LeagueRepository
 import com.diegopizzo.match.api.repository.MatchRepository
-import com.diegopizzo.match.presentation.mapper.MatchViewDataMapperImpl
+import com.diegopizzo.match.presentation.util.leagues
+import com.diegopizzo.match.presentation.util.matchDataList
+import com.diegopizzo.match.presentation.util.matchDataListUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -27,7 +29,6 @@ class GetMatchesByDateUseCaseTest {
         getMatchesByDateUseCase = GetMatchesByDateUseCaseImpl(
             matchRepository = matchRepository,
             leagueRepository = leagueRepository,
-            matchViewDataMapper = MatchViewDataMapperImpl(),
             refreshIntervalMs = 100000,
         )
     }
@@ -40,7 +41,7 @@ class GetMatchesByDateUseCaseTest {
         coEvery { matchRepository.getMatches(2, date, date) }.returns(Result.success(matchDataList))
 
         val actual = getMatchesByDateUseCase(date, date).first()
-        val expected = Result.success(matchViewDataList)
+        val expected = Result.success(matchDataListUseCase)
 
         assertEquals(expected, actual)
         coVerify(exactly = 1) { leagueRepository.getLeagues() }

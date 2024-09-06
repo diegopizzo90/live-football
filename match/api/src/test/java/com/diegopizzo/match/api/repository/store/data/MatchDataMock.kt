@@ -3,6 +3,7 @@ package com.diegopizzo.match.api.repository.store.data
 import com.diegopizzo.match.api.repository.store.model.AwayData
 import com.diegopizzo.match.api.repository.store.model.GoalsData
 import com.diegopizzo.match.api.repository.store.model.HomeData
+import com.diegopizzo.match.api.repository.store.model.LeagueData
 import com.diegopizzo.match.api.repository.store.model.MatchData
 import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.match.api.repository.store.model.StatusData
@@ -29,6 +30,11 @@ internal val matchDataList = listOf(
                 logo = "https://media.api-sports.io/football/teams/517.png",
             ),
         ),
+        league = LeagueData(
+            id = 135,
+            name = "Serie A",
+            logo = "https://media.api-sports.io/football/leagues/135.png",
+        ),
         goals = GoalsData(
             home = null,
             away = null,
@@ -53,6 +59,11 @@ internal val matchDataList = listOf(
                 name = "Genoa",
                 logo = "https://media.api-sports.io/football/teams/495.png",
             ),
+        ),
+        league = LeagueData(
+            id = 135,
+            name = "Serie A",
+            logo = "https://media.api-sports.io/football/leagues/135.png",
         ),
         goals = GoalsData(
             home = 0,
@@ -79,6 +90,11 @@ internal val matchDataList = listOf(
                 logo = "https://media.api-sports.io/football/teams/500.png",
             ),
         ),
+        league = LeagueData(
+            id = 135,
+            name = "Serie A",
+            logo = "https://media.api-sports.io/football/leagues/135.png",
+        ),
         goals = GoalsData(
             home = null,
             away = null,
@@ -103,6 +119,11 @@ internal val matchDataList = listOf(
                 name = "Lazio",
                 logo = "https://media.api-sports.io/football/teams/487.png",
             ),
+        ),
+        league = LeagueData(
+            id = 135,
+            name = "Serie A",
+            logo = "https://media.api-sports.io/football/leagues/135.png",
         ),
         goals = GoalsData(
             home = 2,

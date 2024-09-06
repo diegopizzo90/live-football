@@ -1,6 +1,7 @@
 package com.diegopizzo.livefootball.config
 
 import android.app.Application
+import com.diegopizzo.core.config.fakeKtorHttpClient
 import com.diegopizzo.core.config.ktorHttpClient
 import com.diegopizzo.league.config.leagueModule
 import com.diegopizzo.livefootball.BuildConfig
@@ -18,7 +19,7 @@ class LiveFootballApplication : Application() {
         startKoin {
             androidContext(this@LiveFootballApplication)
             modules(
-                ktorHttpClient(BuildConfig.API_KEY),
+                if (BuildConfig.IS_FAKE_NETWORK_RESPONSE) fakeKtorHttpClient() else ktorHttpClient(BuildConfig.API_KEY),
                 appNavigatorModule,
                 mainViewModelModule,
                 leagueModule,

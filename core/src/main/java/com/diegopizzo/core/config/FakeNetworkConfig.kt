@@ -58,8 +58,18 @@ fun fakeKtorHttpClient() = module {
             engine {
                 addHandler { request ->
                     when {
+                        request.url.encodedPath.contains("/fixtures") &&
+                            request.url.encodedQuery.contains("league=135") -> {
+                            respond(matchesSerieA, HttpStatusCode.Accepted, responseHeaders)
+                        }
+
+                        request.url.encodedPath.contains("/fixtures") &&
+                            request.url.encodedQuery.contains("league=39") -> {
+                            respond(matchesPremier, HttpStatusCode.Accepted, responseHeaders)
+                        }
+
                         request.url.encodedPath.contains("/fixtures") -> {
-                            respond(fixtures, HttpStatusCode.Accepted, responseHeaders)
+                            respond(matchesEmpty, HttpStatusCode.Accepted, responseHeaders)
                         }
 
                         else -> {

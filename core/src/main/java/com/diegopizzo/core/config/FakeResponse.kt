@@ -1,370 +1,521 @@
 package com.diegopizzo.core.config
 
-val leagues = """
+val matchesEmpty = """
     {
-        "get": "leagues",
+        "get": "fixtures",
         "parameters": {
-            "name": "Serie A",
-            "type": "league",
-            "code": "IT"
+            "from": "2024-08-31",
+            "league": "1",
+            "to": "2024-08-31",
+            "season": "2024"
         },
         "errors": [],
-        "results": 1,
+        "results": 0,
+        "paging": {
+            "current": 1,
+            "total": 1
+        },
+        "response": []
+    }
+""".trimIndent()
+
+val matchesPremier = """
+    {
+        "get": "fixtures",
+        "parameters": {
+            "from": "2024-08-31",
+            "league": "39",
+            "to": "2024-08-31",
+            "season": "2024"
+        },
+        "errors": [],
+        "results": 7,
         "paging": {
             "current": 1,
             "total": 1
         },
         "response": [
             {
-                "league": {
-                    "id": 135,
-                    "name": "Serie A",
-                    "type": "League",
-                    "logo": "https://media.api-sports.io/football/leagues/135.png"
-                },
-                "country": {
-                    "name": "Italy",
-                    "code": "IT",
-                    "flag": "https://media.api-sports.io/flags/it.svg"
-                },
-                "seasons": [
-                    {
-                        "year": 2010,
-                        "start": "2010-08-28",
-                        "end": "2011-05-22",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": false,
-                                "statistics_players": false
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
+                "fixture": {
+                    "id": 1208041,
+                    "referee": "C. Kavanagh",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T11:30:00+00:00",
+                    "timestamp": 1725103800,
+                    "periods": {
+                        "first": 1725103800,
+                        "second": 1725107400
                     },
-                    {
-                        "year": 2011,
-                        "start": "2011-09-09",
-                        "end": "2012-05-13",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": false,
-                                "statistics_players": false
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
+                    "venue": {
+                        "id": 494,
+                        "name": "Emirates Stadium",
+                        "city": "London"
                     },
-                    {
-                        "year": 2012,
-                        "start": "2012-08-25",
-                        "end": "2013-05-19",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": false,
-                                "statistics_players": false
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2013,
-                        "start": "2013-08-24",
-                        "end": "2014-05-18",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": false,
-                                "statistics_players": false
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2014,
-                        "start": "2014-08-30",
-                        "end": "2015-05-31",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": false,
-                                "statistics_players": false
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2015,
-                        "start": "2015-08-22",
-                        "end": "2016-05-15",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2016,
-                        "start": "2016-08-20",
-                        "end": "2017-05-28",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2017,
-                        "start": "2017-08-19",
-                        "end": "2018-05-20",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2018,
-                        "start": "2018-08-18",
-                        "end": "2019-05-26",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2019,
-                        "start": "2019-08-24",
-                        "end": "2020-08-02",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": false,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2020,
-                        "start": "2020-09-19",
-                        "end": "2021-05-23",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": true,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2021,
-                        "start": "2021-08-21",
-                        "end": "2022-05-22",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": true,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2022,
-                        "start": "2022-08-13",
-                        "end": "2023-06-11",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": true,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2023,
-                        "start": "2023-08-19",
-                        "end": "2024-05-26",
-                        "current": false,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": true,
-                            "predictions": true,
-                            "odds": false
-                        }
-                    },
-                    {
-                        "year": 2024,
-                        "start": "2024-08-17",
-                        "end": "2025-05-25",
-                        "current": true,
-                        "coverage": {
-                            "fixtures": {
-                                "events": true,
-                                "lineups": true,
-                                "statistics_fixtures": true,
-                                "statistics_players": true
-                            },
-                            "standings": true,
-                            "players": true,
-                            "top_scorers": true,
-                            "top_assists": true,
-                            "top_cards": true,
-                            "injuries": true,
-                            "predictions": true,
-                            "odds": true
-                        }
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
                     }
-                ]
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 42,
+                        "name": "Arsenal",
+                        "logo": "https://media.api-sports.io/football/teams/42.png",
+                        "winner": null
+                    },
+                    "away": {
+                        "id": 51,
+                        "name": "Brighton",
+                        "logo": "https://media.api-sports.io/football/teams/51.png",
+                        "winner": null
+                    }
+                },
+                "goals": {
+                    "home": 1,
+                    "away": 1
+                },
+                "score": {
+                    "halftime": {
+                        "home": 1,
+                        "away": 0
+                    },
+                    "fulltime": {
+                        "home": 1,
+                        "away": 1
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208042,
+                    "referee": "J. Smith",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T14:00:00+00:00",
+                    "timestamp": 1725112800,
+                    "periods": {
+                        "first": 1725112800,
+                        "second": 1725116400
+                    },
+                    "venue": {
+                        "id": 10503,
+                        "name": "Gtech Community Stadium",
+                        "city": "Brentford, Middlesex"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 55,
+                        "name": "Brentford",
+                        "logo": "https://media.api-sports.io/football/teams/55.png",
+                        "winner": true
+                    },
+                    "away": {
+                        "id": 41,
+                        "name": "Southampton",
+                        "logo": "https://media.api-sports.io/football/teams/41.png",
+                        "winner": false
+                    }
+                },
+                "goals": {
+                    "home": 3,
+                    "away": 1
+                },
+                "score": {
+                    "halftime": {
+                        "home": 1,
+                        "away": 0
+                    },
+                    "fulltime": {
+                        "home": 3,
+                        "away": 1
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208044,
+                    "referee": "S. Attwell",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T14:00:00+00:00",
+                    "timestamp": 1725112800,
+                    "periods": {
+                        "first": 1725112800,
+                        "second": 1725116400
+                    },
+                    "venue": {
+                        "id": 8560,
+                        "name": "Goodison Park",
+                        "city": "Liverpool"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 45,
+                        "name": "Everton",
+                        "logo": "https://media.api-sports.io/football/teams/45.png",
+                        "winner": false
+                    },
+                    "away": {
+                        "id": 35,
+                        "name": "Bournemouth",
+                        "logo": "https://media.api-sports.io/football/teams/35.png",
+                        "winner": true
+                    }
+                },
+                "goals": {
+                    "home": 2,
+                    "away": 3
+                },
+                "score": {
+                    "halftime": {
+                        "home": 0,
+                        "away": 0
+                    },
+                    "fulltime": {
+                        "home": 2,
+                        "away": 3
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208045,
+                    "referee": "L. Smith",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T14:00:00+00:00",
+                    "timestamp": 1725112800,
+                    "periods": {
+                        "first": 1725112800,
+                        "second": 1725116400
+                    },
+                    "venue": {
+                        "id": 545,
+                        "name": "Portman Road",
+                        "city": "Ipswich, Suffolk"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 57,
+                        "name": "Ipswich",
+                        "logo": "https://media.api-sports.io/football/teams/57.png",
+                        "winner": null
+                    },
+                    "away": {
+                        "id": 36,
+                        "name": "Fulham",
+                        "logo": "https://media.api-sports.io/football/teams/36.png",
+                        "winner": null
+                    }
+                },
+                "goals": {
+                    "home": 1,
+                    "away": 1
+                },
+                "score": {
+                    "halftime": {
+                        "home": 1,
+                        "away": 1
+                    },
+                    "fulltime": {
+                        "home": 1,
+                        "away": 1
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208046,
+                    "referee": "D. Coote",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T14:00:00+00:00",
+                    "timestamp": 1725112800,
+                    "periods": {
+                        "first": 1725112800,
+                        "second": 1725116400
+                    },
+                    "venue": {
+                        "id": 547,
+                        "name": "King Power Stadium",
+                        "city": "Leicester, Leicestershire"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 46,
+                        "name": "Leicester",
+                        "logo": "https://media.api-sports.io/football/teams/46.png",
+                        "winner": false
+                    },
+                    "away": {
+                        "id": 66,
+                        "name": "Aston Villa",
+                        "logo": "https://media.api-sports.io/football/teams/66.png",
+                        "winner": true
+                    }
+                },
+                "goals": {
+                    "home": 1,
+                    "away": 2
+                },
+                "score": {
+                    "halftime": {
+                        "home": 0,
+                        "away": 1
+                    },
+                    "fulltime": {
+                        "home": 1,
+                        "away": 2
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208049,
+                    "referee": "S. Hooper",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T14:00:00+00:00",
+                    "timestamp": 1725112800,
+                    "periods": {
+                        "first": 1725112800,
+                        "second": 1725116400
+                    },
+                    "venue": {
+                        "id": 566,
+                        "name": "The City Ground",
+                        "city": "Nottingham, Nottinghamshire"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 65,
+                        "name": "Nottingham Forest",
+                        "logo": "https://media.api-sports.io/football/teams/65.png",
+                        "winner": null
+                    },
+                    "away": {
+                        "id": 39,
+                        "name": "Wolves",
+                        "logo": "https://media.api-sports.io/football/teams/39.png",
+                        "winner": null
+                    }
+                },
+                "goals": {
+                    "home": 1,
+                    "away": 1
+                },
+                "score": {
+                    "halftime": {
+                        "home": 1,
+                        "away": 1
+                    },
+                    "fulltime": {
+                        "home": 1,
+                        "away": 1
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+            {
+                "fixture": {
+                    "id": 1208050,
+                    "referee": "M. Oliver",
+                    "timezone": "UTC",
+                    "date": "2024-08-31T16:30:00+00:00",
+                    "timestamp": 1725121800,
+                    "periods": {
+                        "first": 1725121800,
+                        "second": 1725125400
+                    },
+                    "venue": {
+                        "id": 598,
+                        "name": "London Stadium",
+                        "city": "London"
+                    },
+                    "status": {
+                        "long": "Match Finished",
+                        "short": "FT",
+                        "elapsed": 90
+                    }
+                },
+                "league": {
+                    "id": 39,
+                    "name": "Premier League",
+                    "country": "England",
+                    "logo": "https://media.api-sports.io/football/leagues/39.png",
+                    "flag": "https://media.api-sports.io/flags/gb.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 3"
+                },
+                "teams": {
+                    "home": {
+                        "id": 48,
+                        "name": "West Ham",
+                        "logo": "https://media.api-sports.io/football/teams/48.png",
+                        "winner": false
+                    },
+                    "away": {
+                        "id": 50,
+                        "name": "Manchester City",
+                        "logo": "https://media.api-sports.io/football/teams/50.png",
+                        "winner": true
+                    }
+                },
+                "goals": {
+                    "home": 1,
+                    "away": 3
+                },
+                "score": {
+                    "halftime": {
+                        "home": 1,
+                        "away": 2
+                    },
+                    "fulltime": {
+                        "home": 1,
+                        "away": 3
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
             }
         ]
     }
 """.trimIndent()
 
-val fixtures = """
+val matchesSerieA = """
     {
         "get": "fixtures",
         "parameters": {

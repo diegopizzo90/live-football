@@ -88,6 +88,7 @@ class LiveFootballPlugin : Plugin<Project> {
                 versionCode = appVersion.versionCode
                 versionName = appVersion.versionName
                 buildConfigField("String", "API_KEY", apiKey)
+                buildConfigField("Boolean", "IS_FAKE_NETWORK_RESPONSE", "false")
             }
 
             sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("src/androidTest/assets"))

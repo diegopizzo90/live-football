@@ -1,6 +1,10 @@
 package com.diegopizzo.livefootball.presentation.navigation
 
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NamedNavArgument
@@ -17,6 +21,30 @@ fun NavHost(
     startDestination: Destination,
     modifier: Modifier = Modifier,
     route: String? = null,
+    enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+        slideIntoContainer(
+            AnimatedContentTransitionScope.SlideDirection.Left,
+            animationSpec = tween(700),
+        )
+    },
+    exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+        slideOutOfContainer(
+            AnimatedContentTransitionScope.SlideDirection.Left,
+            animationSpec = tween(700),
+        )
+    },
+    popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+        slideIntoContainer(
+            AnimatedContentTransitionScope.SlideDirection.Right,
+            animationSpec = tween(700),
+        )
+    },
+    popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+        slideOutOfContainer(
+            AnimatedContentTransitionScope.SlideDirection.Right,
+            animationSpec = tween(700),
+        )
+    },
     builder: NavGraphBuilder.() -> Unit,
 ) {
     NavHost(
@@ -24,6 +52,10 @@ fun NavHost(
         startDestination = startDestination.fullRoute,
         modifier = modifier,
         route = route,
+        enterTransition = enterTransition,
+        exitTransition = exitTransition,
+        popEnterTransition = popEnterTransition,
+        popExitTransition = popExitTransition,
         builder = builder,
     )
 }

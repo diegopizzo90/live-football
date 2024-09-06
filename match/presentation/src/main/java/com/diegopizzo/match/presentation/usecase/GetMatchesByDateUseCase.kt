@@ -1,9 +1,8 @@
 package com.diegopizzo.match.presentation.usecase
 
-import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.league.repository.LeagueRepository
 import com.diegopizzo.match.api.repository.MatchRepository
-import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper
+import com.diegopizzo.match.api.repository.store.model.MatchData
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -14,13 +13,12 @@ interface GetMatchesByDateUseCase {
         from: String,
         to: String,
         forceRefresh: Boolean = false,
-    ): Flow<Result<List<LFCardMatchViewData>>>
+    ): Flow<Result<List<MatchData>>>
 }
 
 internal class GetMatchesByDateUseCaseImpl(
     private val matchRepository: MatchRepository,
     private val leagueRepository: LeagueRepository,
-    private val matchViewDataMapper: MatchViewDataMapper,
     private val refreshIntervalMs: Long,
 ) : GetMatchesByDateUseCase {
 
@@ -28,7 +26,7 @@ internal class GetMatchesByDateUseCaseImpl(
         from: String,
         to: String,
         forceRefresh: Boolean,
-    ): Flow<Result<List<LFCardMatchViewData>>> {
+    ): Flow<Result<List<MatchData>>> {
         return flow {
             while (true) {
                 val leagueResults = leagueRepository.getLeagues()
@@ -43,7 +41,7 @@ internal class GetMatchesByDateUseCaseImpl(
                     ).getOrThrow()
                 }
 
-                val result = Result.success(matches.map { matchViewDataMapper.mapViewData(it) })
+                val result = Result.success(matches)
                 emit(result)
                 delay(refreshIntervalMs)
             }
