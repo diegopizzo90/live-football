@@ -6,10 +6,9 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
-compose-bom = "2024.09.00"
+compose-bom = "2024.05.00"
 compose-coil = "2.6.0"
-compose-activity = "1.9.2"
-compose-haze = "0.9.0-beta01"
+compose-activity = "1.9.0"
 jvmTarget = "11"
 ktlint = "1.1.1"
 detekt = "1.23.6"
@@ -63,7 +62,6 @@ compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
 compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
-compose-haze = {module = "dev.chrisbanes.haze:haze", version.ref="compose-haze"}
 
 gradlePlugin-agp = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

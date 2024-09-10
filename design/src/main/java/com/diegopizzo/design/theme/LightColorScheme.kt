@@ -20,7 +20,7 @@ internal val LightColorScheme = lightColorScheme(
     surface = ColorPalette.Grey50,
     onSurface = ColorPalette.Grey900,
     surfaceVariant = ColorPalette.Grey200,
-    onSurfaceVariant = ColorPalette.Grey600,
+    onSurfaceVariant = ColorPalette.Grey700,
     error = ColorPalette.Error,
     onError = ColorPalette.White,
     errorContainer = ColorPalette.BackgroundRed,
@@ -32,5 +32,4 @@ internal val LightColorScheme = lightColorScheme(
     surfaceTint = ColorPalette.Primary,
     outlineVariant = ColorPalette.Grey400,
     scrim = ColorPalette.Grey900,
-    surfaceContainer = ColorPalette.Grey100,
 )

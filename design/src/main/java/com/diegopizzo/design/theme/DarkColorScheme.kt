@@ -20,7 +20,7 @@ internal val DarkColorScheme = darkColorScheme(
     surface = ColorPalette.Dark2,
     onSurface = ColorPalette.Grey50,
     surfaceVariant = ColorPalette.Dark3,
-    onSurfaceVariant = ColorPalette.Grey300,
+    onSurfaceVariant = ColorPalette.Grey100,
     error = ColorPalette.Error,
     onError = ColorPalette.White,
     errorContainer = ColorPalette.Dark3,
@@ -32,5 +32,4 @@ internal val DarkColorScheme = darkColorScheme(
     surfaceTint = ColorPalette.Primary,
     outlineVariant = ColorPalette.Grey400,
     scrim = ColorPalette.Grey900,
-    surfaceContainer = ColorPalette.Dark5,
 )

@@ -44,7 +44,7 @@ fun LFChips(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background)
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = SpaceTokens.ExtraLarge),
+            .padding(horizontal = SpaceTokens.ExtraLarge, vertical = SpaceTokens.MediumLarge),
     ) {
         viewData.forEachIndexed { index, chip ->
             LFChip(
@@ -92,7 +92,7 @@ private fun LFChip(
                 }
                 LFTitleMedium(
                     text = text,
-                    color = if (selected) MaterialTheme.colorScheme.onSecondary else Color.Unspecified,
+                    color = if (selected) MaterialTheme.colorScheme.background else Color.Unspecified,
                     maxLines = 1,
                     isUppercase = isTextUppercase,
                 )
@@ -137,8 +137,8 @@ private class LFChipsPreviewParameterProvider : PreviewParameterProvider<List<LF
         ).asSequence()
 }
 
-@Preview("Default", "LFChips")
-@Preview("Dark theme", "LFChips", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview("Default", "LFChip")
+@Preview("Dark theme", "LFChip", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun LFChipsPreview(
     @PreviewParameter(LFChipsPreviewParameterProvider::class)

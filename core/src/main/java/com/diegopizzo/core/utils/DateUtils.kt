@@ -1,17 +1,11 @@
 package com.diegopizzo.core.utils
 
-import java.time.Instant
 import java.time.LocalDate
-import java.time.Year
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 object DateUtils {
-
-    private const val TIME_PATTERN = "HH:mm"
-    const val DATE_PATTERN = "yyyy-MM-dd"
-    const val MONTH_YEAR_PATTERN = "MMMM yyyy"
     private fun convertUtcDateTimeToLocal(
         utcDate: String,
         timeZone: ZoneId,
@@ -27,19 +21,11 @@ object DateUtils {
     }
 
     fun getLocalTimeFromUTCDate(utcDate: String): String {
+        val timePattern = "HH:mm"
         return convertUtcDateTimeToLocal(
             utcDate = utcDate,
             timeZone = ZoneId.systemDefault(),
-            pattern = TIME_PATTERN,
+            pattern = timePattern,
         )
     }
-
-    fun getDateFromMilliseconds(milliseconds: Long?): String? {
-        val instant = milliseconds?.let { Instant.ofEpochMilli(it) } ?: return null
-        val date = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault())
-        val formatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
-        return date.format(formatter)
-    }
-
-    fun currentYear() = Year.now(ZoneId.systemDefault()).value
 }
