@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-
+    implementation(project(path = ":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
 
@@ -22,4 +22,5 @@ dependencies {
     }
     implementation(libs.compose.design)
     api(libs.compose.lottie)
+    api(libs.compose.haze)
 }
