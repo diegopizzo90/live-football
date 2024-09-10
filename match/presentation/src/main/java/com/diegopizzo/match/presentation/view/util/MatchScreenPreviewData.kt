@@ -14,6 +14,7 @@ internal val matchViewDataList: MatchViewState
     get() {
         val match = LFCardMatchViewData(
             match = LFCellMatchViewData(
+                id = 1,
                 cellIconHome = LFCellIconViewData(
                     icon = LFIconViewData(
                         painter = PainterViewData.urlPainter(""),
@@ -38,6 +39,7 @@ internal val matchViewDataList: MatchViewState
             match,
             match.copy(
                 match = match.match.copy(
+                    id = 2,
                     time = "34′",
                     result = match.match.result!!.copy(
                         resultHome = "0",
@@ -48,6 +50,7 @@ internal val matchViewDataList: MatchViewState
             ),
             match.copy(
                 match = match.match.copy(
+                    id = 3,
                     time = "17:30",
                     result = match.match.result!!.copy(
                         resultHome = "",
@@ -55,9 +58,14 @@ internal val matchViewDataList: MatchViewState
                     ),
                 ),
             ),
-            match,
             match.copy(
                 match = match.match.copy(
+                    id = 4,
+                ),
+            ),
+            match.copy(
+                match = match.match.copy(
+                    id = 5,
                     time = "34′",
                     result = match.match.result!!.copy(
                         resultHome = "0",
@@ -68,6 +76,7 @@ internal val matchViewDataList: MatchViewState
             ),
             match.copy(
                 match = match.match.copy(
+                    id = 6,
                     time = "17:30",
                     result = match.match.result!!.copy(
                         resultHome = "",
