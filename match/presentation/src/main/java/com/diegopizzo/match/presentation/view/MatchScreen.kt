@@ -90,17 +90,73 @@ fun MatchScreen(
         }
 
         is ViewState.Success -> {
-            if (viewState.data.matches.isEmpty()) {
-                LFEmptyScreen()
-            } else {
-                MatchScreenContent(
-                    modifier = Modifier,
-                    viewData = viewState.data,
-                    onChipClick = {
-                        viewModel.onChipClick(
-                            chip = it,
-                            currentViewState = viewState.data,
-                        )
+            MatchScreenContent(
+                viewData = viewState.data,
+                onChipClick = {
+                    viewModel.onChipClick(
+                        chip = it,
+                        currentViewState = viewState.data,
+                    )
+                },
+                onDaySelected = {
+                    TODO()
+                },
+            )
+        }
+    }
+}
+
+@Composable
+private fun MatchScreenContent(
+    viewData: MatchViewState,
+    onChipClick: (viewData: LFChipViewData) -> Unit = {},
+    onDaySelected: (date: String) -> Unit = {},
+) {
+    val calendarState = rememberLFCalendarState()
+    var showCalendar by remember { mutableStateOf(false) }
+
+    Scaffold(
+        topBar = {
+            LFTopAppBar(title = stringResource(R.string.matches))
+        },
+    ) { paddingValues ->
+
+        Column(
+            modifier = Modifier.padding(paddingValues),
+        ) {
+            if (viewData.matches.isNotEmpty()) {
+                LFChips(
+                    viewData = viewData.leagues,
+                    onClick = onChipClick,
+                )
+                LFVerticalSpacer(height = SpaceTokens.MediumLarge)
+            }
+            LFDatePicker(
+                viewData = datePicker,
+                onClick = { onDaySelected(datePicker.first().fullDate) },
+                onCalendarIconClick = { showCalendar = true },
+            )
+            LFVerticalSpacer(height = SpaceTokens.MediumLarge)
+            Box {
+                val hazeEffectState = remember { HazeState() }
+
+                if (viewData.matches.isEmpty()) {
+                    LFEmptyScreen(
+                        modifier = Modifier.applyHazeEffect(hazeEffectState),
+                    )
+                } else {
+                    MatchListContent(
+                        modifier = Modifier.applyHazeEffect(hazeEffectState),
+                        viewData = viewData,
+                    )
+                }
+                CalendarOverlay(
+                    modifier = Modifier.hazeChild(hazeEffectState),
+                    calendarState = calendarState,
+                    showCalendar = showCalendar,
+                    onDateSelected = { onDaySelected(it) },
+                    onDismiss = {
+                        showCalendar = false
                     },
                 )
             }
@@ -109,79 +165,38 @@ fun MatchScreen(
 }
 
 @Composable
-private fun MatchScreenContent(
-    modifier: Modifier = Modifier,
+private fun MatchListContent(
     viewData: MatchViewState,
-    onChipClick: (viewData: LFChipViewData) -> Unit = {},
+    modifier: Modifier = Modifier,
 ) {
+    val lazyListState = rememberLazyListState()
+    val matches by remember {
+        mutableStateOf(viewData.matches.filterByMatchCriteria(viewData.filterCriteria))
+    }
+    val matchesFiltered = matches.filterByMatchCriteria(viewData.filterCriteria)
 
-    val calendarState = rememberLFCalendarState()
-    var showCalendar by remember { mutableStateOf(false) }
+    LaunchedEffect(matchesFiltered.size) {
+        lazyListState.animateScrollToItem(0)
+    }
 
-    Scaffold(
+    LazyColumn(
         modifier = modifier,
-        topBar = {
-            LFTopAppBar(title = stringResource(R.string.matches))
-        },
-    ) { paddingValues ->
-        Column(
-            modifier = Modifier.padding(paddingValues),
-        ) {
-            LFChips(
-                viewData = viewData.leagues,
-                onClick = onChipClick,
+        state = lazyListState,
+        contentPadding = PaddingValues(
+            start = SpaceTokens.ExtraLarge,
+            end = SpaceTokens.ExtraLarge,
+            bottom = SpaceTokens.ExtraLarge,
+        ),
+        verticalArrangement = Arrangement.spacedBy(SpaceTokens.ExtraLarge),
+    ) {
+        items(
+            items = matchesFiltered,
+            key = { item -> item.match.id },
+        ) { match ->
+            LFCardMatch(
+                modifier = Modifier.animateItem(),
+                viewData = match,
             )
-            LFVerticalSpacer(height = SpaceTokens.MediumLarge)
-            LFDatePicker(
-                viewData = datePicker,
-                onClick = {},
-                onCalendarIconClick = { showCalendar = true },
-            )
-            LFVerticalSpacer(height = SpaceTokens.MediumLarge)
-            Box {
-                val lazyListState = rememberLazyListState()
-                val matches by remember {
-                    mutableStateOf(viewData.matches.filterByMatchCriteria(viewData.filterCriteria))
-                }
-                val matchesFiltered = matches.filterByMatchCriteria(viewData.filterCriteria)
-
-                LaunchedEffect(matchesFiltered.size) {
-                    lazyListState.animateScrollToItem(0)
-                }
-                val hazeEffectState = remember { HazeState() }
-
-                LazyColumn(
-                    modifier = Modifier
-                        .applyHazeEffect(state = hazeEffectState),
-                    state = lazyListState,
-                    contentPadding = PaddingValues(
-                        start = SpaceTokens.ExtraLarge,
-                        end = SpaceTokens.ExtraLarge,
-                        bottom = SpaceTokens.ExtraLarge,
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(SpaceTokens.ExtraLarge),
-                ) {
-                    items(
-                        items = matchesFiltered,
-                        key = { item -> item.match.id },
-                    ) { match ->
-                        LFCardMatch(
-                            modifier = Modifier.animateItem(),
-                            viewData = match,
-                        )
-                    }
-                }
-
-                CalendarOverlay(
-                    modifier = Modifier.hazeChild(hazeEffectState),
-                    calendarState = calendarState,
-                    showCalendar = showCalendar,
-                    onDateSelected = {},
-                    onDismiss = {
-                        showCalendar = false
-                    },
-                )
-            }
         }
     }
 }
