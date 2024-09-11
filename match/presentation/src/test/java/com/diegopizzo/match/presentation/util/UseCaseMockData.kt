@@ -5,6 +5,7 @@ import com.diegopizzo.design.components.cell.LFCellIconViewData
 import com.diegopizzo.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.design.components.cell.LFCellResultViewData
 import com.diegopizzo.design.components.chips.LFChipViewData
+import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.design.components.image.LFIconViewData
 import com.diegopizzo.design.components.image.PainterViewData
 import com.diegopizzo.league.config.CountryCode
@@ -255,6 +256,48 @@ internal val leagueViewDataList: List<LFChipViewData>
                 icon = LFIconViewData(
                     painter = PainterViewData.urlPainter(""),
                 ),
+            ),
+        )
+    }
+
+internal val datePickerList: List<LFDatePickerViewData>
+    get() {
+        return listOf(
+            LFDatePickerViewData(
+                dayName = "Sat",
+                dayNumber = "7",
+                fullDate = "2024-09-07",
+            ),
+            LFDatePickerViewData(
+                dayName = "Sun",
+                dayNumber = "8",
+                fullDate = "2024-09-08",
+            ),
+            LFDatePickerViewData(
+                dayName = "Mon",
+                dayNumber = "9",
+                fullDate = "2024-09-09",
+            ),
+            LFDatePickerViewData(
+                dayName = "Tue",
+                dayNumber = "10",
+                fullDate = "2024-09-10",
+                selected = true,
+            ),
+            LFDatePickerViewData(
+                dayName = "Wed",
+                dayNumber = "11",
+                fullDate = "2024-09-11",
+            ),
+            LFDatePickerViewData(
+                dayName = "Thu",
+                dayNumber = "12",
+                fullDate = "2024-09-12",
+            ),
+            LFDatePickerViewData(
+                dayName = "Fri",
+                dayNumber = "13",
+                fullDate = "2024-09-13",
             ),
         )
     }

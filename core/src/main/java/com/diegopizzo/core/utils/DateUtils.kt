@@ -12,6 +12,7 @@ object DateUtils {
     private const val TIME_PATTERN = "HH:mm"
     const val DATE_PATTERN = "yyyy-MM-dd"
     const val MONTH_YEAR_PATTERN = "MMMM yyyy"
+
     private fun convertUtcDateTimeToLocal(
         utcDate: String,
         timeZone: ZoneId,
@@ -42,4 +43,10 @@ object DateUtils {
     }
 
     fun currentYear() = Year.now(ZoneId.systemDefault()).value
+
+    fun generateDateList(startDate: String): List<LocalDate> {
+        val date = LocalDate.parse(startDate, DateTimeFormatter.ofPattern(DATE_PATTERN))
+
+        return (-3..3).map { date.plusDays(it.toLong()) }
+    }
 }

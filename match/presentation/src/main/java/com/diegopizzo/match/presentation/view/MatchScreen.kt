@@ -44,7 +44,6 @@ import com.diegopizzo.design.components.chips.LFChipViewData
 import com.diegopizzo.design.components.chips.LFChips
 import com.diegopizzo.design.components.datepicker.LFCalendar
 import com.diegopizzo.design.components.datepicker.LFDatePicker
-import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.design.components.datepicker.rememberLFCalendarState
 import com.diegopizzo.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.design.components.toolbar.LFTopAppBar
@@ -73,11 +72,6 @@ fun MatchScreen(
 ) {
 
     val nullableViewState by viewModel.viewStates.observeAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.fetchMatches()
-    }
-
     val viewState = nullableViewState ?: return
 
     when (viewState) {
@@ -99,7 +93,7 @@ fun MatchScreen(
                     )
                 },
                 onDaySelected = {
-                    TODO()
+                    viewModel.fetchMatches(it)
                 },
             )
         }
@@ -112,7 +106,11 @@ private fun MatchScreenContent(
     onChipClick: (viewData: LFChipViewData) -> Unit = {},
     onDaySelected: (date: String) -> Unit = {},
 ) {
-    val calendarState = rememberLFCalendarState()
+    val calendarState = rememberLFCalendarState(
+        initialSelectedDateMillis = viewData.datePicker.first {
+            it.selected
+        }.millis,
+    )
     var showCalendar by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -132,8 +130,8 @@ private fun MatchScreenContent(
                 LFVerticalSpacer(height = SpaceTokens.MediumLarge)
             }
             LFDatePicker(
-                viewData = datePicker,
-                onClick = { onDaySelected(datePicker.first().fullDate) },
+                viewData = viewData.datePicker,
+                onClick = { onDaySelected(it) },
                 onCalendarIconClick = { showCalendar = true },
             )
             LFVerticalSpacer(height = SpaceTokens.MediumLarge)
@@ -266,23 +264,6 @@ private fun CalendarOverlay(
         }
     }
 }
-
-private val default
-    get() = LFDatePickerViewData(
-        dayName = "Mon",
-        dayNumber = "1",
-        fullDate = "2024-01-01",
-    )
-
-private val datePicker = listOf(
-    default,
-    default.copy(dayName = "Tue", dayNumber = "2"),
-    default.copy(dayName = "Wed", dayNumber = "3"),
-    default.copy(dayName = "Thu", dayNumber = "4", selected = true),
-    default.copy(dayName = "Fri", dayNumber = "5"),
-    default.copy(dayName = "Sat", dayNumber = "6"),
-    default.copy(dayName = "Sun", dayNumber = "7"),
-)
 
 @Preview("Default", "MatchScreenContent")
 @Preview("Dark theme", "MatchScreenContent", uiMode = Configuration.UI_MODE_NIGHT_YES)

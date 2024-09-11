@@ -87,7 +87,7 @@ internal object LFCalendarDefaults {
 
 @Composable
 @ExperimentalMaterial3Api
-fun rememberLFCalendarState(): DatePickerState {
+fun rememberLFCalendarState(initialSelectedDateMillis: Long? = null): DatePickerState {
     val currentYear = DateUtils.currentYear()
     val selectableDates: SelectableDates = object : SelectableDates {
         override fun isSelectableYear(year: Int): Boolean {
@@ -96,6 +96,7 @@ fun rememberLFCalendarState(): DatePickerState {
     }
 
     return rememberDatePickerState(
+        initialSelectedDateMillis = initialSelectedDateMillis,
         yearRange = (currentYear - 1)..(currentYear + 1),
         selectableDates = selectableDates,
     )

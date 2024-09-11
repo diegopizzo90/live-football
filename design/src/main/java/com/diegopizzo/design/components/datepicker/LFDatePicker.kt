@@ -32,6 +32,8 @@ import com.diegopizzo.design.tokens.ShapeTokens
 import com.diegopizzo.design.tokens.SpaceTokens
 import com.diegopizzo.design.util.conditional
 
+private const val MAX_NUMBER_OF_DAYS_DISPLAYED = 7
+
 @Composable
 fun LFDatePicker(
     viewData: List<LFDatePickerViewData>,
@@ -47,7 +49,7 @@ fun LFDatePicker(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
-        viewData.forEach { chip ->
+        viewData.take(MAX_NUMBER_OF_DAYS_DISPLAYED).forEach { chip ->
             LFDayPicker(
                 viewData = chip,
                 onClick = onClick,
@@ -104,6 +106,7 @@ data class LFDatePickerViewData(
     val dayName: String,
     val dayNumber: String,
     val fullDate: String,
+    val millis: Long? = null,
     val selected: Boolean = false,
 )
 

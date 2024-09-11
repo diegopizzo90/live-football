@@ -6,6 +6,7 @@ import com.diegopizzo.design.components.cell.LFCellIconViewData
 import com.diegopizzo.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.design.components.cell.LFCellResultViewData
 import com.diegopizzo.design.components.chips.LFChipViewData
+import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.design.components.image.LFIconViewData
 import com.diegopizzo.design.components.image.PainterViewData
 import com.diegopizzo.match.api.repository.store.model.LeagueData
@@ -19,9 +20,17 @@ import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
 import com.diegopizzo.match.presentation.viewmodel.MatchFilterCriteria
 import com.diegopizzo.match.presentation.viewmodel.MatchViewState
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
 interface MatchViewDataMapper {
-    fun mapViewData(data: List<MatchData>, currentMatchFilterCriteria: MatchFilterCriteria): MatchViewState
+    fun mapViewData(
+        matchDataList: List<MatchData>,
+        currentMatchFilterCriteria: MatchFilterCriteria,
+        date: String,
+    ): MatchViewState
 
     companion object {
         const val LIVE_EVENT = "Live"
@@ -30,18 +39,23 @@ interface MatchViewDataMapper {
 
 internal class MatchViewDataMapperImpl : MatchViewDataMapper {
 
-    override fun mapViewData(data: List<MatchData>, currentMatchFilterCriteria: MatchFilterCriteria): MatchViewState {
-        val leagueChips = data
+    override fun mapViewData(
+        matchDataList: List<MatchData>,
+        currentMatchFilterCriteria: MatchFilterCriteria,
+        date: String,
+    ): MatchViewState {
+        val leagueChips = matchDataList
             .distinctBy { it.league.id }
             .map { mapChipsViewData(it.league, it.league.id == currentMatchFilterCriteria.leagueId) }
             .toMutableList()
 
         leagueChips.add(0, LFChipViewData(id = 0, text = LIVE_EVENT))
 
-        val matchViewData = data.map { mapMatchViewData(it) }
+        val matchViewData = matchDataList.map { mapMatchViewData(it) }
 
         return MatchViewState(
             filterCriteria = currentMatchFilterCriteria,
+            datePicker = mapDatePickerViewData(date),
             leagues = leagueChips,
             matches = matchViewData,
         )
@@ -72,6 +86,20 @@ internal class MatchViewDataMapperImpl : MatchViewDataMapper {
                     time = buildMatchTime(status, date),
                 ),
                 isLiveMatch = isLive(status),
+            )
+        }
+    }
+
+    private fun mapDatePickerViewData(date: String): List<LFDatePickerViewData> {
+        val dateList = DateUtils.generateDateList(date)
+        return dateList.map {
+            val fullDate = it.format(DateTimeFormatter.ofPattern(DateUtils.DATE_PATTERN))
+            LFDatePickerViewData(
+                dayName = it.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                dayNumber = it.dayOfMonth.toString(),
+                fullDate = fullDate,
+                millis = it.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
+                selected = fullDate == date,
             )
         }
     }

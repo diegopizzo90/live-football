@@ -5,6 +5,7 @@ import com.diegopizzo.design.components.cell.LFCellIconViewData
 import com.diegopizzo.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.design.components.cell.LFCellResultViewData
 import com.diegopizzo.design.components.chips.LFChipViewData
+import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.design.components.image.LFIconViewData
 import com.diegopizzo.design.components.image.PainterViewData
 import com.diegopizzo.design.theme.Icons
@@ -108,7 +109,24 @@ internal val matchViewDataList: MatchViewState
             league.copy(text = "Chip 12", isTextUppercase = true),
         )
 
+        val default = LFDatePickerViewData(
+            dayName = "Mon",
+            dayNumber = "1",
+            fullDate = "2024-01-01",
+        )
+
+        val datePicker = listOf(
+            default,
+            default.copy(dayName = "Tue", dayNumber = "2"),
+            default.copy(dayName = "Wed", dayNumber = "3"),
+            default.copy(dayName = "Thu", dayNumber = "4", selected = true),
+            default.copy(dayName = "Fri", dayNumber = "5"),
+            default.copy(dayName = "Sat", dayNumber = "6"),
+            default.copy(dayName = "Sun", dayNumber = "7"),
+        )
+
         return MatchViewState(
+            datePicker = datePicker,
             leagues = leagues,
             matches = matches,
         )
