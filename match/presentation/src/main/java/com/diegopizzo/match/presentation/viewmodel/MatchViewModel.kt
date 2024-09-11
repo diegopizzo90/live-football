@@ -9,6 +9,7 @@ import com.diegopizzo.core.base.ViewState
 import com.diegopizzo.core.utils.DateUtils
 import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.design.components.chips.LFChipViewData
+import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
 import com.diegopizzo.match.presentation.usecase.GetMatchesByDateUseCase
@@ -29,16 +30,19 @@ class MatchViewModel(
     private var job: Job? = null
     private var currentMatchFilterCriteria: MatchFilterCriteria = MatchFilterCriteria()
 
-    fun fetchMatches() {
+    init {
+        fetchMatches()
+    }
+
+    fun fetchMatches(date: String = DateUtils.getCurrentDate()) {
         job?.cancel() // cancel previous job
-        val today = DateUtils.getCurrentDate()
         job = backgroundScope.launch {
             innerViewStates.postValue(ViewState.Loading())
-            getMatchesByDateUseCase(from = today, to = today)
+            getMatchesByDateUseCase(from = date, to = date)
                 .cancellable()
                 .collect { result ->
                     result.mapCatching {
-                        matchViewDataMapper.mapViewData(it, currentMatchFilterCriteria)
+                        matchViewDataMapper.mapViewData(it, currentMatchFilterCriteria, date)
                     }.onSuccess {
                         innerViewStates.postValue(ViewState.Success(it))
                     }.onFailure {
@@ -65,6 +69,10 @@ class MatchViewModel(
         innerViewStates.postValue(ViewState.Success(newViewState))
     }
 
+    fun onDaySelected(date: String) {
+
+    }
+
     private fun buildFilterCriteria(chip: LFChipViewData): MatchFilterCriteria {
         val filterCriteria = currentMatchFilterCriteria.copy(
             leagueId = if (!chip.selected) chip.id else null,
@@ -78,6 +86,7 @@ class MatchViewModel(
 @Immutable
 data class MatchViewState(
     val filterCriteria: MatchFilterCriteria = MatchFilterCriteria(),
+    val datePicker: List<LFDatePickerViewData>,
     val leagues: List<LFChipViewData>,
     val matches: List<LFCardMatchViewData>,
 )

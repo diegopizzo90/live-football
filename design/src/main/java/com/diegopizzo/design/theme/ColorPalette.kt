@@ -42,6 +42,8 @@ object ColorPalette {
     val Dark2 = Color(0xFF212121)
     val Dark3 = Color(0xFF303030)
     val Dark4 = Color(0xFF424242)
+    val Dark5 = Color(0xFF35383F)
+    val Dark6 = Color(0xFF09101D)
 
     // Others
     val White = Color(0xFFFFFFFF)
@@ -75,6 +77,7 @@ object ColorPalette {
     val BackgroundOrange = Color(0xFFFFF3E0)
 
     // Transparent
+    val Transparent = Color(0x00000000)
     val TransparentPink = Color(0x33E91E76)
     val TransparentPurple = Color(0x339C27B0)
     val TransparentYellow = Color(0x33FFC120)

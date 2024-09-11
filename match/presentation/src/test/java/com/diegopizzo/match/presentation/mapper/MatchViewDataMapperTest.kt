@@ -1,5 +1,6 @@
 package com.diegopizzo.match.presentation.mapper
 
+import com.diegopizzo.match.presentation.util.datePickerList
 import com.diegopizzo.match.presentation.util.leagueViewDataList
 import com.diegopizzo.match.presentation.util.matchDataListUseCase
 import com.diegopizzo.match.presentation.util.matchViewDataList
@@ -20,8 +21,10 @@ class MatchViewDataMapperTest {
 
     @Test
     fun testMapper() {
-        val actual = mapper.mapViewData(matchDataListUseCase, MatchFilterCriteria())
+        val date = "2024-09-10"
+        val actual = mapper.mapViewData(matchDataListUseCase, MatchFilterCriteria(), date)
         val expected = MatchViewState(
+            datePicker = datePickerList,
             leagues = leagueViewDataList,
             matches = matchViewDataList,
         )
