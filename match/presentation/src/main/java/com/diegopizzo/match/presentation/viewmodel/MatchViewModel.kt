@@ -34,10 +34,10 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    fun fetchMatches(date: String = DateUtils.getCurrentDate()) {
+    fun fetchMatches(date: String = DateUtils.getCurrentDate(), showShimmer: Boolean = false) {
         job?.cancel() // cancel previous job
+        innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
         job = backgroundScope.launch {
-            innerViewStates.postValue(ViewState.Loading())
             getMatchesByDateUseCase(from = date, to = date)
                 .cancellable()
                 .collect { result ->
@@ -67,10 +67,6 @@ class MatchViewModel(
         )
 
         innerViewStates.postValue(ViewState.Success(newViewState))
-    }
-
-    fun onDaySelected(date: String) {
-
     }
 
     private fun buildFilterCriteria(chip: LFChipViewData): MatchFilterCriteria {
