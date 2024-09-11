@@ -254,7 +254,7 @@ private fun CalendarOverlay(
             visible = showCalendar,
             enter = expandVertically(
                 animationSpec = tween(
-                    durationMillis = 100,
+                    durationMillis = 300,
                     easing = LinearEasing,
                 ),
                 expandFrom = Alignment.Top,
