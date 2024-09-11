@@ -21,7 +21,7 @@ import kotlin.random.Random
 private val responseHeaders = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
 fun fakeKtorHttpClient() = module {
-    factory {
+    single {
         HttpClient(MockEngine) {
             install(ContentNegotiation) {
                 json(
