@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
  * - CornerLarge: 16dp
  * - CornerBig: 20dp
  */
-internal object ShapeTokens {
+object ShapeTokens {
     /**
      * CornerMini border radius (4dp)
      */

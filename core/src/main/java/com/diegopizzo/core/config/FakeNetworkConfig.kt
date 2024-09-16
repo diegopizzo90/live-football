@@ -16,6 +16,7 @@ import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import kotlin.random.Random
 
 private val responseHeaders = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
@@ -60,7 +61,12 @@ fun fakeKtorHttpClient() = module {
                     when {
                         request.url.encodedPath.contains("/fixtures") &&
                             request.url.encodedQuery.contains("league=135") -> {
-                            respond(matchesSerieA, HttpStatusCode.Accepted, responseHeaders)
+                            val response = if (Random.nextBoolean()) {
+                                matchesSerieA2
+                            } else {
+                                matchesSerieA
+                            }
+                            respond(response, HttpStatusCode.Accepted, responseHeaders)
                         }
 
                         request.url.encodedPath.contains("/fixtures") &&

@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -42,7 +43,7 @@ fun LFCellMatch(
             LFHeadlineSmall(
                 text = time,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.width(48.dp),
+                modifier = Modifier.defaultMinSize(minWidth = 48.dp),
             )
             LFHorizontalSpacer(width = SpaceTokens.Large)
             Column(

@@ -4,8 +4,8 @@ package com.diegopizzo.match.presentation.view
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -70,32 +70,57 @@ import dev.chrisbanes.haze.hazeChild
 fun MatchScreen(
     viewModel: MatchViewModel,
 ) {
-
     val nullableViewState by viewModel.viewStates.observeAsState()
+
     val viewState = nullableViewState ?: return
+    var showTopBar by remember { mutableStateOf(true) }
 
-    when (viewState) {
-        is ViewState.Error -> {
-            LFErrorScreen()
-        }
+    Scaffold(
+        topBar = {
+            if (showTopBar) {
+                LFTopAppBar(title = stringResource(R.string.matches))
+            }
+        },
+    ) { paddingValues ->
 
-        is ViewState.Loading -> {
-            LFLoadingScreen()
-        }
+        when (viewState) {
+            is ViewState.Success -> {
+                showTopBar = true
+                MatchScreenContent(
+                    viewData = viewState.data,
+                    modifier = Modifier.padding(paddingValues),
+                    onChipClick = {
+                        viewModel.onChipClick(
+                            chip = it,
+                            currentViewState = viewState.data,
+                        )
+                    },
+                    onDaySelected = {
+                        viewModel.fetchMatches(it, showShimmer = true)
+                    },
+                )
+            }
 
-        is ViewState.Success -> {
-            MatchScreenContent(
-                viewData = viewState.data,
-                onChipClick = {
-                    viewModel.onChipClick(
-                        chip = it,
-                        currentViewState = viewState.data,
+            is ViewState.Loading -> {
+                if (viewState.showShimmer) {
+                    showTopBar = true
+                    LoadingMatchScreen(
+                        modifier = Modifier.padding(paddingValues),
                     )
-                },
-                onDaySelected = {
-                    viewModel.fetchMatches(it)
-                },
-            )
+                } else {
+                    showTopBar = false
+                    LFLoadingScreen(
+                        modifier = Modifier.padding(paddingValues),
+                    )
+                }
+            }
+
+            is ViewState.Error -> {
+                showTopBar = true
+                LFErrorScreen(
+                    modifier = Modifier.padding(paddingValues),
+                )
+            }
         }
     }
 }
@@ -103,6 +128,7 @@ fun MatchScreen(
 @Composable
 private fun MatchScreenContent(
     viewData: MatchViewState,
+    modifier: Modifier = Modifier,
     onChipClick: (viewData: LFChipViewData) -> Unit = {},
     onDaySelected: (date: String) -> Unit = {},
 ) {
@@ -113,51 +139,44 @@ private fun MatchScreenContent(
     )
     var showCalendar by remember { mutableStateOf(false) }
 
-    Scaffold(
-        topBar = {
-            LFTopAppBar(title = stringResource(R.string.matches))
-        },
-    ) { paddingValues ->
-
-        Column(
-            modifier = Modifier.padding(paddingValues),
-        ) {
-            if (viewData.matches.isNotEmpty()) {
-                LFChips(
-                    viewData = viewData.leagues,
-                    onClick = onChipClick,
-                )
-                LFVerticalSpacer(height = SpaceTokens.MediumLarge)
-            }
-            LFDatePicker(
-                viewData = viewData.datePicker,
-                onClick = { onDaySelected(it) },
-                onCalendarIconClick = { showCalendar = true },
+    Column(
+        modifier = modifier,
+    ) {
+        if (viewData.matches.isNotEmpty()) {
+            LFChips(
+                viewData = viewData.leagues,
+                onClick = onChipClick,
             )
             LFVerticalSpacer(height = SpaceTokens.MediumLarge)
-            Box {
-                val hazeEffectState = remember { HazeState() }
+        }
+        LFDatePicker(
+            viewData = viewData.datePicker,
+            onClick = { onDaySelected(it) },
+            onCalendarIconClick = { showCalendar = true },
+        )
+        LFVerticalSpacer(height = SpaceTokens.MediumLarge)
+        Box {
+            val hazeEffectState = remember { HazeState() }
 
-                if (viewData.matches.isEmpty()) {
-                    LFEmptyScreen(
-                        modifier = Modifier.applyHazeEffect(hazeEffectState),
-                    )
-                } else {
-                    MatchListContent(
-                        modifier = Modifier.applyHazeEffect(hazeEffectState),
-                        viewData = viewData,
-                    )
-                }
-                CalendarOverlay(
-                    modifier = Modifier.hazeChild(hazeEffectState),
-                    calendarState = calendarState,
-                    showCalendar = showCalendar,
-                    onDateSelected = { onDaySelected(it) },
-                    onDismiss = {
-                        showCalendar = false
-                    },
+            if (viewData.matches.isEmpty()) {
+                LFEmptyScreen(
+                    modifier = Modifier.applyHazeEffect(hazeEffectState),
+                )
+            } else {
+                MatchListContent(
+                    modifier = Modifier.applyHazeEffect(hazeEffectState),
+                    viewData = viewData,
                 )
             }
+            CalendarOverlay(
+                modifier = Modifier.hazeChild(hazeEffectState),
+                calendarState = calendarState,
+                showCalendar = showCalendar,
+                onDateSelected = { onDaySelected(it) },
+                onDismiss = {
+                    showCalendar = false
+                },
+            )
         }
     }
 }
@@ -176,7 +195,6 @@ private fun MatchListContent(
     LaunchedEffect(matchesFiltered.size) {
         lazyListState.animateScrollToItem(0)
     }
-
     LazyColumn(
         modifier = modifier,
         state = lazyListState,
@@ -235,17 +253,12 @@ private fun CalendarOverlay(
         AnimatedVisibility(
             visible = showCalendar,
             enter = expandVertically(
-                animationSpec = tween(
-                    durationMillis = 100,
-                    easing = LinearEasing,
+                animationSpec = spring(
+                    stiffness = Spring.StiffnessMediumLow,
                 ),
                 expandFrom = Alignment.Top,
             ),
             exit = shrinkVertically(
-                animationSpec = tween(
-                    durationMillis = 100,
-                    easing = LinearEasing,
-                ),
                 shrinkTowards = Alignment.Top,
             ),
         ) {
@@ -273,6 +286,9 @@ fun MatchScreenPreview(
     viewData: MatchViewState,
 ) {
     LFTheme {
-        MatchScreenContent(viewData = viewData)
+        MatchScreenContent(
+            viewData = viewData,
+            modifier = Modifier.background(MaterialTheme.colorScheme.background),
+        )
     }
 }
