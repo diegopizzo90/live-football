@@ -4,8 +4,8 @@ package com.diegopizzo.match.presentation.view
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -253,17 +253,12 @@ private fun CalendarOverlay(
         AnimatedVisibility(
             visible = showCalendar,
             enter = expandVertically(
-                animationSpec = tween(
-                    durationMillis = 300,
-                    easing = LinearEasing,
+                animationSpec = spring(
+                    stiffness = Spring.StiffnessMediumLow,
                 ),
                 expandFrom = Alignment.Top,
             ),
             exit = shrinkVertically(
-                animationSpec = tween(
-                    durationMillis = 100,
-                    easing = LinearEasing,
-                ),
                 shrinkTowards = Alignment.Top,
             ),
         ) {

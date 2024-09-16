@@ -68,8 +68,9 @@ private fun DatePickerContent(isLoading: Boolean) {
         1.rangeTo(7).forEach { index ->
             Column(
                 modifier = Modifier
-                    .width(35.dp)
+                    .width(40.dp)
                     .height(55.dp)
+                    .weight(1f)
                     .conditional(index == 4) {
                         clip(ShapeTokens.CornerSmall)
                             .background(MaterialTheme.colorScheme.surfaceVariant)
@@ -80,8 +81,8 @@ private fun DatePickerContent(isLoading: Boolean) {
             ) {
                 Box(
                     modifier = Modifier
-                        .width(20.dp)
-                        .height(10.dp)
+                        .width(22.dp)
+                        .height(12.dp)
                         .conditional(
                             condition = index == 4,
                             onTrue = { background(MaterialTheme.colorScheme.background) },
@@ -92,8 +93,8 @@ private fun DatePickerContent(isLoading: Boolean) {
                 LFVerticalSpacer(height = SpaceTokens.Mini)
                 Box(
                     modifier = Modifier
-                        .width(10.dp)
-                        .height(10.dp)
+                        .width(12.dp)
+                        .height(12.dp)
                         .conditional(
                             condition = index == 4,
                             onTrue = { background(MaterialTheme.colorScheme.background) },
@@ -123,8 +124,8 @@ private fun ChipsContent(isLoading: Boolean) {
         1.rangeTo(10).forEach { index ->
             LFSurface(
                 modifier = Modifier
-                    .padding(end = SpaceTokens.Medium)
-                    .shimmerLoadingAnimation(isLoadingCompleted = !isLoading),
+                    .height(50.dp)
+                    .padding(end = SpaceTokens.Medium),
                 color = Color.Unspecified,
                 shape = LFSurfaceShape.Big,
                 border = BorderStrokeTokens.Medium(MaterialTheme.colorScheme.surfaceVariant),
@@ -134,20 +135,23 @@ private fun ChipsContent(isLoading: Boolean) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(16.dp)
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
-                            .shimmerLoadingAnimation(isLoadingCompleted = !isLoading),
-                    )
-                    LFHorizontalSpacer(width = SpaceTokens.Small)
+                    if (index != 1) {
+                        Box(
+                            modifier = Modifier
+                                .size(16.dp)
+                                .background(MaterialTheme.colorScheme.surfaceVariant)
+                                .shimmerLoadingAnimation(isLoadingCompleted = !isLoading),
+                        )
+                        LFHorizontalSpacer(width = SpaceTokens.Small)
+                    }
                     Box(
                         modifier = Modifier
                             .conditional(
-                                condition = index % 2 == 0,
-                                onTrue = { width(32.dp).height(16.dp) },
-                                onFalse = { width(64.dp).height(16.dp) },
+                                condition = index % 2 == 0 || index == 1,
+                                onTrue = { width(32.dp) },
+                                onFalse = { width(64.dp) },
                             )
+                            .height(16.dp)
                             .background(MaterialTheme.colorScheme.surfaceVariant)
                             .shimmerLoadingAnimation(isLoadingCompleted = !isLoading),
                     )
