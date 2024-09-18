@@ -25,7 +25,7 @@ private val matchDataMapperModule = module {
 
 private val matchStoreModule = module {
     single<MatchStore> {
-        MatchStoreImpl(get(), get(), ttlCacheInMinutes = 2)
+        MatchStoreImpl(get(), get(), ttlCacheInMilliseconds = 60000) // 1 minute
     }
 }
 

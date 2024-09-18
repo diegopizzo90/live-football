@@ -9,7 +9,7 @@ import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreBuilder
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 import org.mobilenativefoundation.store.store5.impl.extensions.get
-import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.milliseconds
 
 internal interface MatchStore {
     suspend fun getMatches(
@@ -24,11 +24,11 @@ internal interface MatchStore {
 internal class MatchStoreImpl(
     api: MatchApi,
     private val mapper: MatchDataMapper,
-    ttlCacheInMinutes: Int,
+    ttlCacheInMilliseconds: Int,
 ) : MatchStore {
 
     private val cachePolicy = MemoryPolicy.builder<Any, Any>()
-        .setExpireAfterWrite(ttlCacheInMinutes.minutes)
+        .setExpireAfterWrite(ttlCacheInMilliseconds.milliseconds)
         .build()
 
     private val store: Store<MatchStoreKey, Result<List<MatchData>>> = StoreBuilder.from(

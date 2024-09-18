@@ -96,7 +96,7 @@ fun MatchScreen(
                         )
                     },
                     onDaySelected = {
-                        viewModel.fetchMatches(it, showShimmer = true)
+                        viewModel.fetchMatches(date = it, showShimmer = true)
                     },
                 )
             }

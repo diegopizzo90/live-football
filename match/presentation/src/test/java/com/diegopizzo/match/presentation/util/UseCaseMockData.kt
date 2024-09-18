@@ -267,37 +267,44 @@ internal val datePickerList: List<LFDatePickerViewData>
                 dayName = "Sat",
                 dayNumber = "7",
                 fullDate = "2024-09-07",
+                millis = 1725667200000,
             ),
             LFDatePickerViewData(
                 dayName = "Sun",
                 dayNumber = "8",
                 fullDate = "2024-09-08",
+                millis = 1725753600000,
             ),
             LFDatePickerViewData(
                 dayName = "Mon",
                 dayNumber = "9",
                 fullDate = "2024-09-09",
+                millis = 1725840000000,
             ),
             LFDatePickerViewData(
                 dayName = "Tue",
                 dayNumber = "10",
                 fullDate = "2024-09-10",
+                millis = 1725926400000,
                 selected = true,
             ),
             LFDatePickerViewData(
                 dayName = "Wed",
                 dayNumber = "11",
                 fullDate = "2024-09-11",
+                millis = 1726012800000,
             ),
             LFDatePickerViewData(
                 dayName = "Thu",
                 dayNumber = "12",
                 fullDate = "2024-09-12",
+                millis = 1726099200000,
             ),
             LFDatePickerViewData(
                 dayName = "Fri",
                 dayNumber = "13",
                 fullDate = "2024-09-13",
+                millis = 1726185600000,
             ),
         )
     }

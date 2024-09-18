@@ -25,7 +25,7 @@ class MatchViewModel(
 ) : ViewModel(), DispatcherProvider {
 
     private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
-    val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
+    internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
 
     private var job: Job? = null
     private var currentMatchFilterCriteria: MatchFilterCriteria = MatchFilterCriteria()
@@ -34,7 +34,8 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    fun fetchMatches(date: String = DateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+    internal fun fetchMatches(date: String = DateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+        clearFilter()
         job?.cancel() // cancel previous job
         innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
         job = backgroundScope.launch {
@@ -50,6 +51,10 @@ class MatchViewModel(
                     }
                 }
         }
+    }
+
+    private fun clearFilter() {
+        currentMatchFilterCriteria = MatchFilterCriteria()
     }
 
     fun onChipClick(chip: LFChipViewData, currentViewState: MatchViewState) {
@@ -71,7 +76,7 @@ class MatchViewModel(
 
     private fun buildFilterCriteria(chip: LFChipViewData): MatchFilterCriteria {
         val filterCriteria = currentMatchFilterCriteria.copy(
-            leagueId = if (!chip.selected) chip.id else null,
+            leagueId = if (!chip.selected && chip.id != 0L) chip.id else null,
             isLive = !chip.selected && chip.text == LIVE_EVENT,
         )
         currentMatchFilterCriteria = filterCriteria

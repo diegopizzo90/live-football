@@ -734,7 +734,143 @@ val matchesSerieA = """
                         "away": null
                     }
                 }
+            },
+            {
+                "fixture": {
+                    "id": 1223631,
+                    "referee": null,
+                    "timezone": "UTC",
+                    "date": "2024-09-14T18:45:00+00:00",
+                    "timestamp": 1726339500,
+                    "periods": {
+                        "first": null,
+                        "second": null
+                    },
+                    "venue": {
+                        "id": 907,
+                        "name": "Stadio Giuseppe Meazza",
+                        "city": "Milano"
+                    },
+                    "status": {
+                        "long": "Not Started",
+                        "short": "NS",
+                        "elapsed": null
+                    }
+                },
+                "league": {
+                    "id": 135,
+                    "name": "Serie A",
+                    "country": "Italy",
+                    "logo": "https://media.api-sports.io/football/leagues/135.png",
+                    "flag": "https://media.api-sports.io/flags/it.svg",
+                    "season": 2024,
+                    "round": "Regular Season - 4"
+                },
+                "teams": {
+                    "home": {
+                        "id": 489,
+                        "name": "AC Milan",
+                        "logo": "https://media.api-sports.io/football/teams/489.png",
+                        "winner": null
+                    },
+                    "away": {
+                        "id": 517,
+                        "name": "Venezia",
+                        "logo": "https://media.api-sports.io/football/teams/517.png",
+                        "winner": null
+                    }
+                },
+                "goals": {
+                    "home": null,
+                    "away": null
+                },
+                "score": {
+                    "halftime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "fulltime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "extratime": {
+                        "home": null,
+                        "away": null
+                    },
+                    "penalty": {
+                        "home": null,
+                        "away": null
+                    }
+                }
+            },
+             {
+                "fixture": {
+                "id": 1223630,
+                "referee": "Luca Zufferli, Italy",
+                "timezone": "UTC",
+                "date": "2024-09-16T18:45:00+00:00",
+                "timestamp": 1726512300,
+                "periods": {
+                    "first": 1726512300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 910,
+                    "name": "Stadio Olimpico",
+                    "city": "Roma"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 49
+                }
+            },
+            "league": {
+                "id": 135,
+                "name": "Serie A",
+                "country": "Italy",
+                "logo": "https://media.api-sports.io/football/leagues/135.png",
+                "flag": "https://media.api-sports.io/flags/it.svg",
+                "season": 2024,
+                "round": "Regular Season - 4"
+            },
+            "teams": {
+                "home": {
+                    "id": 487,
+                    "name": "Lazio",
+                    "logo": "https://media.api-sports.io/football/teams/487.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 504,
+                    "name": "Verona",
+                    "logo": "https://media.api-sports.io/football/teams/504.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
             }
+        }
         ]
     }
 """.trimIndent()
@@ -958,7 +1094,75 @@ val matchesSerieA2 = """
                         "away": null
                     }
                 }
+            },
+             {
+                "fixture": {
+                "id": 1223630,
+                "referee": "Luca Zufferli, Italy",
+                "timezone": "UTC",
+                "date": "2024-09-16T18:45:00+00:00",
+                "timestamp": 1726512300,
+                "periods": {
+                    "first": 1726512300,
+                    "second": null
+                },
+                "venue": {
+                    "id": 910,
+                    "name": "Stadio Olimpico",
+                    "city": "Roma"
+                },
+                "status": {
+                    "long": "Second Half",
+                    "short": "2H",
+                    "elapsed": 49
+                }
+            },
+            "league": {
+                "id": 135,
+                "name": "Serie A",
+                "country": "Italy",
+                "logo": "https://media.api-sports.io/football/leagues/135.png",
+                "flag": "https://media.api-sports.io/flags/it.svg",
+                "season": 2024,
+                "round": "Regular Season - 4"
+            },
+            "teams": {
+                "home": {
+                    "id": 487,
+                    "name": "Lazio",
+                    "logo": "https://media.api-sports.io/football/teams/487.png",
+                    "winner": true
+                },
+                "away": {
+                    "id": 504,
+                    "name": "Verona",
+                    "logo": "https://media.api-sports.io/football/teams/504.png",
+                    "winner": false
+                }
+            },
+            "goals": {
+                "home": 2,
+                "away": 1
+            },
+            "score": {
+                "halftime": {
+                    "home": 2,
+                    "away": 1
+                },
+                "fulltime": {
+                    "home": null,
+                    "away": null
+                },
+                "extratime": {
+                    "home": null,
+                    "away": null
+                },
+                "penalty": {
+                    "home": null,
+                    "away": null
+                }
             }
+        }
         ]
     }
 """.trimIndent()
