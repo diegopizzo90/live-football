@@ -88,8 +88,8 @@ internal class MatchViewDataMapperImpl(private val dateUtils: DateUtils) : Match
                         resultAway = goals.away?.toString() ?: "",
                     ),
                     time = buildMatchTime(status, date),
+                    isLiveMatch = isLive(status),
                 ),
-                isLiveMatch = isLive(status),
             )
         }
     }

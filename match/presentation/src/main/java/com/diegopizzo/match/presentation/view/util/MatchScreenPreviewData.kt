@@ -46,8 +46,8 @@ internal val matchViewDataList: MatchViewState
                         resultHome = "0",
                         resultAway = "0",
                     ),
+                    isLiveMatch = true,
                 ),
-                isLiveMatch = true,
             ),
             match.copy(
                 match = match.match.copy(
@@ -72,8 +72,8 @@ internal val matchViewDataList: MatchViewState
                         resultHome = "0",
                         resultAway = "0",
                     ),
+                    isLiveMatch = true,
                 ),
-                isLiveMatch = true,
             ),
             match.copy(
                 match = match.match.copy(
