@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -17,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.diegopizzo.design.components.custom.LFPulsatingUnderline
 import com.diegopizzo.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.design.components.image.LFIconViewData
@@ -26,6 +26,7 @@ import com.diegopizzo.design.components.text.LFHeadlineSmall
 import com.diegopizzo.design.theme.Icons
 import com.diegopizzo.design.theme.LFTheme
 import com.diegopizzo.design.tokens.SpaceTokens
+import com.diegopizzo.design.util.measureTextWidth
 
 @Composable
 fun LFCellMatch(
@@ -40,11 +41,15 @@ fun LFCellMatch(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            LFHeadlineSmall(
-                text = time,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.defaultMinSize(minWidth = 48.dp),
-            )
+            LFPulsatingUnderline(
+                targetValue = if (isLiveMatch) measureTextWidth(time).value else 0f,
+            ) {
+                LFHeadlineSmall(
+                    text = time,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.defaultMinSize(minWidth = 48.dp),
+                )
+            }
             LFHorizontalSpacer(width = SpaceTokens.Large)
             Column(
                 modifier = Modifier.weight(1f),
@@ -75,6 +80,7 @@ data class LFCellMatchViewData(
     val cellIconAway: LFCellIconViewData,
     val result: LFCellResultViewData? = null,
     val time: String,
+    val isLiveMatch: Boolean = false,
 )
 
 data class LFCellResultViewData(

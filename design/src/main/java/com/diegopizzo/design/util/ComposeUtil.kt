@@ -13,6 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.Dp
 
 @Composable
 fun Modifier.conditional(
@@ -81,4 +85,11 @@ fun Modifier.shimmerLoadingAnimation(
             )
         }
     }
+}
+
+@Composable
+fun measureTextWidth(text: String, textStyle: TextStyle = TextStyle.Default): Dp {
+    val textMeasurer = rememberTextMeasurer()
+    val widthInPixels = textMeasurer.measure(text, textStyle).size.width
+    return with(LocalDensity.current) { widthInPixels.toDp() }
 }

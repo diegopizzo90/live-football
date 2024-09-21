@@ -35,4 +35,9 @@ object ShapeTokens {
      * CornerBig border radius (20dp)
      */
     val CornerBig = RoundedCornerShape(BorderRadiusTokens.Big)
+
+    /**
+     * CircleShape
+     */
+    val CircleShape = RoundedCornerShape(percent = 50)
 }

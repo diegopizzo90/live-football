@@ -208,8 +208,8 @@ internal val matchViewDataList: List<LFCardMatchViewData>
                         resultHome = "0",
                         resultAway = "0",
                     ),
+                    isLiveMatch = true,
                 ),
-                isLiveMatch = true,
             ),
             default.copy(
                 match = default.match.copy(
@@ -228,8 +228,8 @@ internal val matchViewDataList: List<LFCardMatchViewData>
                         resultHome = "0",
                         resultAway = "0",
                     ),
+                    isLiveMatch = true,
                 ),
-                isLiveMatch = true,
             ),
             default.copy(
                 match = default.match.copy(

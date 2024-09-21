@@ -114,7 +114,7 @@ internal fun List<LFCardMatchViewData>.filterByMatchCriteria(criteria: MatchFilt
 
         criteria.isLive -> {
             // Filter by live status only
-            this.filter { result -> result.isLiveMatch }
+            this.filter { result -> result.match.isLiveMatch }
         }
 
         else -> {
