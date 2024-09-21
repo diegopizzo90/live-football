@@ -31,9 +31,9 @@ import com.diegopizzo.design.tokens.SpaceTokens
 
 @Composable
 fun LFCalendar(
+    state: DatePickerState,
     modifier: Modifier = Modifier,
-    state: DatePickerState = rememberLFCalendarState(),
-    onDateSelected: (String?) -> Unit = {},
+    onDateSelected: (Long?) -> Unit = {},
 ) {
     var dateSelected by remember { mutableStateOf(state.selectedDateMillis) }
 
@@ -51,7 +51,7 @@ fun LFCalendar(
     )
     if (dateSelected != state.selectedDateMillis) {
         dateSelected = state.selectedDateMillis
-        onDateSelected(DateUtils.getDateFromMilliseconds(dateSelected))
+        onDateSelected(dateSelected)
     }
 }
 
@@ -80,15 +80,14 @@ internal object LFCalendarDefaults {
         }
 
     fun dateFormatter(): DatePickerFormatter = DatePickerDefaults.dateFormatter(
-        yearSelectionSkeleton = DateUtils.MONTH_YEAR_PATTERN,
-        selectedDateSkeleton = DateUtils.DATE_PATTERN,
+        yearSelectionSkeleton = DateUtils.DEFAULT_MONTH_YEAR_PATTERN,
+        selectedDateSkeleton = DateUtils.DEFAULT_DATE_PATTERN,
     )
 }
 
 @Composable
 @ExperimentalMaterial3Api
-fun rememberLFCalendarState(initialSelectedDateMillis: Long? = null): DatePickerState {
-    val currentYear = DateUtils.currentYear()
+fun rememberLFCalendarState(currentYear: Int, initialSelectedDateMillis: Long? = null): DatePickerState {
     val selectableDates: SelectableDates = object : SelectableDates {
         override fun isSelectableYear(year: Int): Boolean {
             return year == currentYear
@@ -106,7 +105,12 @@ fun rememberLFCalendarState(initialSelectedDateMillis: Long? = null): DatePicker
 @Preview("Dark theme", "LFCalendar", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun LFCalendarPreview() {
+    val state = rememberLFCalendarState(
+        currentYear = 2024,
+    )
     LFTheme {
-        LFCalendar()
+        LFCalendar(
+            state = state,
+        )
     }
 }

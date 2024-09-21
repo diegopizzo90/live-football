@@ -1,17 +1,88 @@
 package com.diegopizzo.core.utils
 
+import com.diegopizzo.core.utils.DateUtils.Companion.DEFAULT_DATE_PATTERN
 import java.time.Instant
 import java.time.LocalDate
 import java.time.Year
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
 
-object DateUtils {
+interface DateUtils {
 
-    private const val TIME_PATTERN = "HH:mm"
-    const val DATE_PATTERN = "yyyy-MM-dd"
-    const val MONTH_YEAR_PATTERN = "MMMM yyyy"
+    companion object {
+        const val DEFAULT_DATE_PATTERN = "yyyy-MM-dd"
+        const val DEFAULT_MONTH_YEAR_PATTERN = "MMMM yyyy"
+    }
+
+    data class CalendarDisplayInfo(
+        val dayName: String,
+        val dayNumber: String,
+    )
+
+    /**
+     * Generates a list of LocalDate objects starting from the provided startDate.
+     * @param startDate String date in the format yyyy-MM-dd.
+     * @return List of LocalDate objects.
+     */
+    fun generateDateList(startDate: String): List<LocalDate>
+
+    /**
+     * Gets the current year.
+     * @return Current year as an integer.
+     */
+    fun currentYear(): Int
+
+    /**
+     * Converts milliseconds to a formatted date string.
+     * @param milliseconds The time in milliseconds.
+     * @return The formatted date string or null if milliseconds are invalid.
+     */
+    fun getDateFromMilliseconds(milliseconds: Long?): String?
+
+    /**
+     * Converts UTC date string to local time formatted string.
+     * @param utcDate Date in UTC format.
+     * @return Formatted local time as string.
+     */
+    fun getLocalTimeFromUTCDate(utcDate: String): String
+
+    /**
+     * Gets the current date as a string.
+     * @return Formatted current date string.
+     */
+    fun getCurrentDate(): String
+
+    /**
+     * Formats the provided LocalDate using the default pattern (yyyy-MM-dd).
+     * @param date LocalDate object to format.
+     * @return Formatted date string.
+     */
+    fun formatDate(date: LocalDate, pattern: String = DEFAULT_DATE_PATTERN): String
+
+    /**
+     * Converts the provided LocalDate to UTC milliseconds.
+     * @param date LocalDate object to convert.
+     * @return Time in UTC milliseconds.
+     */
+    fun toUtcMilliseconds(date: LocalDate): Long
+
+    /**
+     * Provides display information about the calendar for the provided date.
+     * @param date LocalDate object to retrieve display info.
+     * @return CalendarDisplayInfo containing day name and day number.
+     */
+    fun getCalendarDisplayInfo(date: LocalDate): CalendarDisplayInfo
+}
+
+class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : DateUtils {
+
+    companion object {
+        private const val TIME_PATTERN = "HH:mm"
+    }
 
     private fun convertUtcDateTimeToLocal(
         utcDate: String,
@@ -23,30 +94,45 @@ object DateUtils {
             .format(DateTimeFormatter.ofPattern(pattern))
     }
 
-    fun getCurrentDate(): String {
-        return LocalDate.now(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_LOCAL_DATE)
+    override fun getCurrentDate(): String {
+        return LocalDate.now(zoneId).format(DateTimeFormatter.ISO_LOCAL_DATE)
     }
 
-    fun getLocalTimeFromUTCDate(utcDate: String): String {
+    override fun getLocalTimeFromUTCDate(utcDate: String): String {
         return convertUtcDateTimeToLocal(
             utcDate = utcDate,
-            timeZone = ZoneId.systemDefault(),
+            timeZone = zoneId,
             pattern = TIME_PATTERN,
         )
     }
 
-    fun getDateFromMilliseconds(milliseconds: Long?): String? {
+    override fun getDateFromMilliseconds(milliseconds: Long?): String? {
         val instant = milliseconds?.let { Instant.ofEpochMilli(it) } ?: return null
-        val date = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault())
-        val formatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
+        val date = ZonedDateTime.ofInstant(instant, zoneId)
+        val formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN)
         return date.format(formatter)
     }
 
-    fun currentYear() = Year.now(ZoneId.systemDefault()).value
+    override fun currentYear() = Year.now(zoneId).value
 
-    fun generateDateList(startDate: String): List<LocalDate> {
-        val date = LocalDate.parse(startDate, DateTimeFormatter.ofPattern(DATE_PATTERN))
+    override fun generateDateList(startDate: String): List<LocalDate> {
+        val date = LocalDate.parse(startDate, DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN))
 
         return (-3..3).map { date.plusDays(it.toLong()) }
+    }
+
+    override fun formatDate(date: LocalDate, pattern: String): String {
+        return date.format(DateTimeFormatter.ofPattern(pattern))
+    }
+
+    override fun getCalendarDisplayInfo(date: LocalDate): DateUtils.CalendarDisplayInfo {
+        return DateUtils.CalendarDisplayInfo(
+            dayName = date.dayOfWeek.getDisplayName(TextStyle.SHORT, locale),
+            dayNumber = date.dayOfMonth.toString(),
+        )
+    }
+
+    override fun toUtcMilliseconds(date: LocalDate): Long {
+        return date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
     }
 }

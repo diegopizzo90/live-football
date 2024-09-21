@@ -106,7 +106,7 @@ data class LFDatePickerViewData(
     val dayName: String,
     val dayNumber: String,
     val fullDate: String,
-    val millis: Long? = null,
+    val millisUtc: Long? = null,
     val selected: Boolean = false,
 )
 

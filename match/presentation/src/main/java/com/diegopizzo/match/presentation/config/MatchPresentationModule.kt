@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 private val matchViewDataMapperModule = module {
     factory<MatchViewDataMapper> {
-        MatchViewDataMapperImpl()
+        MatchViewDataMapperImpl(get())
     }
 }
 
@@ -27,7 +27,7 @@ private val getMatchesByDateUseCaseModule = module {
 
 private val matchViewModel = module {
     viewModel {
-        MatchViewModel(get(), Dispatchers.IO, get())
+        MatchViewModel(get(), Dispatchers.IO, get(), get())
     }
 }
 

@@ -22,6 +22,7 @@ class MatchViewModel(
     private val getMatchesByDateUseCase: GetMatchesByDateUseCase,
     override val defaultDispatcher: CoroutineDispatcher,
     private val matchViewDataMapper: MatchViewDataMapper,
+    private val dateUtils: DateUtils,
 ) : ViewModel(), DispatcherProvider {
 
     private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
@@ -34,7 +35,7 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    internal fun fetchMatches(date: String = DateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+    fun fetchMatches(date: String = dateUtils.getCurrentDate(), showShimmer: Boolean = false) {
         clearFilter()
         job?.cancel() // cancel previous job
         innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
@@ -52,6 +53,12 @@ class MatchViewModel(
                 }
         }
     }
+
+    fun getStringDate(dateMillis: Long): String? {
+        return dateUtils.getDateFromMilliseconds(dateMillis)
+    }
+
+    fun currentYear(): Int = dateUtils.currentYear()
 
     private fun clearFilter() {
         currentMatchFilterCriteria = MatchFilterCriteria()

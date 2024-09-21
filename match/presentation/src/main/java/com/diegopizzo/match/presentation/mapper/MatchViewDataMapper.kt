@@ -20,10 +20,6 @@ import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
 import com.diegopizzo.match.presentation.viewmodel.MatchFilterCriteria
 import com.diegopizzo.match.presentation.viewmodel.MatchViewState
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
 
 interface MatchViewDataMapper {
     fun mapViewData(
@@ -37,7 +33,7 @@ interface MatchViewDataMapper {
     }
 }
 
-internal class MatchViewDataMapperImpl : MatchViewDataMapper {
+internal class MatchViewDataMapperImpl(private val dateUtils: DateUtils) : MatchViewDataMapper {
 
     override fun mapViewData(
         matchDataList: List<MatchData>,
@@ -49,7 +45,15 @@ internal class MatchViewDataMapperImpl : MatchViewDataMapper {
             .map { mapChipsViewData(it.league, it.league.id == currentMatchFilterCriteria.leagueId) }
             .toMutableList()
 
-        leagueChips.add(0, LFChipViewData(id = 0, text = LIVE_EVENT))
+        // Add Live chip
+        leagueChips.add(
+            0,
+            LFChipViewData(
+                id = 0,
+                text = LIVE_EVENT,
+                selected = currentMatchFilterCriteria.isLive,
+            ),
+        )
 
         val matchViewData = matchDataList.map { mapMatchViewData(it) }
 
@@ -91,14 +95,15 @@ internal class MatchViewDataMapperImpl : MatchViewDataMapper {
     }
 
     private fun mapDatePickerViewData(date: String): List<LFDatePickerViewData> {
-        val dateList = DateUtils.generateDateList(date)
+        val dateList = dateUtils.generateDateList(date)
         return dateList.map {
-            val fullDate = it.format(DateTimeFormatter.ofPattern(DateUtils.DATE_PATTERN))
+            val fullDate = dateUtils.formatDate(it)
+            val calendarInfo = dateUtils.getCalendarDisplayInfo(it)
             LFDatePickerViewData(
-                dayName = it.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
-                dayNumber = it.dayOfMonth.toString(),
+                dayName = calendarInfo.dayName,
+                dayNumber = calendarInfo.dayNumber,
                 fullDate = fullDate,
-                millis = it.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli(),
+                millisUtc = dateUtils.toUtcMilliseconds(it),
                 selected = fullDate == date,
             )
         }
@@ -118,7 +123,7 @@ internal class MatchViewDataMapperImpl : MatchViewDataMapper {
     private fun buildMatchTime(status: StatusData, date: String): String {
         return when (status.matchStatus) {
             FIRST_HALF_KICK_OFF, SECOND_HALF_STARTED, EXTRA_TIME -> "${status.elapsed}′"
-            NOT_STARTED -> DateUtils.getLocalTimeFromUTCDate(date)
+            NOT_STARTED -> dateUtils.getLocalTimeFromUTCDate(date)
             else -> status.matchStatus?.shortName ?: NOT_AVAILABLE.shortName
         }
     }
