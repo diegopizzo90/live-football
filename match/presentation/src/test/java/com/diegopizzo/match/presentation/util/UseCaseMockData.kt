@@ -213,7 +213,7 @@ internal val matchViewDataList: List<LFCardMatchViewData>
             ),
             default.copy(
                 match = default.match.copy(
-                    time = "17:30",
+                    time = "16:30",
                     result = default.match.result!!.copy(
                         resultHome = "",
                         resultAway = "",
@@ -233,7 +233,7 @@ internal val matchViewDataList: List<LFCardMatchViewData>
             ),
             default.copy(
                 match = default.match.copy(
-                    time = "17:30",
+                    time = "16:30",
                     result = default.match.result!!.copy(
                         resultHome = "",
                         resultAway = "",
@@ -267,37 +267,44 @@ internal val datePickerList: List<LFDatePickerViewData>
                 dayName = "Sat",
                 dayNumber = "7",
                 fullDate = "2024-09-07",
+                millisUtc = 1725667200000,
             ),
             LFDatePickerViewData(
                 dayName = "Sun",
                 dayNumber = "8",
                 fullDate = "2024-09-08",
+                millisUtc = 1725753600000,
             ),
             LFDatePickerViewData(
                 dayName = "Mon",
                 dayNumber = "9",
                 fullDate = "2024-09-09",
+                millisUtc = 1725840000000,
             ),
             LFDatePickerViewData(
                 dayName = "Tue",
                 dayNumber = "10",
                 fullDate = "2024-09-10",
+                millisUtc = 1725926400000,
                 selected = true,
             ),
             LFDatePickerViewData(
                 dayName = "Wed",
                 dayNumber = "11",
                 fullDate = "2024-09-11",
+                millisUtc = 1726012800000,
             ),
             LFDatePickerViewData(
                 dayName = "Thu",
                 dayNumber = "12",
                 fullDate = "2024-09-12",
+                millisUtc = 1726099200000,
             ),
             LFDatePickerViewData(
                 dayName = "Fri",
                 dayNumber = "13",
                 fullDate = "2024-09-13",
+                millisUtc = 1726185600000,
             ),
         )
     }

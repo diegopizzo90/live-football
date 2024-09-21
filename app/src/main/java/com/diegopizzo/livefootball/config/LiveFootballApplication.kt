@@ -1,6 +1,7 @@
 package com.diegopizzo.livefootball.config
 
 import android.app.Application
+import com.diegopizzo.core.config.dateUtilsModule
 import com.diegopizzo.core.config.fakeKtorHttpClient
 import com.diegopizzo.core.config.ktorHttpClient
 import com.diegopizzo.league.config.leagueModule
@@ -23,6 +24,7 @@ class LiveFootballApplication : Application() {
                 appNavigatorModule,
                 mainViewModelModule,
                 leagueModule,
+                dateUtilsModule,
                 matchApiModule,
                 matchPresentationModule,
             )

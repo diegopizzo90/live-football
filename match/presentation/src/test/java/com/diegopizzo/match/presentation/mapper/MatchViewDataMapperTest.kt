@@ -1,5 +1,7 @@
 package com.diegopizzo.match.presentation.mapper
 
+import com.diegopizzo.core.utils.DateUtils
+import com.diegopizzo.core.utils.DateUtilsImpl
 import com.diegopizzo.match.presentation.util.datePickerList
 import com.diegopizzo.match.presentation.util.leagueViewDataList
 import com.diegopizzo.match.presentation.util.matchDataListUseCase
@@ -9,14 +11,21 @@ import com.diegopizzo.match.presentation.viewmodel.MatchViewState
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
+import java.time.ZoneOffset
+import java.util.Locale
 
 class MatchViewDataMapperTest {
 
     private lateinit var mapper: MatchViewDataMapper
+    private lateinit var dateUtils: DateUtils
 
     @Before
     fun setUp() {
-        mapper = MatchViewDataMapperImpl()
+        dateUtils = DateUtilsImpl(
+            zoneId = ZoneOffset.UTC,
+            locale = Locale.UK,
+        )
+        mapper = MatchViewDataMapperImpl(dateUtils)
     }
 
     @Test

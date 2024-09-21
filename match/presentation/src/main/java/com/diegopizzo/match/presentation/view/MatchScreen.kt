@@ -88,6 +88,7 @@ fun MatchScreen(
                 showTopBar = true
                 MatchScreenContent(
                     viewData = viewState.data,
+                    currentYear = viewModel.currentYear(),
                     modifier = Modifier.padding(paddingValues),
                     onChipClick = {
                         viewModel.onChipClick(
@@ -96,7 +97,13 @@ fun MatchScreen(
                         )
                     },
                     onDaySelected = {
-                        viewModel.fetchMatches(it, showShimmer = true)
+                        viewModel.fetchMatches(date = it, showShimmer = true)
+                    },
+                    onDaySelectedFromCalendar = {
+                        val date = viewModel.getStringDate(it)
+                        if (date != null) {
+                            viewModel.fetchMatches(date = date, showShimmer = true)
+                        }
                     },
                 )
             }
@@ -128,14 +135,17 @@ fun MatchScreen(
 @Composable
 private fun MatchScreenContent(
     viewData: MatchViewState,
+    currentYear: Int,
     modifier: Modifier = Modifier,
     onChipClick: (viewData: LFChipViewData) -> Unit = {},
     onDaySelected: (date: String) -> Unit = {},
+    onDaySelectedFromCalendar: (dateMillis: Long) -> Unit = {},
 ) {
     val calendarState = rememberLFCalendarState(
+        currentYear = currentYear,
         initialSelectedDateMillis = viewData.datePicker.first {
             it.selected
-        }.millis,
+        }.millisUtc,
     )
     var showCalendar by remember { mutableStateOf(false) }
 
@@ -172,7 +182,9 @@ private fun MatchScreenContent(
                 modifier = Modifier.hazeChild(hazeEffectState),
                 calendarState = calendarState,
                 showCalendar = showCalendar,
-                onDateSelected = { onDaySelected(it) },
+                onDateSelected = {
+                    onDaySelectedFromCalendar(it)
+                },
                 onDismiss = {
                     showCalendar = false
                 },
@@ -233,7 +245,7 @@ private fun Modifier.applyHazeEffect(
 private fun CalendarOverlay(
     calendarState: DatePickerState,
     showCalendar: Boolean,
-    onDateSelected: (date: String) -> Unit,
+    onDateSelected: (dateMillis: Long) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -288,6 +300,7 @@ fun MatchScreenPreview(
     LFTheme {
         MatchScreenContent(
             viewData = viewData,
+            currentYear = 2024,
             modifier = Modifier.background(MaterialTheme.colorScheme.background),
         )
     }

@@ -22,10 +22,11 @@ class MatchViewModel(
     private val getMatchesByDateUseCase: GetMatchesByDateUseCase,
     override val defaultDispatcher: CoroutineDispatcher,
     private val matchViewDataMapper: MatchViewDataMapper,
+    private val dateUtils: DateUtils,
 ) : ViewModel(), DispatcherProvider {
 
     private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
-    val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
+    internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
 
     private var job: Job? = null
     private var currentMatchFilterCriteria: MatchFilterCriteria = MatchFilterCriteria()
@@ -34,7 +35,8 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    fun fetchMatches(date: String = DateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+    fun fetchMatches(date: String = dateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+        clearFilter()
         job?.cancel() // cancel previous job
         innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
         job = backgroundScope.launch {
@@ -50,6 +52,16 @@ class MatchViewModel(
                     }
                 }
         }
+    }
+
+    fun getStringDate(dateMillis: Long): String? {
+        return dateUtils.getDateFromMilliseconds(dateMillis)
+    }
+
+    fun currentYear(): Int = dateUtils.currentYear()
+
+    private fun clearFilter() {
+        currentMatchFilterCriteria = MatchFilterCriteria()
     }
 
     fun onChipClick(chip: LFChipViewData, currentViewState: MatchViewState) {
@@ -71,7 +83,7 @@ class MatchViewModel(
 
     private fun buildFilterCriteria(chip: LFChipViewData): MatchFilterCriteria {
         val filterCriteria = currentMatchFilterCriteria.copy(
-            leagueId = if (!chip.selected) chip.id else null,
+            leagueId = if (!chip.selected && chip.id != 0L) chip.id else null,
             isLive = !chip.selected && chip.text == LIVE_EVENT,
         )
         currentMatchFilterCriteria = filterCriteria
