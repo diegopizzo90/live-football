@@ -5,43 +5,36 @@ import com.diegopizzo.match.api.repository.store.mapper.MatchDataMapper
 import com.diegopizzo.match.api.repository.store.model.MatchData
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.MemoryPolicy
-import org.mobilenativefoundation.store.store5.Store
 import org.mobilenativefoundation.store.store5.StoreBuilder
 import org.mobilenativefoundation.store.store5.impl.extensions.fresh
 import org.mobilenativefoundation.store.store5.impl.extensions.get
-import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration
 
 internal interface MatchStore {
     suspend fun getMatches(
-        leagueId: Long,
-        from: String,
-        to: String,
+        date: String,
         season: String,
         forceRefresh: Boolean = false,
     ): Result<List<MatchData>>
 }
 
 internal class MatchStoreImpl(
-    api: MatchApi,
+    private val api: MatchApi,
     private val mapper: MatchDataMapper,
-    ttlCacheInMilliseconds: Int,
+    ttlCacheInSeconds: Duration,
 ) : MatchStore {
 
-    private val cachePolicy = MemoryPolicy.builder<Any, Any>()
-        .setExpireAfterWrite(ttlCacheInMilliseconds.milliseconds)
-        .build()
+    private val store = StoreBuilder.from(
+        fetcher = provideFetcher(),
+    ).cachePolicy(
+        MemoryPolicy.builder<Any, Any>()
+            .setExpireAfterAccess(ttlCacheInSeconds)
+            .build(),
+    ).build()
 
-    private val store: Store<MatchStoreKey, Result<List<MatchData>>> = StoreBuilder.from(
-        fetcher = provideFetcher(api),
-    ).cachePolicy(cachePolicy).build()
-
-    private fun provideFetcher(
-        api: MatchApi,
-    ): Fetcher<MatchStoreKey, Result<List<MatchData>>> = Fetcher.of { key: MatchStoreKey ->
+    private fun provideFetcher() = Fetcher.of { key: MatchStoreKey ->
         api.getMatches(
-            leagueId = key.leagueId,
-            from = key.from,
-            to = key.to,
+            date = key.date,
             season = key.season,
         ).mapCatching {
             mapper.mapToMatchData(it)
@@ -49,26 +42,19 @@ internal class MatchStoreImpl(
     }
 
     override suspend fun getMatches(
-        leagueId: Long,
-        from: String,
-        to: String,
+        date: String,
         season: String,
         forceRefresh: Boolean,
     ): Result<List<MatchData>> {
         val key = MatchStoreKey(
-            leagueId = leagueId,
-            from = from,
-            to = to,
+            date = date,
             season = season,
         )
-
         return if (forceRefresh) store.fresh(key) else store.get(key)
     }
 }
 
 internal data class MatchStoreKey(
-    val leagueId: Long,
-    val from: String,
-    val to: String,
+    val date: String,
     val season: String,
 )

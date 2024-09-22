@@ -21,7 +21,7 @@ class MatchStoreTest {
         store = MatchStoreImpl(
             api = api,
             mapper = MatchDataMapperImpl(),
-            ttlCacheInMilliseconds = 10,
+            ttlCacheInSeconds = 10,
         )
     }
 

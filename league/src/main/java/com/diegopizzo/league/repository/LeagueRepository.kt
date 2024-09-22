@@ -10,6 +10,7 @@ import kotlinx.coroutines.coroutineScope
 interface LeagueRepository {
     suspend fun fetchLeagues(): Result<Unit>
     suspend fun getLeagues(): Result<List<LeagueData>>
+    suspend fun getLeagueIds(): Result<List<Long>>
 }
 
 internal class LeagueRepositoryImpl(
@@ -50,6 +51,24 @@ internal class LeagueRepositoryImpl(
                 val leagues = LeaguesAvailable.entries.map { league ->
                     async { leagueStore.getLeague(league) }
                 }.awaitAll().map { it.getOrThrow() }
+
+                Result.success(leagues)
+            } catch (e: Exception) {
+                // Handle any exceptions that may have occurred during the process
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun getLeagueIds(): Result<List<Long>> {
+        return coroutineScope {
+            try {
+                // Fetch all leagues concurrently and aggregate results
+                val leagues = LeaguesAvailable.entries.map { league ->
+                    async { leagueStore.getLeague(league) }
+                }.awaitAll()
+                    .map { it.getOrThrow() }  // Handle the success case
+                    .map { it.id }             // Extract the league IDs
 
                 Result.success(leagues)
             } catch (e: Exception) {
