@@ -22,7 +22,7 @@ import com.diegopizzo.match.api.repository.store.model.TeamsData
 
 internal val leagues = listOf(
     LeagueData(
-        id = 1,
+        id = 135,
         name = LeaguesAvailable.SERIE_A.leagueName,
         type = LeagueType.LEAGUE,
         logo = "logo",
@@ -30,7 +30,7 @@ internal val leagues = listOf(
         countryCode = CountryCode.ITALY.code,
     ),
     LeagueData(
-        id = 2,
+        id = 39,
         name = LeaguesAvailable.PREMIER_LEAGUE.leagueName,
         type = LeagueType.LEAGUE,
         logo = "logo",
@@ -93,6 +93,9 @@ internal val matchDataList: List<MatchData>
                     away = null,
                 ),
             ),
+            default.copy(
+                league = default.league.copy(id = 222),
+            ),
         )
     }
 
@@ -150,27 +153,6 @@ internal val matchDataListUseCase: List<MatchData>
                     away = null,
                 ),
             ),
-            default,
-            default.copy(
-                status = StatusData(
-                    matchStatus = MatchStatus.FIRST_HALF_KICK_OFF,
-                    elapsed = 34,
-                ),
-                goals = GoalsData(
-                    home = 0,
-                    away = 0,
-                ),
-            ),
-            default.copy(
-                status = StatusData(
-                    matchStatus = MatchStatus.NOT_STARTED,
-                    elapsed = null,
-                ),
-                goals = GoalsData(
-                    home = null,
-                    away = null,
-                ),
-            ),
         )
     }
 
@@ -200,26 +182,6 @@ internal val matchViewDataList: List<LFCardMatchViewData>
             ),
         )
         return listOf(
-            default,
-            default.copy(
-                match = default.match.copy(
-                    time = "34′",
-                    result = default.match.result!!.copy(
-                        resultHome = "0",
-                        resultAway = "0",
-                    ),
-                    isLiveMatch = true,
-                ),
-            ),
-            default.copy(
-                match = default.match.copy(
-                    time = "16:30",
-                    result = default.match.result!!.copy(
-                        resultHome = "",
-                        resultAway = "",
-                    ),
-                ),
-            ),
             default,
             default.copy(
                 match = default.match.copy(

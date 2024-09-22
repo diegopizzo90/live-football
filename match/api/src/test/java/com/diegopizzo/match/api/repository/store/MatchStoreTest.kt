@@ -11,6 +11,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 class MatchStoreTest {
     private lateinit var store: MatchStore
@@ -21,48 +22,43 @@ class MatchStoreTest {
         store = MatchStoreImpl(
             api = api,
             mapper = MatchDataMapperImpl(),
-            ttlCacheInMilliseconds = 10,
+            ttlCacheInSeconds = 10.seconds,
         )
     }
 
     @Test
     fun `should call api only once when called multiple times with the same parameters`() = runTest {
-        val leagueId = 1L
-        val from = "2024-01-01"
-        val to = "2024-01-02"
+        val date = "2024-01-01"
         val season = "2024"
 
-        coEvery { api.getMatches(leagueId, from, to, season) } returns Result.success(matchResponseDto)
+        coEvery { api.getMatches(date, season) } returns Result.success(matchResponseDto)
 
         // First call
-        store.getMatches(leagueId, from, to, season)
+        store.getMatches(date, season)
         // Second call
-        val actualCached = store.getMatches(leagueId, from, to, season)
+        val actualCached = store.getMatches(date, season)
         val expected = Result.success(matchDataList)
 
         assertEquals(actualCached, expected)
-        coVerify(exactly = 1) { api.getMatches(any(), any(), any(), any()) }
+        coVerify(exactly = 1) { api.getMatches(any(), any()) }
     }
 
     @Test
     fun `should call api multiple times when the parameters are different`() = runTest {
-        val leagueId1 = 1L
-        val leagueId2 = 2L
-
-        val from = "2024-01-01"
-        val to = "2024-01-02"
+        val date1 = "2024-02-01"
+        val date2 = "2024-01-01"
         val season = "2024"
 
-        coEvery { api.getMatches(leagueId1, from, to, season) } returns Result.success(matchResponseDto)
-        coEvery { api.getMatches(leagueId2, from, to, season) } returns Result.success(matchResponseDto)
+        coEvery { api.getMatches(date1, season) } returns Result.success(matchResponseDto)
+        coEvery { api.getMatches(date2, season) } returns Result.success(matchResponseDto)
 
         // First call
-        store.getMatches(leagueId1, from, to, season)
+        store.getMatches(date1, season)
         // Second call
-        val actualCached = store.getMatches(leagueId2, from, to, season)
+        val actualCached = store.getMatches(date2, season)
         val expected = Result.success(matchDataList)
 
         assertEquals(actualCached, expected)
-        coVerify(exactly = 2) { api.getMatches(any(), any(), any(), any()) }
+        coVerify(exactly = 2) { api.getMatches(any(), any()) }
     }
 }

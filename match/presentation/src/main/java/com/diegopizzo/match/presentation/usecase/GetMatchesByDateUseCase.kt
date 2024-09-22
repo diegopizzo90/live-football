@@ -10,8 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 interface GetMatchesByDateUseCase {
     suspend operator fun invoke(
-        from: String,
-        to: String,
+        date: String,
         forceRefresh: Boolean = false,
     ): Flow<Result<List<MatchData>>>
 }
@@ -23,26 +22,26 @@ internal class GetMatchesByDateUseCaseImpl(
 ) : GetMatchesByDateUseCase {
 
     override suspend operator fun invoke(
-        from: String,
-        to: String,
+        date: String,
         forceRefresh: Boolean,
     ): Flow<Result<List<MatchData>>> {
         return flow {
             while (true) {
-                val leagueResults = leagueRepository.getLeagues()
-                if (leagueResults.isFailure) emit(Result.failure(leagueResults.exceptionOrNull()!!))
+                val leagueIds = leagueRepository.getLeagueIds()
+                if (leagueIds.isFailure) emit(Result.failure(leagueIds.exceptionOrNull()!!))
 
-                val matches = leagueResults.getOrThrow().flatMap { league ->
-                    matchRepository.getMatches(
-                        leagueId = league.id,
-                        from = from,
-                        to = to,
-                        forceRefresh = forceRefresh,
-                    ).getOrThrow()
-                }
+                val matches = matchRepository.getMatches(
+                    date = date,
+                    forceRefresh = forceRefresh,
+                )
 
-                val result = Result.success(matches)
-                emit(result)
+                if (matches.isFailure) emit(Result.failure(matches.exceptionOrNull()!!))
+
+                val filteredMatches = matches.getOrThrow().filter { match ->
+                    match.league.id in leagueIds.getOrThrow()
+                }.sortedBy { it.date }
+
+                emit(Result.success(filteredMatches))
                 delay(refreshIntervalMs)
             }
         }.catch {

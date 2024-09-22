@@ -29,6 +29,7 @@ class MatchViewModel(
     internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
 
     private var job: Job? = null
+    private var currentDateSelected: String? = null
     private var currentMatchFilterCriteria: MatchFilterCriteria = MatchFilterCriteria()
 
     init {
@@ -36,11 +37,13 @@ class MatchViewModel(
     }
 
     fun fetchMatches(date: String = dateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+        if (date == currentDateSelected) return
+        currentDateSelected = date
         clearFilter()
         job?.cancel() // cancel previous job
         innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
         job = backgroundScope.launch {
-            getMatchesByDateUseCase(from = date, to = date)
+            getMatchesByDateUseCase(date = date)
                 .cancellable()
                 .collect { result ->
                     result.mapCatching {

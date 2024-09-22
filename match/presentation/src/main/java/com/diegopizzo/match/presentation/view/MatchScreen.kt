@@ -199,10 +199,7 @@ private fun MatchListContent(
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
-    val matches by remember {
-        mutableStateOf(viewData.matches.filterByMatchCriteria(viewData.filterCriteria))
-    }
-    val matchesFiltered = matches.filterByMatchCriteria(viewData.filterCriteria)
+    val matchesFiltered = viewData.matches.filterByMatchCriteria(viewData.filterCriteria)
 
     LaunchedEffect(matchesFiltered.size) {
         lazyListState.animateScrollToItem(0)

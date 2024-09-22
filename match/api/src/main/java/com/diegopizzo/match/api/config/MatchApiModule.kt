@@ -10,6 +10,7 @@ import com.diegopizzo.match.api.repository.store.MatchStoreImpl
 import com.diegopizzo.match.api.repository.store.mapper.MatchDataMapper
 import com.diegopizzo.match.api.repository.store.mapper.MatchDataMapperImpl
 import org.koin.dsl.module
+import kotlin.time.Duration.Companion.seconds
 
 private val matchNetworkModule = module {
     single<MatchApi> {
@@ -25,7 +26,7 @@ private val matchDataMapperModule = module {
 
 private val matchStoreModule = module {
     single<MatchStore> {
-        MatchStoreImpl(get(), get(), ttlCacheInMilliseconds = 60000) // 1 minute
+        MatchStoreImpl(get(), get(), ttlCacheInSeconds = 30.seconds)
     }
 }
 

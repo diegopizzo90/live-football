@@ -8,25 +8,19 @@ import io.ktor.client.request.parameter
 
 internal interface MatchApi {
     suspend fun getMatches(
-        leagueId: Long,
-        from: String,
-        to: String,
+        date: String,
         season: String,
     ): Result<MatchResponseDto>
 }
 
 internal class MatchApiImpl(private val client: HttpClient) : MatchApi {
     override suspend fun getMatches(
-        leagueId: Long,
-        from: String,
-        to: String,
+        date: String,
         season: String,
     ): Result<MatchResponseDto> {
         return runCatching {
             client.get("fixtures") {
-                parameter("league", leagueId.toString())
-                parameter("from", from)
-                parameter("to", to)
+                parameter("date", date)
                 parameter("season", season)
             }.body()
         }
