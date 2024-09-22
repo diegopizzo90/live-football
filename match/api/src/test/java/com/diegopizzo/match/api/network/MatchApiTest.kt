@@ -16,9 +16,7 @@ class MatchApiTest {
         matchApi = MatchApiImpl(mockHttpClient(matchApiResponse))
 
         val actual = matchApi.getMatches(
-            leagueId = 0L,
-            from = "2024-08-25",
-            to = "2024-08-25",
+            date = "2024-08-25",
             season = "2024",
         )
 
@@ -36,9 +34,7 @@ class MatchApiTest {
         )
 
         val actual = matchApi.getMatches(
-            leagueId = 0L,
-            from = "2024-08-25",
-            to = "2024-08-25",
+            date = "2024-08-25",
             season = "2024",
         )
 

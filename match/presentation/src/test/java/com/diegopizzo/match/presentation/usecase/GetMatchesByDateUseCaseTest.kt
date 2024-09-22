@@ -36,47 +36,44 @@ class GetMatchesByDateUseCaseTest {
     @Test
     fun `get matches by date successfully and verify result`() = runTest {
         val date = "2024-01-01"
-        coEvery { leagueRepository.getLeagues() }.returns(Result.success(leagues))
-        coEvery { matchRepository.getMatches(1, date, date) }.returns(Result.success(matchDataList))
-        coEvery { matchRepository.getMatches(2, date, date) }.returns(Result.success(matchDataList))
+        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagues.map { it.id }))
+        coEvery { matchRepository.getMatches(date) }.returns(Result.success(matchDataList))
 
-        val actual = getMatchesByDateUseCase(date, date).first()
+        val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.success(matchDataListUseCase)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagues() }
-        coVerify(exactly = 2) { matchRepository.getMatches(any(), date, date) }
+        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 1) { matchRepository.getMatches(date) }
     }
 
     @Test
     fun `get matches by date but leagues not found verify result`() = runTest {
         val error = Throwable("error")
         val date = "2024-01-01"
-        coEvery { leagueRepository.getLeagues() }.returns(Result.failure(error))
-        coEvery { matchRepository.getMatches(1, date, date) }.returns(Result.success(matchDataList))
-        coEvery { matchRepository.getMatches(2, date, date) }.returns(Result.success(matchDataList))
+        coEvery { leagueRepository.getLeagueIds() }.returns(Result.failure(error))
+        coEvery { matchRepository.getMatches(date) }.returns(Result.success(matchDataList))
 
-        val actual = getMatchesByDateUseCase(date, date).first()
+        val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagues() }
-        coVerify(exactly = 0) { matchRepository.getMatches(any(), date, date) }
+        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 0) { matchRepository.getMatches(date) }
     }
 
     @Test
     fun `get matches by date but matches not found verify result`() = runTest {
         val date = "2024-01-01"
         val error = Throwable("error")
-        coEvery { leagueRepository.getLeagues() }.returns(Result.success(leagues))
-        coEvery { matchRepository.getMatches(1, date, date) }.returns(Result.success(matchDataList))
-        coEvery { matchRepository.getMatches(2, date, date) }.returns(Result.failure(error))
+        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagues.map { it.id }))
+        coEvery { matchRepository.getMatches(date) }.returns(Result.failure(error))
 
-        val actual = getMatchesByDateUseCase(date, date).first()
+        val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagues() }
-        coVerify(exactly = 2) { matchRepository.getMatches(any(), date, date) }
+        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 1) { matchRepository.getMatches(date) }
     }
 }

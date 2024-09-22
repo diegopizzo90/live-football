@@ -67,8 +67,8 @@ internal class LeagueRepositoryImpl(
                 val leagues = LeaguesAvailable.entries.map { league ->
                     async { leagueStore.getLeague(league) }
                 }.awaitAll()
-                    .map { it.getOrThrow() }  // Handle the success case
-                    .map { it.id }             // Extract the league IDs
+                    .map { it.getOrThrow() }
+                    .map { it.id }
 
                 Result.success(leagues)
             } catch (e: Exception) {

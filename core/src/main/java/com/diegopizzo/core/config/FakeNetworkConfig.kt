@@ -16,7 +16,6 @@ import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
-import kotlin.random.Random
 
 private val responseHeaders = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
