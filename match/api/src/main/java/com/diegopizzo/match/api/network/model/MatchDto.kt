@@ -28,6 +28,7 @@ internal data class MatchDto(
     @SerialName("id") val id: Long,
     @SerialName("timezone") val timezone: String,
     @SerialName("date") val date: String,
+    @SerialName("timestamp") val timestampUtc: Long,
     @SerialName("status") val status: StatusDto,
 )
 

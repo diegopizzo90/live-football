@@ -32,16 +32,11 @@ internal class GetMatchesByDateUseCaseImpl(
 
                 val matches = matchRepository.getMatches(
                     date = date,
+                    leagueIds = leagueIds.getOrThrow(),
                     forceRefresh = forceRefresh,
                 )
 
-                if (matches.isFailure) emit(Result.failure(matches.exceptionOrNull()!!))
-
-                val filteredMatches = matches.getOrThrow().filter { match ->
-                    match.league.id in leagueIds.getOrThrow()
-                }.sortedBy { it.date }
-
-                emit(Result.success(filteredMatches))
+                emit(matches)
                 delay(refreshIntervalMs)
             }
         }.catch {

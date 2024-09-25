@@ -1,4 +1,4 @@
-package com.diegopizzo.league.repository.store.config
+package com.diegopizzo.league.repository.store.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -12,6 +12,6 @@ import com.diegopizzo.league.repository.store.entity.LeagueEntity
     version = 1,
 )
 @TypeConverters(value = [LeagueTypeConverter::class])
-abstract class AppDatabase : RoomDatabase() {
+internal abstract class LeagueDatabase : RoomDatabase() {
     abstract fun leagueDao(): LeagueDao
 }

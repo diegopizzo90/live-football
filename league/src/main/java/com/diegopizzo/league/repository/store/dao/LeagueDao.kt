@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
 @Dao
-interface LeagueDao {
+internal interface LeagueDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLeague(vararg league: LeagueEntity)
 

@@ -4,6 +4,7 @@ data class MatchData(
     val id: Long,
     val timezone: String,
     val date: String,
+    val timestampUtc: Long,
     val status: StatusData,
     val league: LeagueData,
     val teams: TeamsData,

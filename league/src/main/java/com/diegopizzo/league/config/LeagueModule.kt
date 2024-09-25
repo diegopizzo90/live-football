@@ -8,8 +8,8 @@ import com.diegopizzo.league.repository.LeagueRepositoryImpl
 import com.diegopizzo.league.repository.mapper.LeagueDataMapper
 import com.diegopizzo.league.repository.store.LeagueStore
 import com.diegopizzo.league.repository.store.LeagueStoreImpl
-import com.diegopizzo.league.repository.store.config.AppDatabase
 import com.diegopizzo.league.repository.store.dao.LeagueDao
+import com.diegopizzo.league.repository.store.database.LeagueDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
@@ -33,7 +33,7 @@ private val leagueMapperModule = module {
 
 private val leagueDatabaseModule = module {
     single {
-        Room.databaseBuilder(androidApplication(), AppDatabase::class.java, "lf-league-db").build()
+        Room.databaseBuilder(androidApplication(), LeagueDatabase::class.java, "lf-league-db").build()
     }
 }
 
@@ -43,7 +43,7 @@ private val leagueDaoModule = module {
     }
 }
 
-private fun provideLeagueDao(database: AppDatabase): LeagueDao {
+private fun provideLeagueDao(database: LeagueDatabase): LeagueDao {
     return database.leagueDao()
 }
 

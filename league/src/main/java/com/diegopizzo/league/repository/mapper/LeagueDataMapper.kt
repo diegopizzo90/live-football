@@ -5,7 +5,7 @@ import com.diegopizzo.league.config.LeagueType
 import com.diegopizzo.league.repository.model.LeagueData
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 
-class LeagueDataMapper {
+internal class LeagueDataMapper {
 
     fun mapLeagueData(leagueResponse: LeagueResponseDto, leagueType: LeagueType): LeagueData {
         with(leagueResponse) {

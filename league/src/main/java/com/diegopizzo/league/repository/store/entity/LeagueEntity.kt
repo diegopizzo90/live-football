@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import com.diegopizzo.league.config.LeagueType
 
 @Entity(tableName = "league", indices = [Index(value = ["name"], unique = true)])
-data class LeagueEntity(
+internal data class LeagueEntity(
     @PrimaryKey val leagueId: Long,
     val name: String,
     val logo: String,
