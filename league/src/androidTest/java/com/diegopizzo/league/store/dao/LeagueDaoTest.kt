@@ -6,8 +6,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.diegopizzo.league.config.CountryCode
 import com.diegopizzo.league.config.LeaguesAvailable
-import com.diegopizzo.league.repository.store.config.AppDatabase
 import com.diegopizzo.league.repository.store.dao.LeagueDao
+import com.diegopizzo.league.repository.store.database.LeagueDatabase
 import com.diegopizzo.league.repository.store.entity.LeagueEntity
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.test.runTest
@@ -20,13 +20,13 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class LeagueDaoTest {
 
-    private lateinit var database: AppDatabase
+    private lateinit var database: LeagueDatabase
     private lateinit var leagueDao: LeagueDao
 
     @Before
     fun setup() {
         val context = ApplicationProvider.getApplicationContext<Context>()
-        database = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        database = Room.inMemoryDatabaseBuilder(context, LeagueDatabase::class.java).build()
         leagueDao = database.leagueDao()
     }
 

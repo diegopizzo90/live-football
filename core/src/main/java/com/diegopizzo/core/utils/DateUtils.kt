@@ -76,6 +76,20 @@ interface DateUtils {
      * @return CalendarDisplayInfo containing day name and day number.
      */
     fun getCalendarDisplayInfo(date: LocalDate): CalendarDisplayInfo
+
+    /**
+     * Gets the current Unix timestamp (the number of seconds since January 1, 1970)
+     * @return current timestamp.
+     */
+    fun getCurrentUnixTimestamp(): Long
+
+    /**
+     * Check if the provided date is the current date.
+     * @param dateString String representation of a date
+     * @param format String date format, default: DEFAULT_DATE_PATTERN
+     * @return Boolean
+     */
+    fun isToday(dateString: String, format: String = DEFAULT_DATE_PATTERN): Boolean
 }
 
 class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : DateUtils {
@@ -96,6 +110,10 @@ class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : Da
 
     override fun getCurrentDate(): String {
         return LocalDate.now(zoneId).format(DateTimeFormatter.ISO_LOCAL_DATE)
+    }
+
+    override fun getCurrentUnixTimestamp(): Long {
+        return ZonedDateTime.now(zoneId).toInstant().epochSecond
     }
 
     override fun getLocalTimeFromUTCDate(utcDate: String): String {
@@ -134,5 +152,11 @@ class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : Da
 
     override fun toUtcMilliseconds(date: LocalDate): Long {
         return date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
+    }
+
+    override fun isToday(dateString: String, format: String): Boolean {
+        val formatter = DateTimeFormatter.ofPattern(format)
+        val date = LocalDate.parse(dateString, formatter)
+        return date.isEqual(LocalDate.now(zoneId))
     }
 }

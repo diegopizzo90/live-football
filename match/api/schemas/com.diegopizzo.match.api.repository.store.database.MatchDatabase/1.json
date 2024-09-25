@@ -1,0 +1,191 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "24fa6f0cc7acfd1d4ff4999084f78100",
+    "entities": [
+      {
+        "tableName": "match_response",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matchResponseId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT NOT NULL, `season` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "matchResponseId",
+            "columnName": "matchResponseId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "season",
+            "columnName": "season",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "matchResponseId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_match_response_date_season",
+            "unique": true,
+            "columnNames": [
+              "date",
+              "season"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_match_response_date_season` ON `${TABLE_NAME}` (`date`, `season`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "match",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matchId` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `date` TEXT NOT NULL, `timestampUtc` INTEGER NOT NULL, `matchResponseFkId` INTEGER NOT NULL, `matchStatus` TEXT, `elapsed` INTEGER, `idLeague` INTEGER NOT NULL, `nameLeague` TEXT NOT NULL, `logoLeague` TEXT, `idHome` INTEGER NOT NULL, `nameHome` TEXT NOT NULL, `logoHome` TEXT NOT NULL, `idAway` INTEGER NOT NULL, `nameAway` TEXT NOT NULL, `logoAway` TEXT NOT NULL, `home` INTEGER, `away` INTEGER, PRIMARY KEY(`matchId`), FOREIGN KEY(`matchResponseFkId`) REFERENCES `match_response`(`matchResponseId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "matchId",
+            "columnName": "matchId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timezone",
+            "columnName": "timezone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestampUtc",
+            "columnName": "timestampUtc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchResponseFkId",
+            "columnName": "matchResponseFkId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status.matchStatus",
+            "columnName": "matchStatus",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "status.elapsed",
+            "columnName": "elapsed",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "league.idLeague",
+            "columnName": "idLeague",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "league.nameLeague",
+            "columnName": "nameLeague",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "league.logoLeague",
+            "columnName": "logoLeague",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "teams.home.idHome",
+            "columnName": "idHome",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teams.home.nameHome",
+            "columnName": "nameHome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teams.home.logoHome",
+            "columnName": "logoHome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teams.away.idAway",
+            "columnName": "idAway",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teams.away.nameAway",
+            "columnName": "nameAway",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teams.away.logoAway",
+            "columnName": "logoAway",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "goals.home",
+            "columnName": "home",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "goals.away",
+            "columnName": "away",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "matchId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "match_response",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "matchResponseFkId"
+            ],
+            "referencedColumns": [
+              "matchResponseId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '24fa6f0cc7acfd1d4ff4999084f78100')"
+    ]
+  }
+}
