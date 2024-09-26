@@ -6,6 +6,7 @@ import com.diegopizzo.match.api.repository.store.dao.MatchDbRepository
 import com.diegopizzo.match.api.repository.store.entity.MatchesResponseEntity
 import com.diegopizzo.match.api.repository.store.mapper.MatchMapper
 import com.diegopizzo.match.api.repository.store.model.MatchData
+import com.diegopizzo.match.api.repository.store.model.MatchStatus
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.MemoryPolicy
 import org.mobilenativefoundation.store.store5.SourceOfTruth
@@ -106,7 +107,7 @@ internal class MatchStoreImpl(
             // Retrieve match data
             val matchData = store.get(key)
 
-            // Return fresh data if required, otherwise return existing data
+            // Return fresh data if required, otherwise return existing cached xdata
             if (isFreshDataRequired(matchData, key.date)) {
                 Result.success(store.fresh(key))
             } else {
@@ -118,11 +119,15 @@ internal class MatchStoreImpl(
     }
 
     private fun isFreshDataRequired(matchData: List<MatchData>, date: String): Boolean {
-        if (!dateUtils.isToday(date)) return false
-        val timestamps = matchData.map { it.timestampUtc }
+        if (!dateUtils.isToday(date) || matchData.all { isMatchFinished(it.status.matchStatus) }) return false
+        val timestamps = matchData.map { it }
         val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
 
-        return timestamps.any { currentTimestamp >= it }
+        return timestamps.any { currentTimestamp >= it.timestampUtc }
+    }
+
+    private fun isMatchFinished(status: MatchStatus?): Boolean {
+        return status?.isLive == false
     }
 }
 

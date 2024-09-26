@@ -45,6 +45,7 @@ internal val matchDataList: List<MatchData>
             id = 8675,
             timezone = "UTC",
             date = "2024-08-25T16:30:00+00:00",
+            timestampUtc = 0,
             status = StatusData(
                 matchStatus = MatchStatus.MATCH_FINISHED,
                 elapsed = null,
@@ -93,9 +94,6 @@ internal val matchDataList: List<MatchData>
                     away = null,
                 ),
             ),
-            default.copy(
-                league = default.league.copy(id = 222),
-            ),
         )
     }
 
@@ -105,6 +103,7 @@ internal val matchDataListUseCase: List<MatchData>
             id = 8675,
             timezone = "UTC",
             date = "2024-08-25T16:30:00+00:00",
+            timestampUtc = 0,
             status = StatusData(
                 matchStatus = MatchStatus.MATCH_FINISHED,
                 elapsed = null,
@@ -196,10 +195,7 @@ internal val matchViewDataList: List<LFCardMatchViewData>
             default.copy(
                 match = default.match.copy(
                     time = "16:30",
-                    result = default.match.result!!.copy(
-                        resultHome = "",
-                        resultAway = "",
-                    ),
+                    result = null,
                 ),
             ),
         )

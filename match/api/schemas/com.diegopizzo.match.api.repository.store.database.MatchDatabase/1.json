@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "24fa6f0cc7acfd1d4ff4999084f78100",
+    "identityHash": "ba4d268174ecc230aa58b46cca7b79ef",
     "entities": [
       {
         "tableName": "match_response",
@@ -49,7 +49,7 @@
       },
       {
         "tableName": "match",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matchId` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `date` TEXT NOT NULL, `timestampUtc` INTEGER NOT NULL, `matchResponseFkId` INTEGER NOT NULL, `matchStatus` TEXT, `elapsed` INTEGER, `idLeague` INTEGER NOT NULL, `nameLeague` TEXT NOT NULL, `logoLeague` TEXT, `idHome` INTEGER NOT NULL, `nameHome` TEXT NOT NULL, `logoHome` TEXT NOT NULL, `idAway` INTEGER NOT NULL, `nameAway` TEXT NOT NULL, `logoAway` TEXT NOT NULL, `home` INTEGER, `away` INTEGER, PRIMARY KEY(`matchId`), FOREIGN KEY(`matchResponseFkId`) REFERENCES `match_response`(`matchResponseId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`matchId` INTEGER NOT NULL, `timezone` TEXT NOT NULL, `date` TEXT NOT NULL, `timestampUtc` INTEGER NOT NULL, `matchResponseFkId` INTEGER NOT NULL, `matchStatus` TEXT, `elapsed` INTEGER, `idLeague` INTEGER NOT NULL, `nameLeague` TEXT NOT NULL, `logoLeague` TEXT, `idHome` INTEGER NOT NULL, `nameHome` TEXT NOT NULL, `logoHome` TEXT NOT NULL, `idAway` INTEGER NOT NULL, `nameAway` TEXT NOT NULL, `logoAway` TEXT NOT NULL, `home` INTEGER, `away` INTEGER, `homePenaltyScore` INTEGER, `awayPenaltyScore` INTEGER, PRIMARY KEY(`matchId`), FOREIGN KEY(`matchResponseFkId`) REFERENCES `match_response`(`matchResponseId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "matchId",
@@ -158,6 +158,18 @@
             "columnName": "away",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "penalty.homePenaltyScore",
+            "columnName": "homePenaltyScore",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "penalty.awayPenaltyScore",
+            "columnName": "awayPenaltyScore",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -185,7 +197,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '24fa6f0cc7acfd1d4ff4999084f78100')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba4d268174ecc230aa58b46cca7b79ef')"
     ]
   }
 }

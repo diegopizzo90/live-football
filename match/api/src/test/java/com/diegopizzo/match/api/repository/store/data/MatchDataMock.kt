@@ -7,6 +7,7 @@ import com.diegopizzo.match.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchResponseEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.match.api.repository.store.entity.TeamsEntity
 import com.diegopizzo.match.api.repository.store.model.AwayData
@@ -15,6 +16,7 @@ import com.diegopizzo.match.api.repository.store.model.HomeData
 import com.diegopizzo.match.api.repository.store.model.LeagueData
 import com.diegopizzo.match.api.repository.store.model.MatchData
 import com.diegopizzo.match.api.repository.store.model.MatchStatus
+import com.diegopizzo.match.api.repository.store.model.PenaltyData
 import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.api.repository.store.model.TeamsData
 
@@ -49,6 +51,10 @@ internal val matchEntityList = listOf(
             home = null,
             away = null,
         ),
+        penalty = PenaltyEntity(
+            homePenaltyScore = null,
+            awayPenaltyScore = null,
+        ),
     ),
     MatchEntity(
         matchId = 1223609,
@@ -79,6 +85,10 @@ internal val matchEntityList = listOf(
         goals = GoalsEntity(
             home = 0,
             away = 1,
+        ),
+        penalty = PenaltyEntity(
+            homePenaltyScore = null,
+            awayPenaltyScore = null,
         ),
     ),
     MatchEntity(
@@ -111,6 +121,10 @@ internal val matchEntityList = listOf(
             home = null,
             away = null,
         ),
+        penalty = PenaltyEntity(
+            homePenaltyScore = null,
+            awayPenaltyScore = null,
+        ),
     ),
     MatchEntity(
         matchId = 1223614,
@@ -141,6 +155,10 @@ internal val matchEntityList = listOf(
         goals = GoalsEntity(
             home = 2,
             away = 1,
+        ),
+        penalty = PenaltyEntity(
+            homePenaltyScore = null,
+            awayPenaltyScore = null,
         ),
     ),
 )
@@ -184,6 +202,10 @@ internal val matchDataList = listOf(
             home = null,
             away = null,
         ),
+        penalty = PenaltyData(
+            home = null,
+            away = null,
+        ),
     ),
     MatchData(
         id = 1223609,
@@ -215,6 +237,10 @@ internal val matchDataList = listOf(
             home = 0,
             away = 1,
         ),
+        penalty = PenaltyData(
+            home = null,
+            away = null,
+        ),
     ),
     MatchData(
         id = 1223610,
@@ -243,6 +269,10 @@ internal val matchDataList = listOf(
             logo = "https://media.api-sports.io/football/leagues/135.png",
         ),
         goals = GoalsData(
+            home = null,
+            away = null,
+        ),
+        penalty = PenaltyData(
             home = null,
             away = null,
         ),
@@ -276,6 +306,10 @@ internal val matchDataList = listOf(
         goals = GoalsData(
             home = 2,
             away = 1,
+        ),
+        penalty = PenaltyData(
+            home = null,
+            away = null,
         ),
     ),
 )

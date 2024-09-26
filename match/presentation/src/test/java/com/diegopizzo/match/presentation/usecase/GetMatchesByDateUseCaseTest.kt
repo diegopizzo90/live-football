@@ -36,44 +36,47 @@ class GetMatchesByDateUseCaseTest {
     @Test
     fun `get matches by date successfully and verify result`() = runTest {
         val date = "2024-01-01"
-        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagues.map { it.id }))
-        coEvery { matchRepository.getMatches(date) }.returns(Result.success(matchDataList))
+        val leagueIds = leagues.map { it.id }
+        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagueIds))
+        coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.success(matchDataList))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.success(matchDataListUseCase)
 
         assertEquals(expected, actual)
         coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
-        coVerify(exactly = 1) { matchRepository.getMatches(date) }
+        coVerify(exactly = 1) { matchRepository.getMatches(date, leagueIds) }
     }
 
     @Test
     fun `get matches by date but leagues not found verify result`() = runTest {
         val error = Throwable("error")
         val date = "2024-01-01"
+        val leagueIds = leagues.map { it.id }
         coEvery { leagueRepository.getLeagueIds() }.returns(Result.failure(error))
-        coEvery { matchRepository.getMatches(date) }.returns(Result.success(matchDataList))
+        coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.success(matchDataList))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
         coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
-        coVerify(exactly = 0) { matchRepository.getMatches(date) }
+        coVerify(exactly = 0) { matchRepository.getMatches(date, leagueIds) }
     }
 
     @Test
     fun `get matches by date but matches not found verify result`() = runTest {
         val date = "2024-01-01"
         val error = Throwable("error")
-        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagues.map { it.id }))
-        coEvery { matchRepository.getMatches(date) }.returns(Result.failure(error))
+        val leagueIds = leagues.map { it.id }
+        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagueIds))
+        coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.failure(error))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
         coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
-        coVerify(exactly = 1) { matchRepository.getMatches(date) }
+        coVerify(exactly = 1) { matchRepository.getMatches(date, leagueIds) }
     }
 }
