@@ -9,6 +9,7 @@ data class MatchData(
     val league: LeagueData,
     val teams: TeamsData,
     val goals: GoalsData,
+    val penalty: PenaltyData? = null,
 )
 
 data class StatusData(
@@ -44,27 +45,32 @@ data class GoalsData(
     val away: Int? = null,
 )
 
-enum class MatchStatus(val shortName: String) {
-    TIME_TO_BE_DEFINED("TBD"),
-    NOT_STARTED("NS"),
-    FIRST_HALF_KICK_OFF("1H"),
-    HALF_TIME("HT"),
-    SECOND_HALF_STARTED("2H"),
-    EXTRA_TIME("ET"),
-    PENALTY_IN_PROGRESS("P"),
-    MATCH_FINISHED("FT"),
-    MATCH_FINISHED_AFTER_EXTRA_TIME("AET"),
-    MATCH_FINISHED_AFTER_PENALTY("PEN"),
-    BREAK_TIME("BT"),
-    MATCH_SUSPENDED("SUSP"),
-    MATCH_INTERRUPTED("INT"),
-    MATCH_POSTPONED("PST"),
-    MATCH_CANCELED("CANC"),
-    MATCH_ABANDONED("ABD"),
-    TECHNICAL_LOSS("AWD"),
-    WALKOVER("WO"),
-    LIVE("LIVE"),
-    NOT_AVAILABLE("NA"),
+data class PenaltyData(
+    val home: Int? = null,
+    val away: Int? = null,
+)
+
+enum class MatchStatus(val shortName: String, val isLive: Boolean, val isMatchPlaying: Boolean) {
+    TIME_TO_BE_DEFINED(shortName = "TBD", isLive = false, isMatchPlaying = false),
+    NOT_STARTED(shortName = "NS", isLive = true, isMatchPlaying = false),
+    FIRST_HALF_KICK_OFF(shortName = "1H", isLive = true, isMatchPlaying = true),
+    HALF_TIME(shortName = "HT", isLive = true, isMatchPlaying = false),
+    SECOND_HALF_STARTED(shortName = "2H", isLive = true, isMatchPlaying = true),
+    EXTRA_TIME(shortName = "ET", isLive = true, isMatchPlaying = true),
+    PENALTY_IN_PROGRESS(shortName = "P", isLive = true, isMatchPlaying = true),
+    MATCH_FINISHED(shortName = "FT", isLive = false, isMatchPlaying = false),
+    MATCH_FINISHED_AFTER_EXTRA_TIME(shortName = "AET", isLive = false, isMatchPlaying = false),
+    MATCH_FINISHED_AFTER_PENALTY(shortName = "PEN", isLive = false, isMatchPlaying = false),
+    BREAK_TIME(shortName = "BT", isLive = true, isMatchPlaying = false),
+    MATCH_SUSPENDED(shortName = "SUSP", isLive = true, isMatchPlaying = false),
+    MATCH_INTERRUPTED(shortName = "INT", isLive = true, isMatchPlaying = false),
+    MATCH_POSTPONED(shortName = "PST", isLive = true, isMatchPlaying = false),
+    MATCH_CANCELED(shortName = "CANC", isLive = false, isMatchPlaying = false),
+    MATCH_ABANDONED(shortName = "ABD", isLive = false, isMatchPlaying = false),
+    TECHNICAL_LOSS(shortName = "AWD", isLive = true, isMatchPlaying = false),
+    WALKOVER(shortName = "WO", isLive = true, isMatchPlaying = false),
+    LIVE(shortName = "LIVE", isLive = true, isMatchPlaying = true),
+    NOT_AVAILABLE(shortName = "NA", isLive = false, isMatchPlaying = false),
     ;
 
     companion object {

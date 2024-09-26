@@ -3,6 +3,7 @@ package com.diegopizzo.match.api.repository.store.mapper
 import com.diegopizzo.match.api.network.model.GoalsDto
 import com.diegopizzo.match.api.network.model.LeagueDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
+import com.diegopizzo.match.api.network.model.PenaltyDto
 import com.diegopizzo.match.api.network.model.StatusDto
 import com.diegopizzo.match.api.network.model.TeamsDto
 import com.diegopizzo.match.api.repository.store.entity.AwayEntity
@@ -12,6 +13,7 @@ import com.diegopizzo.match.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchResponseEntity
 import com.diegopizzo.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.match.api.repository.store.entity.TeamsEntity
 import com.diegopizzo.match.api.repository.store.model.AwayData
@@ -20,6 +22,7 @@ import com.diegopizzo.match.api.repository.store.model.HomeData
 import com.diegopizzo.match.api.repository.store.model.LeagueData
 import com.diegopizzo.match.api.repository.store.model.MatchData
 import com.diegopizzo.match.api.repository.store.model.MatchStatus
+import com.diegopizzo.match.api.repository.store.model.PenaltyData
 import com.diegopizzo.match.api.repository.store.model.StatusData
 import com.diegopizzo.match.api.repository.store.model.TeamsData
 
@@ -40,6 +43,7 @@ internal class MatchMapperImpl : MatchMapper {
                 league = mapToLeagueData(it.league),
                 teams = mapToTeamsData(it.teams),
                 goals = mapToGoalsData(it.goals),
+                penalty = it.penalty?.let { penalty -> mapToPenaltyData(penalty) },
             )
         }
     }
@@ -61,6 +65,7 @@ internal class MatchMapperImpl : MatchMapper {
                     league = mapToLeagueEntity(it.league),
                     teams = mapToTeamsEntity(it.teams),
                     goals = mapToGoalsEntity(it.goals),
+                    penalty = it.score?.penalty?.let { penalty -> mapToPenaltyEntity(penalty) },
                 )
             },
         )
@@ -88,6 +93,15 @@ internal class MatchMapperImpl : MatchMapper {
             return GoalsData(
                 home = home,
                 away = away,
+            )
+        }
+    }
+
+    private fun mapToPenaltyData(penalty: PenaltyEntity): PenaltyData {
+        with(penalty) {
+            return PenaltyData(
+                home = homePenaltyScore,
+                away = awayPenaltyScore,
             )
         }
     }
@@ -131,6 +145,15 @@ internal class MatchMapperImpl : MatchMapper {
             return GoalsEntity(
                 home = home,
                 away = away,
+            )
+        }
+    }
+
+    private fun mapToPenaltyEntity(penaltyDto: PenaltyDto): PenaltyEntity {
+        with(penaltyDto) {
+            return PenaltyEntity(
+                homePenaltyScore = home,
+                awayPenaltyScore = away,
             )
         }
     }

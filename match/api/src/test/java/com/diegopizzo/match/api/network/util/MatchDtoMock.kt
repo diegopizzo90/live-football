@@ -8,6 +8,8 @@ import com.diegopizzo.match.api.network.model.MatchDto
 import com.diegopizzo.match.api.network.model.MatchMainDto
 import com.diegopizzo.match.api.network.model.MatchResponseDto
 import com.diegopizzo.match.api.network.model.MatchStatusDto
+import com.diegopizzo.match.api.network.model.PenaltyDto
+import com.diegopizzo.match.api.network.model.ScoreDto
 import com.diegopizzo.match.api.network.model.StatusDto
 import com.diegopizzo.match.api.network.model.TeamsDto
 
@@ -45,6 +47,12 @@ internal val matchResponseDto = MatchResponseDto(
                 home = null,
                 away = null,
             ),
+            score = ScoreDto(
+                penalty = PenaltyDto(
+                    home = null,
+                    away = null,
+                ),
+            ),
         ),
         MatchMainDto(
             match = MatchDto(
@@ -77,6 +85,12 @@ internal val matchResponseDto = MatchResponseDto(
             goals = GoalsDto(
                 home = 0,
                 away = 1,
+            ),
+            score = ScoreDto(
+                penalty = PenaltyDto(
+                    home = null,
+                    away = null,
+                ),
             ),
         ),
         MatchMainDto(
@@ -111,6 +125,12 @@ internal val matchResponseDto = MatchResponseDto(
                 home = null,
                 away = null,
             ),
+            score = ScoreDto(
+                penalty = PenaltyDto(
+                    home = null,
+                    away = null,
+                ),
+            ),
         ),
         MatchMainDto(
             match = MatchDto(
@@ -143,6 +163,12 @@ internal val matchResponseDto = MatchResponseDto(
             goals = GoalsDto(
                 home = 2,
                 away = 1,
+            ),
+            score = ScoreDto(
+                penalty = PenaltyDto(
+                    home = null,
+                    away = null,
+                ),
             ),
         ),
     ),

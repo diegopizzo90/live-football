@@ -58,14 +58,23 @@ fun LFCellMatch(
                 LFVerticalSpacer(height = SpaceTokens.Large)
                 LFCellIcon(viewData = cellIconAway)
             }
-            Column(
-                modifier = Modifier.weight(.1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                result?.let {
+            result?.let {
+                Column(
+                    modifier = Modifier.weight(.1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     LFHeadlineMedium(text = it.resultHome)
                     LFVerticalSpacer(height = SpaceTokens.ExtraLarge)
                     LFHeadlineMedium(text = it.resultAway)
+                }
+            }
+            penaltyResult?.let {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    LFHeadlineMedium(text = "(${it.resultHome})")
+                    LFVerticalSpacer(height = SpaceTokens.ExtraLarge)
+                    LFHeadlineMedium(text = "(${it.resultAway})")
                 }
             }
         }
@@ -79,6 +88,7 @@ data class LFCellMatchViewData(
     val cellIconHome: LFCellIconViewData,
     val cellIconAway: LFCellIconViewData,
     val result: LFCellResultViewData? = null,
+    val penaltyResult: LFCellResultViewData? = null,
     val time: String,
     val isLiveMatch: Boolean = false,
 )
@@ -123,6 +133,10 @@ private class LFCellMatchPreviewParameterProvider : PreviewParameterProvider<LFC
     override val values: Sequence<LFCellMatchViewData>
         get() = listOf(
             default,
-            default.copy(time = "23'", result = LFCellResultViewData("1", "2")),
+            default.copy(
+                time = "23'",
+                result = LFCellResultViewData("1", "2"),
+                penaltyResult = LFCellResultViewData("5", "6"),
+            ),
         ).asSequence()
 }

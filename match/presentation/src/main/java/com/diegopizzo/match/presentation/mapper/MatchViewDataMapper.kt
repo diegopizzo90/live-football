@@ -45,15 +45,17 @@ internal class MatchViewDataMapperImpl(private val dateUtils: DateUtils) : Match
             .map { mapChipsViewData(it.league, it.league.id == currentMatchFilterCriteria.leagueId) }
             .toMutableList()
 
-        // Add Live chip
-        leagueChips.add(
-            0,
-            LFChipViewData(
-                id = 0,
-                text = LIVE_EVENT,
-                selected = currentMatchFilterCriteria.isLive,
-            ),
-        )
+        if (matchDataList.any { isLive(it.status) }) {
+            // Add Live chip
+            leagueChips.add(
+                0,
+                LFChipViewData(
+                    id = 0,
+                    text = LIVE_EVENT,
+                    selected = currentMatchFilterCriteria.isLive,
+                ),
+            )
+        }
 
         val matchViewData = matchDataList.map { mapMatchViewData(it) }
 
@@ -83,10 +85,18 @@ internal class MatchViewDataMapperImpl(private val dateUtils: DateUtils) : Match
                         ),
                         text = teams.away.name,
                     ),
-                    result = LFCellResultViewData(
-                        resultHome = goals.home?.toString() ?: "",
-                        resultAway = goals.away?.toString() ?: "",
-                    ),
+                    result = goals.takeIf { it.home != null && it.away != null }?.let {
+                        LFCellResultViewData(
+                            resultHome = goals.home.toString(),
+                            resultAway = goals.away.toString(),
+                        )
+                    },
+                    penaltyResult = penalty?.takeIf { it.home != null && it.away != null }?.let {
+                        LFCellResultViewData(
+                            resultHome = it.home.toString(),
+                            resultAway = it.away.toString(),
+                        )
+                    },
                     time = buildMatchTime(status, date),
                     isLiveMatch = isLive(status),
                 ),
@@ -129,11 +139,6 @@ internal class MatchViewDataMapperImpl(private val dateUtils: DateUtils) : Match
     }
 
     private fun isLive(status: StatusData): Boolean {
-        val liveStatus = setOf(
-            FIRST_HALF_KICK_OFF,
-            SECOND_HALF_STARTED,
-            EXTRA_TIME,
-        )
-        return status.matchStatus in liveStatus
+        return status.matchStatus?.isMatchPlaying == true
     }
 }

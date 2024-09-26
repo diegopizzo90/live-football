@@ -14,6 +14,7 @@ internal data class MatchMainDto(
     @SerialName("league") val league: LeagueDto,
     @SerialName("teams") val teams: TeamsDto,
     @SerialName("goals") val goals: GoalsDto,
+    @SerialName("score") val score: ScoreDto? = null,
 )
 
 @Serializable
@@ -60,6 +61,17 @@ internal data class AwayDto(
 
 @Serializable
 internal data class GoalsDto(
+    @SerialName("home") val home: Int? = null,
+    @SerialName("away") val away: Int? = null,
+)
+
+@Serializable
+internal data class ScoreDto(
+    @SerialName("penalty") val penalty: PenaltyDto? = null,
+)
+
+@Serializable
+internal data class PenaltyDto(
     @SerialName("home") val home: Int? = null,
     @SerialName("away") val away: Int? = null,
 )

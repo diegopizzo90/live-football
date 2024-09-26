@@ -38,6 +38,7 @@ internal data class MatchEntity(
     @Embedded val league: LeagueEntity,
     @Embedded val teams: TeamsEntity,
     @Embedded val goals: GoalsEntity,
+    @Embedded val penalty: PenaltyEntity? = null,
     val matchResponseFkId: Long = 0,
 )
 
@@ -81,4 +82,9 @@ internal data class AwayEntity(
 internal data class GoalsEntity(
     val home: Int? = null,
     val away: Int? = null,
+)
+
+internal data class PenaltyEntity(
+    val homePenaltyScore: Int? = null,
+    val awayPenaltyScore: Int? = null,
 )
