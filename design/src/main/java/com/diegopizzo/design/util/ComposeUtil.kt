@@ -17,6 +17,13 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.diegopizzo.design.theme.ColorPalette
+import dev.chrisbanes.haze.HazeDefaults
+import dev.chrisbanes.haze.HazeDefaults.tint
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.HazeTint
+import dev.chrisbanes.haze.haze
 
 @Composable
 fun Modifier.conditional(
@@ -93,3 +100,15 @@ fun measureTextWidth(text: String, textStyle: TextStyle = TextStyle.Default): Dp
     val widthInPixels = textMeasurer.measure(text, textStyle).size.width
     return with(LocalDensity.current) { widthInPixels.toDp() }
 }
+
+@Composable
+fun Modifier.applyHazeEffect(
+    state: HazeState,
+): Modifier = haze(
+    state = state,
+    style = HazeDefaults.style(
+        backgroundColor = MaterialTheme.colorScheme.background,
+        blurRadius = 6.dp,
+        tint = HazeTint.Color(tint(ColorPalette.Dark6)),
+    ),
+)

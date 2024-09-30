@@ -107,7 +107,7 @@ internal class MatchStoreImpl(
             // Retrieve match data
             val matchData = store.get(key)
 
-            // Return fresh data if required, otherwise return existing cached xdata
+            // Return fresh data if required, otherwise return existing cached data
             if (isFreshDataRequired(matchData, key.date)) {
                 Result.success(store.fresh(key))
             } else {
@@ -119,15 +119,24 @@ internal class MatchStoreImpl(
     }
 
     private fun isFreshDataRequired(matchData: List<MatchData>, date: String): Boolean {
-        if (!dateUtils.isToday(date) || matchData.all { isMatchFinished(it.status.matchStatus) }) return false
-        val timestamps = matchData.map { it }
-        val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
+        if (!dateUtils.isToday(date)) {
+            return matchData.any { isMatchPlaying(it.status.matchStatus) }
+        }
 
-        return timestamps.any { currentTimestamp >= it.timestampUtc }
+        if (matchData.all { isMatchFinished(it.status.matchStatus) }) {
+            return false
+        }
+
+        val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
+        return matchData.any { currentTimestamp >= it.timestampUtc }
     }
 
     private fun isMatchFinished(status: MatchStatus?): Boolean {
         return status?.isLive == false
+    }
+
+    private fun isMatchPlaying(status: MatchStatus?): Boolean {
+        return status?.isMatchPlaying == true
     }
 }
 
