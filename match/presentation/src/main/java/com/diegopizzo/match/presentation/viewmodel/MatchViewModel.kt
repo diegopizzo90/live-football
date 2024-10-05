@@ -31,6 +31,9 @@ class MatchViewModel(
     private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
     internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
 
+    private val currentViewData: MatchViewState?
+        get() = (viewStates.value as? ViewState.Success)?.data
+
     private val innerEffect: Channel<MatchViewEffect> = Channel()
     val effect = innerEffect.receiveAsFlow()
 
@@ -42,7 +45,11 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    fun fetchMatches(date: String = dateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+    fun fetchMatches(
+        date: String = dateUtils.getCurrentDate(),
+        showShimmer: Boolean = false,
+        snackbarMessage: String? = null,
+    ) {
         if (date == currentDateSelected) return
         currentDateSelected = date
         clearFilter()
@@ -56,11 +63,19 @@ class MatchViewModel(
                         matchViewDataMapper.mapViewData(it, currentMatchFilterCriteria, date)
                     }.onSuccess {
                         innerViewStates.postValue(ViewState.Success(it))
-                        showSnackbar("Snackbar message")
                     }.onFailure {
-                        innerViewStates.postValue(ViewState.Error())
+                        onError(snackbarMessage)
                     }
                 }
+        }
+    }
+
+    private suspend fun onError(snackbarMessage: String?) {
+        if (snackbarMessage != null && currentViewData != null) {
+            innerViewStates.postValue(ViewState.Success(currentViewData!!))
+            showSnackbar(message = snackbarMessage)
+        } else {
+            innerViewStates.postValue(ViewState.Error())
         }
     }
 
@@ -72,6 +87,10 @@ class MatchViewModel(
 
     private fun clearFilter() {
         currentMatchFilterCriteria = MatchFilterCriteria()
+    }
+
+    private fun stopLoading() {
+        innerViewStates.postValue(ViewState.Loading(isLoading = false, showShimmer = false))
     }
 
     fun onChipClick(chip: LFChipViewData, currentViewState: MatchViewState) {

@@ -90,6 +90,14 @@ interface DateUtils {
      * @return Boolean
      */
     fun isToday(dateString: String, format: String = DEFAULT_DATE_PATTERN): Boolean
+
+    /**
+     * Check if the provided date is the past.
+     * @param dateString String representation of a date
+     * @param format String date format, default: DEFAULT_DATE_PATTERN
+     * @return Boolean
+     */
+    fun isInThePast(dateString: String, format: String = DEFAULT_DATE_PATTERN): Boolean
 }
 
 class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : DateUtils {
@@ -154,9 +162,18 @@ class DateUtilsImpl(private val zoneId: ZoneId, private val locale: Locale) : Da
         return date.atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli()
     }
 
-    override fun isToday(dateString: String, format: String): Boolean {
+    private fun formatDate(dateString: String, format: String): LocalDate {
         val formatter = DateTimeFormatter.ofPattern(format)
-        val date = LocalDate.parse(dateString, formatter)
+        return LocalDate.parse(dateString, formatter)
+    }
+
+    override fun isToday(dateString: String, format: String): Boolean {
+        val date = formatDate(dateString, format)
         return date.isEqual(LocalDate.now(zoneId))
+    }
+
+    override fun isInThePast(dateString: String, format: String): Boolean {
+        val date = formatDate(dateString, format)
+        return date.isBefore(LocalDate.now(zoneId))
     }
 }

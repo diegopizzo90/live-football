@@ -114,19 +114,26 @@ internal class MatchStoreImpl(
                 Result.success(matchData)
             }
         }.getOrElse {
-            Result.failure(it)
+            try {
+                Result.success(store.get(key))
+            } catch (e: Exception) {
+                Result.failure(it)
+            }
         }
     }
 
     private fun isFreshDataRequired(matchData: List<MatchData>, date: String): Boolean {
-        if (!dateUtils.isToday(date)) {
+        // If the date is not today or in the past, check if any match is still playing
+        if (!dateUtils.isToday(date) || dateUtils.isInThePast(date)) {
             return matchData.any { isMatchPlaying(it.status.matchStatus) }
         }
 
+        // If all matches have finished, no fresh data is required
         if (matchData.all { isMatchFinished(it.status.matchStatus) }) {
             return false
         }
 
+        // Check if any match timestamp is in the past compared to the current time
         val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
         return matchData.any { currentTimestamp >= it.timestampUtc }
     }

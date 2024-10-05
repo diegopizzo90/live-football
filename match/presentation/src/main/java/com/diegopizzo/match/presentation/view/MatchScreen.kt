@@ -78,6 +78,8 @@ fun MatchScreen(
     var showTopBar by remember { mutableStateOf(true) }
     val snackbarState = remember { SnackbarHostState() }
 
+    val errorMessage: String = stringResource(R.string.something_went_wrong)
+
     LaunchedEffect(effect) {
         when (effect) {
             is MatchViewEffect.ShowSnackbar -> {
@@ -115,28 +117,40 @@ fun MatchScreen(
                         )
                     },
                     onDaySelected = {
-                        viewModel.fetchMatches(date = it, showShimmer = true)
+                        viewModel.fetchMatches(
+                            date = it,
+                            showShimmer = true,
+                            snackbarMessage = errorMessage,
+                        )
                     },
                     onDaySelectedFromCalendar = {
                         val date = viewModel.getStringDate(it)
                         if (date != null) {
-                            viewModel.fetchMatches(date = date, showShimmer = true)
+                            viewModel.fetchMatches(
+                                date = date,
+                                showShimmer = true,
+                                snackbarMessage = errorMessage,
+                            )
                         }
                     },
                 )
             }
 
             is ViewState.Loading -> {
-                if (viewState.showShimmer) {
-                    showTopBar = true
-                    LoadingMatchScreen(
-                        modifier = Modifier.padding(paddingValues),
-                    )
-                } else {
-                    showTopBar = false
-                    LFLoadingScreen(
-                        modifier = Modifier.padding(paddingValues),
-                    )
+                when {
+                    viewState.showShimmer -> {
+                        showTopBar = true
+                        LoadingMatchScreen(
+                            modifier = Modifier.padding(paddingValues),
+                        )
+                    }
+
+                    viewState.isLoading -> {
+                        showTopBar = false
+                        LFLoadingScreen(
+                            modifier = Modifier.padding(paddingValues),
+                        )
+                    }
                 }
             }
 
