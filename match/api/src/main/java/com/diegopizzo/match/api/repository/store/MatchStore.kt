@@ -113,12 +113,14 @@ internal class MatchStoreImpl(
             } else {
                 Result.success(matchData)
             }
-        }.getOrElse {
-            try {
-                Result.success(store.get(key))
-            } catch (e: Exception) {
-                Result.failure(it)
-            }
+        }.getOrElse { error ->
+            // On error, try returning cached data, otherwise return failure
+            runCatching {
+                store.get(key)
+            }.fold(
+                onSuccess = { Result.success(it) },
+                onFailure = { Result.failure(error) },
+            )
         }
     }
 

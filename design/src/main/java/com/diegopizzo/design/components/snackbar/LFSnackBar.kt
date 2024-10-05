@@ -24,10 +24,11 @@ fun LFSnackbar(
     viewData: LFSnackBarViewData,
     modifier: Modifier = Modifier,
 ) {
-
     val label = viewData.actionLabel ?: if (!viewData.withDismissActionIcon && viewData.withDismissActionText) {
         stringResource(R.string.dismiss)
-    } else null
+    } else {
+        null
+    }
 
     val snackbarViewData = viewData.copy(
         actionLabel = label,
