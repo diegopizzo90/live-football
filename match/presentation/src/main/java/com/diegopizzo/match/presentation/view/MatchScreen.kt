@@ -25,8 +25,11 @@ import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -37,7 +40,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
 import com.diegopizzo.core.base.ViewState
 import com.diegopizzo.design.components.card.LFCardMatch
 import com.diegopizzo.design.components.chips.LFChipViewData
@@ -46,24 +48,23 @@ import com.diegopizzo.design.components.datepicker.LFCalendar
 import com.diegopizzo.design.components.datepicker.LFDatePicker
 import com.diegopizzo.design.components.datepicker.rememberLFCalendarState
 import com.diegopizzo.design.components.divider.LFVerticalSpacer
+import com.diegopizzo.design.components.snackbar.LFSnackbar
+import com.diegopizzo.design.components.snackbar.toLFSnackbarViewData
 import com.diegopizzo.design.components.toolbar.LFTopAppBar
 import com.diegopizzo.design.screen.LFEmptyScreen
 import com.diegopizzo.design.screen.LFErrorScreen
 import com.diegopizzo.design.screen.LFLoadingScreen
-import com.diegopizzo.design.theme.ColorPalette
 import com.diegopizzo.design.theme.LFTheme
 import com.diegopizzo.design.tokens.SpaceTokens
+import com.diegopizzo.design.util.applyHazeEffect
 import com.diegopizzo.design.util.conditional
 import com.diegopizzo.match.presentation.R
 import com.diegopizzo.match.presentation.view.util.MatchScreenPreviewParameterProvider
+import com.diegopizzo.match.presentation.viewmodel.MatchViewEffect
 import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
 import com.diegopizzo.match.presentation.viewmodel.MatchViewState
 import com.diegopizzo.match.presentation.viewmodel.filterByMatchCriteria
-import dev.chrisbanes.haze.HazeDefaults
-import dev.chrisbanes.haze.HazeDefaults.tint
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.HazeTint
-import dev.chrisbanes.haze.haze
 import dev.chrisbanes.haze.hazeChild
 
 @Composable
@@ -71,15 +72,34 @@ fun MatchScreen(
     viewModel: MatchViewModel,
 ) {
     val nullableViewState by viewModel.viewStates.observeAsState()
+    val effect by viewModel.effect.collectAsState(null)
 
     val viewState = nullableViewState ?: return
     var showTopBar by remember { mutableStateOf(true) }
+    val snackbarState = remember { SnackbarHostState() }
+
+    val errorMessage: String = stringResource(R.string.something_went_wrong)
+
+    LaunchedEffect(effect) {
+        when (effect) {
+            is MatchViewEffect.ShowSnackbar -> {
+                snackbarState.showSnackbar(
+                    visuals = (effect as MatchViewEffect.ShowSnackbar).viewData.visuals,
+                )
+            }
+
+            null -> Unit
+        }
+    }
 
     Scaffold(
         topBar = {
             if (showTopBar) {
                 LFTopAppBar(title = stringResource(R.string.matches))
             }
+        },
+        snackbarHost = {
+            SnackbarContent(snackbarState)
         },
     ) { paddingValues ->
 
@@ -97,28 +117,40 @@ fun MatchScreen(
                         )
                     },
                     onDaySelected = {
-                        viewModel.fetchMatches(date = it, showShimmer = true)
+                        viewModel.fetchMatches(
+                            date = it,
+                            showShimmer = true,
+                            snackbarMessage = errorMessage,
+                        )
                     },
                     onDaySelectedFromCalendar = {
                         val date = viewModel.getStringDate(it)
                         if (date != null) {
-                            viewModel.fetchMatches(date = date, showShimmer = true)
+                            viewModel.fetchMatches(
+                                date = date,
+                                showShimmer = true,
+                                snackbarMessage = errorMessage,
+                            )
                         }
                     },
                 )
             }
 
             is ViewState.Loading -> {
-                if (viewState.showShimmer) {
-                    showTopBar = true
-                    LoadingMatchScreen(
-                        modifier = Modifier.padding(paddingValues),
-                    )
-                } else {
-                    showTopBar = false
-                    LFLoadingScreen(
-                        modifier = Modifier.padding(paddingValues),
-                    )
+                when {
+                    viewState.showShimmer -> {
+                        showTopBar = true
+                        LoadingMatchScreen(
+                            modifier = Modifier.padding(paddingValues),
+                        )
+                    }
+
+                    viewState.isLoading -> {
+                        showTopBar = false
+                        LFLoadingScreen(
+                            modifier = Modifier.padding(paddingValues),
+                        )
+                    }
                 }
             }
 
@@ -129,6 +161,15 @@ fun MatchScreen(
                 )
             }
         }
+    }
+}
+
+@Composable
+private fun SnackbarContent(snackbarHostState: SnackbarHostState) {
+    SnackbarHost(snackbarHostState) {
+        LFSnackbar(
+            viewData = it.toLFSnackbarViewData(),
+        )
     }
 }
 
@@ -225,18 +266,6 @@ private fun MatchListContent(
         }
     }
 }
-
-@Composable
-private fun Modifier.applyHazeEffect(
-    state: HazeState,
-): Modifier = haze(
-    state = state,
-    style = HazeDefaults.style(
-        backgroundColor = MaterialTheme.colorScheme.background,
-        blurRadius = 6.dp,
-        tint = HazeTint.Color(tint(ColorPalette.Dark6)),
-    ),
-)
 
 @Composable
 private fun CalendarOverlay(

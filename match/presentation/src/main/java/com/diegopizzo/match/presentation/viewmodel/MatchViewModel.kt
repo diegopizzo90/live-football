@@ -10,12 +10,15 @@ import com.diegopizzo.core.utils.DateUtils
 import com.diegopizzo.design.components.card.LFCardMatchViewData
 import com.diegopizzo.design.components.chips.LFChipViewData
 import com.diegopizzo.design.components.datepicker.LFDatePickerViewData
+import com.diegopizzo.design.components.snackbar.LFSnackBarViewData
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
 import com.diegopizzo.match.presentation.usecase.GetMatchesByDateUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.cancellable
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class MatchViewModel(
@@ -28,6 +31,12 @@ class MatchViewModel(
     private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
     internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
 
+    private val currentViewData: MatchViewState?
+        get() = (viewStates.value as? ViewState.Success)?.data
+
+    private val innerEffect: Channel<MatchViewEffect> = Channel()
+    val effect = innerEffect.receiveAsFlow()
+
     private var job: Job? = null
     private var currentDateSelected: String? = null
     private var currentMatchFilterCriteria: MatchFilterCriteria = MatchFilterCriteria()
@@ -36,7 +45,11 @@ class MatchViewModel(
         fetchMatches()
     }
 
-    fun fetchMatches(date: String = dateUtils.getCurrentDate(), showShimmer: Boolean = false) {
+    fun fetchMatches(
+        date: String = dateUtils.getCurrentDate(),
+        showShimmer: Boolean = false,
+        snackbarMessage: String? = null,
+    ) {
         if (date == currentDateSelected) return
         currentDateSelected = date
         clearFilter()
@@ -51,9 +64,18 @@ class MatchViewModel(
                     }.onSuccess {
                         innerViewStates.postValue(ViewState.Success(it))
                     }.onFailure {
-                        innerViewStates.postValue(ViewState.Error())
+                        onError(snackbarMessage)
                     }
                 }
+        }
+    }
+
+    private suspend fun onError(snackbarMessage: String?) {
+        if (snackbarMessage != null && currentViewData != null) {
+            innerViewStates.postValue(ViewState.Success(currentViewData!!))
+            showSnackbar(message = snackbarMessage)
+        } else {
+            innerViewStates.postValue(ViewState.Error())
         }
     }
 
@@ -65,6 +87,10 @@ class MatchViewModel(
 
     private fun clearFilter() {
         currentMatchFilterCriteria = MatchFilterCriteria()
+    }
+
+    private fun stopLoading() {
+        innerViewStates.postValue(ViewState.Loading(isLoading = false, showShimmer = false))
     }
 
     fun onChipClick(chip: LFChipViewData, currentViewState: MatchViewState) {
@@ -82,6 +108,16 @@ class MatchViewModel(
         )
 
         innerViewStates.postValue(ViewState.Success(newViewState))
+    }
+
+    private suspend fun showSnackbar(message: String) {
+        innerEffect.send(
+            MatchViewEffect.ShowSnackbar(
+                viewData = LFSnackBarViewData(
+                    message = message,
+                ),
+            ),
+        )
     }
 
     private fun buildFilterCriteria(chip: LFChipViewData): MatchFilterCriteria {
@@ -107,6 +143,10 @@ data class MatchFilterCriteria(
     val leagueId: Long? = null,
     val isLive: Boolean = false,
 )
+
+sealed class MatchViewEffect {
+    class ShowSnackbar(val viewData: LFSnackBarViewData) : MatchViewEffect()
+}
 
 internal fun List<LFCardMatchViewData>.filterByMatchCriteria(criteria: MatchFilterCriteria): List<LFCardMatchViewData> {
     return when {

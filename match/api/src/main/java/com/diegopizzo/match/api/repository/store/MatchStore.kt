@@ -107,27 +107,45 @@ internal class MatchStoreImpl(
             // Retrieve match data
             val matchData = store.get(key)
 
-            // Return fresh data if required, otherwise return existing cached xdata
+            // Return fresh data if required, otherwise return existing cached data
             if (isFreshDataRequired(matchData, key.date)) {
                 Result.success(store.fresh(key))
             } else {
                 Result.success(matchData)
             }
-        }.getOrElse {
-            Result.failure(it)
+        }.getOrElse { error ->
+            // On error, try returning cached data, otherwise return failure
+            runCatching {
+                store.get(key)
+            }.fold(
+                onSuccess = { Result.success(it) },
+                onFailure = { Result.failure(error) },
+            )
         }
     }
 
     private fun isFreshDataRequired(matchData: List<MatchData>, date: String): Boolean {
-        if (!dateUtils.isToday(date) || matchData.all { isMatchFinished(it.status.matchStatus) }) return false
-        val timestamps = matchData.map { it }
-        val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
+        // If the date is not today or in the past, check if any match is still playing
+        if (!dateUtils.isToday(date) || dateUtils.isInThePast(date)) {
+            return matchData.any { isMatchPlaying(it.status.matchStatus) }
+        }
 
-        return timestamps.any { currentTimestamp >= it.timestampUtc }
+        // If all matches have finished, no fresh data is required
+        if (matchData.all { isMatchFinished(it.status.matchStatus) }) {
+            return false
+        }
+
+        // Check if any match timestamp is in the past compared to the current time
+        val currentTimestamp = dateUtils.getCurrentUnixTimestamp()
+        return matchData.any { currentTimestamp >= it.timestampUtc }
     }
 
     private fun isMatchFinished(status: MatchStatus?): Boolean {
         return status?.isLive == false
+    }
+
+    private fun isMatchPlaying(status: MatchStatus?): Boolean {
+        return status?.isMatchPlaying == true
     }
 }
 
