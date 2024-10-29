@@ -1,0 +1,36 @@
+package com.diegopizzo.design.theme
+
+import androidx.compose.material3.darkColorScheme
+
+internal val DarkColorScheme = darkColorScheme(
+    primary = ColorPalette.Primary,
+    onPrimary = ColorPalette.White,
+    primaryContainer = ColorPalette.Dark3,
+    onPrimaryContainer = ColorPalette.Primary,
+    secondary = ColorPalette.Secondary,
+    onSecondary = ColorPalette.White,
+    secondaryContainer = ColorPalette.Dark4,
+    onSecondaryContainer = ColorPalette.Secondary,
+    tertiary = ColorPalette.GradientBlue,
+    onTertiary = ColorPalette.White,
+    tertiaryContainer = ColorPalette.Dark3,
+    onTertiaryContainer = ColorPalette.GradientBlue,
+    background = ColorPalette.Dark1,
+    onBackground = ColorPalette.Grey50,
+    surface = ColorPalette.Dark2,
+    onSurface = ColorPalette.Grey50,
+    surfaceVariant = ColorPalette.Dark3,
+    onSurfaceVariant = ColorPalette.Grey300,
+    error = ColorPalette.Error,
+    onError = ColorPalette.White,
+    errorContainer = ColorPalette.Dark3,
+    onErrorContainer = ColorPalette.Error,
+    outline = ColorPalette.Grey500,
+    inverseOnSurface = ColorPalette.Grey900,
+    inverseSurface = ColorPalette.Grey50,
+    inversePrimary = ColorPalette.Pink,
+    surfaceTint = ColorPalette.Primary,
+    outlineVariant = ColorPalette.Grey400,
+    scrim = ColorPalette.Grey900,
+    surfaceContainer = ColorPalette.Dark5,
+)
