@@ -31,5 +31,5 @@ enum class CountryCode(val code: String) {
     FRANCE("FR"),
     GERMANY("DE"),
     SPAIN("ES"),
-    ENGLAND("GB"),
+    ENGLAND("GB-ENG"),
 }
