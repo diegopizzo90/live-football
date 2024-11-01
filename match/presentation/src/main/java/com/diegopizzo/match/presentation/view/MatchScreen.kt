@@ -65,11 +65,12 @@ import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
 import com.diegopizzo.match.presentation.viewmodel.MatchViewState
 import com.diegopizzo.match.presentation.viewmodel.filterByMatchCriteria
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.hazeChild
+import dev.chrisbanes.haze.haze
 
 @Composable
 fun MatchScreen(
     viewModel: MatchViewModel,
+    onNavigationIconClick: () -> Unit = {},
 ) {
     val nullableViewState by viewModel.viewStates.observeAsState()
     val effect by viewModel.effect.collectAsState(null)
@@ -95,7 +96,10 @@ fun MatchScreen(
     Scaffold(
         topBar = {
             if (showTopBar) {
-                LFTopAppBar(title = stringResource(R.string.matches))
+                LFTopAppBar(
+                    title = stringResource(R.string.matches),
+                    onNavigationIconClick = onNavigationIconClick,
+                )
             }
         },
         snackbarHost = {
@@ -211,16 +215,16 @@ private fun MatchScreenContent(
 
             if (viewData.matches.isEmpty()) {
                 LFEmptyScreen(
-                    modifier = Modifier.applyHazeEffect(hazeEffectState),
+                    modifier = Modifier.haze(hazeEffectState),
                 )
             } else {
                 MatchListContent(
-                    modifier = Modifier.applyHazeEffect(hazeEffectState),
+                    modifier = Modifier.haze(hazeEffectState),
                     viewData = viewData,
                 )
             }
             CalendarOverlay(
-                modifier = Modifier.hazeChild(hazeEffectState),
+                modifier = Modifier.applyHazeEffect(hazeEffectState),
                 calendarState = calendarState,
                 showCalendar = showCalendar,
                 onDateSelected = {
