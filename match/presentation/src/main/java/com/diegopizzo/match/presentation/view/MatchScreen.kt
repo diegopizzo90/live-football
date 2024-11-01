@@ -70,7 +70,6 @@ import dev.chrisbanes.haze.haze
 @Composable
 fun MatchScreen(
     viewModel: MatchViewModel,
-    onNavigationIconClick: () -> Unit = {},
 ) {
     val nullableViewState by viewModel.viewStates.observeAsState()
     val effect by viewModel.effect.collectAsState(null)
@@ -98,7 +97,6 @@ fun MatchScreen(
             if (showTopBar) {
                 LFTopAppBar(
                     title = stringResource(R.string.matches),
-                    onNavigationIconClick = onNavigationIconClick,
                 )
             }
         },
