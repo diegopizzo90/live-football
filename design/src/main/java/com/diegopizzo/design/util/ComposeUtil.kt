@@ -19,11 +19,11 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.diegopizzo.design.theme.ColorPalette
+import dev.chrisbanes.haze.HazeChildScope
 import dev.chrisbanes.haze.HazeDefaults
-import dev.chrisbanes.haze.HazeDefaults.tint
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeTint
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeChild
 
 @Composable
 fun Modifier.conditional(
@@ -104,11 +104,14 @@ fun measureTextWidth(text: String, textStyle: TextStyle = TextStyle.Default): Dp
 @Composable
 fun Modifier.applyHazeEffect(
     state: HazeState,
-): Modifier = haze(
+    block: (HazeChildScope.() -> Unit)? = null,
+): Modifier = hazeChild(
     state = state,
     style = HazeDefaults.style(
         backgroundColor = MaterialTheme.colorScheme.background,
         blurRadius = 6.dp,
-        tint = HazeTint.Color(tint(ColorPalette.Dark6)),
+        tint = HazeTint(ColorPalette.Dark6.copy(alpha = 0.7f)),
     ),
-)
+) {
+    block?.invoke(this)
+}
