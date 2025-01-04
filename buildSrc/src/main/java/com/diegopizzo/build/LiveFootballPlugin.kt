@@ -15,7 +15,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
 
-private const val COMPILE_SDK = 34
+private const val COMPILE_SDK = 35
 private const val TARGET_SDK = 33
 private const val MIN_SDK = 29
 
@@ -88,7 +88,7 @@ class LiveFootballPlugin : Plugin<Project> {
                 versionCode = appVersion.versionCode
                 versionName = appVersion.versionName
                 buildConfigField("String", "API_KEY", apiKey)
-                buildConfigField("Boolean", "IS_FAKE_NETWORK_RESPONSE", "false")
+                buildConfigField("Boolean", "IS_FAKE_NETWORK_RESPONSE", "true")
             }
 
             sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("src/androidTest/assets"))
