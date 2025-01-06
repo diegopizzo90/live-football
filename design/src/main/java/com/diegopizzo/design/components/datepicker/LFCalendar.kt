@@ -90,7 +90,7 @@ internal object LFCalendarDefaults {
 fun rememberLFCalendarState(currentYear: Int, initialSelectedDateMillis: Long? = null): DatePickerState {
     val selectableDates: SelectableDates = object : SelectableDates {
         override fun isSelectableYear(year: Int): Boolean {
-            return year == currentYear
+            return year <= currentYear + 1 && year >= currentYear - 1
         }
     }
 
