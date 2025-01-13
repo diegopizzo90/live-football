@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.match.presentation"
+    namespace = "com.diegopizzo.livefootball.match.presentation"
 }
 
 dependencies {

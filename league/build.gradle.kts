@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.league"
+    namespace = "com.diegopizzo.livefootball.league"
 }
 
 ksp {

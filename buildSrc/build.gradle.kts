@@ -28,7 +28,7 @@ gradlePlugin {
     plugins {
         create("LiveFootballPlugin") {
             id = libs.plugins.liveFootball.plugin.get().pluginId
-            implementationClass = "com.diegopizzo.build.LiveFootballPlugin"
+            implementationClass = "com.diegopizzo.livefootball.build.LiveFootballPlugin"
         }
     }
 }

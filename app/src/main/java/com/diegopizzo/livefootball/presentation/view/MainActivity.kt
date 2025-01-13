@@ -9,14 +9,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.diegopizzo.design.theme.LFTheme
+import com.diegopizzo.livefootball.design.theme.LFTheme
+import com.diegopizzo.livefootball.match.presentation.view.MatchScreen
+import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
 import com.diegopizzo.livefootball.presentation.navigation.Destination
 import com.diegopizzo.livefootball.presentation.navigation.NavHost
 import com.diegopizzo.livefootball.presentation.navigation.NavigationIntent
 import com.diegopizzo.livefootball.presentation.navigation.composable
 import com.diegopizzo.livefootball.presentation.viewmodel.MainViewModel
-import com.diegopizzo.match.presentation.view.MatchScreen
-import com.diegopizzo.match.presentation.viewmodel.MatchViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel

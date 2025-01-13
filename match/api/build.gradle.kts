@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.match.api"
+    namespace = "com.diegopizzo.livefootball.match.api"
 }
 
 ksp {
