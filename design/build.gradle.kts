@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.design"
+    namespace = "com.diegopizzo.livefootball.design"
 }
 
 dependencies {

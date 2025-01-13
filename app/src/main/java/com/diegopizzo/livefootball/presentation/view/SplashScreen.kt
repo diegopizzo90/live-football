@@ -16,12 +16,12 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.diegopizzo.core.base.ViewState
-import com.diegopizzo.design.components.divider.LFVerticalSpacer
-import com.diegopizzo.design.components.text.LFDisplayLarge
-import com.diegopizzo.design.screen.LFErrorScreen
-import com.diegopizzo.design.tokens.SpaceTokens
 import com.diegopizzo.livefootball.R
+import com.diegopizzo.livefootball.core.base.ViewState
+import com.diegopizzo.livefootball.design.components.divider.LFVerticalSpacer
+import com.diegopizzo.livefootball.design.components.text.LFDisplayLarge
+import com.diegopizzo.livefootball.design.screen.LFErrorScreen
+import com.diegopizzo.livefootball.design.tokens.SpaceTokens
 import com.diegopizzo.livefootball.presentation.viewmodel.MainViewModel
 
 @Composable

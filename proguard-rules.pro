@@ -46,11 +46,11 @@
 -keepclasseswithmembers class kotlinx.serialization.json.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
--keep,includedescriptorclasses class com.diegopizzo.**$$serializer { *; }
--keepclassmembers class com.diegopizzo.** {
+-keep,includedescriptorclasses class com.diegopizzo.livefootball.**$$serializer { *; }
+-keepclassmembers class com.diegopizzo.livefootball.** {
     *** Companion;
 }
--keepclasseswithmembers class com.diegopizzo.** {
+-keepclasseswithmembers class com.diegopizzo.livefootball.** {
     kotlinx.serialization.KSerializer serializer(...);
 }
 

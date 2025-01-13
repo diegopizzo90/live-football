@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.diegopizzo.core_api"
+    namespace = "com.diegopizzo.livefootball.core_api"
 }
 
 dependencies {
