@@ -1,6 +1,6 @@
 package com.diegopizzo.livefootball.league.repository.mapper
 
-import com.diegopizzo.livefootball.league.api.model.LeagueResponseDto
+import com.diegopizzo.livefootball.league.network.model.LeagueResponseDto
 import com.diegopizzo.livefootball.league.config.LeagueType
 import com.diegopizzo.livefootball.league.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.repository.store.entity.LeagueEntity

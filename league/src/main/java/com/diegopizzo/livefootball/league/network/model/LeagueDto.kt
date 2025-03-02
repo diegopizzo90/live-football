@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.league.api.model
+package com.diegopizzo.livefootball.league.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

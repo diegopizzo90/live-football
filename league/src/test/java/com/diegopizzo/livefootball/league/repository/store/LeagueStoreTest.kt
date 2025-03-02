@@ -1,6 +1,6 @@
 package com.diegopizzo.livefootball.league.repository.store
 
-import com.diegopizzo.livefootball.league.api.LeagueApi
+import com.diegopizzo.livefootball.league.network.LeagueApi
 import com.diegopizzo.livefootball.league.config.LeaguesAvailable
 import com.diegopizzo.livefootball.league.data.leagueData
 import com.diegopizzo.livefootball.league.data.leagueEntity

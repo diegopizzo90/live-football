@@ -1,9 +1,9 @@
 package com.diegopizzo.livefootball.league.data
 
-import com.diegopizzo.livefootball.league.api.model.CountryInfoDto
-import com.diegopizzo.livefootball.league.api.model.LeagueDto
-import com.diegopizzo.livefootball.league.api.model.LeagueInfoDto
-import com.diegopizzo.livefootball.league.api.model.LeagueResponseDto
+import com.diegopizzo.livefootball.league.network.model.CountryInfoDto
+import com.diegopizzo.livefootball.league.network.model.LeagueDto
+import com.diegopizzo.livefootball.league.network.model.LeagueInfoDto
+import com.diegopizzo.livefootball.league.network.model.LeagueResponseDto
 import com.diegopizzo.livefootball.league.config.CountryCode
 import com.diegopizzo.livefootball.league.config.LeagueType
 import com.diegopizzo.livefootball.league.config.LeaguesAvailable

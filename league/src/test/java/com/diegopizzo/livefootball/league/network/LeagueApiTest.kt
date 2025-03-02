@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.league.api
+package com.diegopizzo.livefootball.league.network
 
 import com.diegopizzo.livefootball.league.config.LeaguesAvailable
 import com.diegopizzo.livefootball.league.data.leaguesByNameResponse

@@ -1,8 +1,8 @@
 package com.diegopizzo.livefootball.league.config
 
 import androidx.room.Room
-import com.diegopizzo.livefootball.league.api.LeagueApi
-import com.diegopizzo.livefootball.league.api.LeagueApiImpl
+import com.diegopizzo.livefootball.league.network.LeagueApi
+import com.diegopizzo.livefootball.league.network.LeagueApiImpl
 import com.diegopizzo.livefootball.league.repository.LeagueRepository
 import com.diegopizzo.livefootball.league.repository.LeagueRepositoryImpl
 import com.diegopizzo.livefootball.league.repository.mapper.LeagueDataMapper

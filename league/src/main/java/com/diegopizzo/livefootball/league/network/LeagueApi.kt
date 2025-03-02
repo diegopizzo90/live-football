@@ -1,6 +1,6 @@
-package com.diegopizzo.livefootball.league.api
+package com.diegopizzo.livefootball.league.network
 
-import com.diegopizzo.livefootball.league.api.model.LeagueDto
+import com.diegopizzo.livefootball.league.network.model.LeagueDto
 import com.diegopizzo.livefootball.league.config.LeaguesAvailable
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
