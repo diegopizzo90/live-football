@@ -1,6 +1,6 @@
 package com.diegopizzo.livefootball.match.presentation.usecase
 
-import com.diegopizzo.livefootball.league.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.api.repository.LeagueRepository
 import com.diegopizzo.livefootball.match.api.repository.MatchRepository
 import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
 import kotlinx.coroutines.delay

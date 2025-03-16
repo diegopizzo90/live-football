@@ -8,10 +8,10 @@ import com.diegopizzo.livefootball.design.components.chips.LFChipViewData
 import com.diegopizzo.livefootball.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
 import com.diegopizzo.livefootball.design.components.image.PainterViewData
-import com.diegopizzo.livefootball.league.config.CountryCode
-import com.diegopizzo.livefootball.league.config.LeagueType
-import com.diegopizzo.livefootball.league.config.LeaguesAvailable
-import com.diegopizzo.livefootball.league.repository.model.LeagueData
+import com.diegopizzo.livefootball.league.api.config.CountryCode
+import com.diegopizzo.livefootball.league.api.config.LeagueType
+import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
+import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
 import com.diegopizzo.livefootball.match.api.repository.store.model.AwayData
 import com.diegopizzo.livefootball.match.api.repository.store.model.GoalsData
 import com.diegopizzo.livefootball.match.api.repository.store.model.HomeData

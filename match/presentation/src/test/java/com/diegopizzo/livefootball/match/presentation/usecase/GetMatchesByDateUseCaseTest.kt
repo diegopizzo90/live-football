@@ -1,7 +1,7 @@
 package com.diegopizzo.livefootball.match.presentation.usecase
 
 import com.diegopizzo.livefootball.design.components.card.LFCardMatchViewData
-import com.diegopizzo.livefootball.league.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.api.repository.LeagueRepository
 import com.diegopizzo.livefootball.match.api.repository.MatchRepository
 import com.diegopizzo.livefootball.match.presentation.util.leagues
 import com.diegopizzo.livefootball.match.presentation.util.matchDataList

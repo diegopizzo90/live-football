@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(project(":design"))
     implementation(project(":core"))
-    implementation(project(":league"))
+    implementation(project(":league:api"))
     implementation(project(":match:api"))
     implementation(project(":match:presentation"))
     testImplementation(project(":test_utils"))
