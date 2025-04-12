@@ -5,8 +5,8 @@ import com.diegopizzo.livefootball.match.api.network.MatchApi
 import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepository
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResponseEntity
 import com.diegopizzo.livefootball.match.api.repository.store.mapper.MatchMapper
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchData
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
 import org.mobilenativefoundation.store.store5.Fetcher
 import org.mobilenativefoundation.store.store5.MemoryPolicy
 import org.mobilenativefoundation.store.store5.SourceOfTruth

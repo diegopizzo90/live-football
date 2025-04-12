@@ -1,7 +1,7 @@
 package com.diegopizzo.livefootball.league.api.network
 
-import com.diegopizzo.livefootball.league.api.data.leaguesByNameResponse
 import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
+import com.diegopizzo.livefootball.league.api.data.leaguesByNameResponse
 import com.diegopizzo.livefootball.test_utils.mockHttpClient
 import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.test.runTest

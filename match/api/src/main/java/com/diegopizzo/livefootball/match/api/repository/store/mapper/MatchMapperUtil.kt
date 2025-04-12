@@ -1,7 +1,7 @@
 package com.diegopizzo.livefootball.match.api.repository.store.mapper
 
 import com.diegopizzo.livefootball.match.api.network.model.MatchStatusDto
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
 
 internal fun toMatchStatus(status: MatchStatusDto?): MatchStatus {
     return when (status) {

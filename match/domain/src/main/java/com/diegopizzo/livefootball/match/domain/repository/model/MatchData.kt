@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.match.api.repository.store.model
+package com.diegopizzo.livefootball.match.domain.repository.model
 
 data class MatchData(
     val id: Long,

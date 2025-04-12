@@ -41,6 +41,7 @@ dependencies {
     implementation(project(":league:api"))
     implementation(project(":league:domain"))
     implementation(project(":match:api"))
+    implementation(project(":match:domain"))
     implementation(project(":match:presentation"))
     testImplementation(project(":test_utils"))
     androidTestImplementation(project(":android_test_utils"))

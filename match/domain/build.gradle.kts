@@ -2,18 +2,15 @@ plugins {
     id(libs.plugins.android.library.get().pluginId)
     id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
     id(libs.plugins.liveFootball.plugin.get().pluginId)
+    id(libs.plugins.ksp.plugin.get().pluginId)
 }
 
 android {
-    namespace = "com.diegopizzo.livefootball.match.presentation"
+    namespace = "com.diegopizzo.livefootball.match.domain"
 }
 
 dependencies {
     implementation(project(path = ":core"))
-    implementation(project(path = ":design"))
-    implementation(project(path = ":league:domain"))
-    implementation(project(path = ":match:domain"))
 
-    androidTestImplementation(project(path = ":android_test_utils"))
     testImplementation(project(path = ":test_utils"))
 }

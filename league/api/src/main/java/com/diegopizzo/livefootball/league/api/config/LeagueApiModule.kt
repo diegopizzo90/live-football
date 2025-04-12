@@ -13,7 +13,7 @@ import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
-private val leagueApiModule = module {
+private val apiModule = module {
     single<LeagueApi> {
         LeagueApiImpl(get())
     }
@@ -53,9 +53,9 @@ private val leagueStoreModule = module {
     }
 }
 
-val leagueModule = module {
+val leagueApiModule = module {
     includes(
-        leagueApiModule,
+        apiModule,
         leagueRepositoryModule,
         leagueMapperModule,
         leagueDatabaseModule,

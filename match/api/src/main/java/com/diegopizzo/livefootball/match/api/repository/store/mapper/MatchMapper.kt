@@ -16,15 +16,15 @@ import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResp
 import com.diegopizzo.livefootball.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.TeamsEntity
-import com.diegopizzo.livefootball.match.api.repository.store.model.AwayData
-import com.diegopizzo.livefootball.match.api.repository.store.model.GoalsData
-import com.diegopizzo.livefootball.match.api.repository.store.model.HomeData
-import com.diegopizzo.livefootball.match.api.repository.store.model.LeagueData
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
-import com.diegopizzo.livefootball.match.api.repository.store.model.PenaltyData
-import com.diegopizzo.livefootball.match.api.repository.store.model.StatusData
-import com.diegopizzo.livefootball.match.api.repository.store.model.TeamsData
+import com.diegopizzo.livefootball.match.domain.repository.model.AwayData
+import com.diegopizzo.livefootball.match.domain.repository.model.GoalsData
+import com.diegopizzo.livefootball.match.domain.repository.model.HomeData
+import com.diegopizzo.livefootball.match.domain.repository.model.LeagueData
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchData
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
+import com.diegopizzo.livefootball.match.domain.repository.model.PenaltyData
+import com.diegopizzo.livefootball.match.domain.repository.model.StatusData
+import com.diegopizzo.livefootball.match.domain.repository.model.TeamsData
 
 internal interface MatchMapper {
     fun mapToMatchData(data: List<MatchEntity>): List<MatchData>
