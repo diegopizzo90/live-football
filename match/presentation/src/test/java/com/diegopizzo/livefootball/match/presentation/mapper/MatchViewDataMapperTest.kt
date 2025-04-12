@@ -4,7 +4,7 @@ import com.diegopizzo.livefootball.core.utils.DateUtils
 import com.diegopizzo.livefootball.core.utils.DateUtilsImpl
 import com.diegopizzo.livefootball.match.presentation.util.datePickerList
 import com.diegopizzo.livefootball.match.presentation.util.leagueViewDataList
-import com.diegopizzo.livefootball.match.presentation.util.matchDataListUseCase
+import com.diegopizzo.livefootball.match.presentation.util.matchDataList
 import com.diegopizzo.livefootball.match.presentation.util.matchViewDataList
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchFilterCriteria
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewState
@@ -31,7 +31,7 @@ class MatchViewDataMapperTest {
     @Test
     fun testMapper() {
         val date = "2024-09-10"
-        val actual = mapper.mapViewData(matchDataListUseCase, MatchFilterCriteria(), date)
+        val actual = mapper.mapViewData(matchDataList, MatchFilterCriteria(), date)
         val expected = MatchViewState(
             datePicker = datePickerList,
             leagues = leagueViewDataList,

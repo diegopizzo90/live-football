@@ -100,7 +100,7 @@ internal enum class EventTypeDto {
     SUBSTITUTION,
 
     @SerialName("Var")
-    VAR
+    VAR,
 }
 
 @Serializable

@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.diegopizzo.livefootball.core.utils.getSeasonYear
 import com.diegopizzo.livefootball.match.api.network.MatchApi
 import com.diegopizzo.livefootball.match.api.network.MatchApiImpl
-import com.diegopizzo.livefootball.match.api.repository.MatchRepository
 import com.diegopizzo.livefootball.match.api.repository.MatchRepositoryImpl
 import com.diegopizzo.livefootball.match.api.repository.store.MatchStore
 import com.diegopizzo.livefootball.match.api.repository.store.MatchStoreImpl
@@ -13,6 +12,7 @@ import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbReposit
 import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepositoryImpl
 import com.diegopizzo.livefootball.match.api.repository.store.database.MatchDatabase
 import com.diegopizzo.livefootball.match.api.repository.store.database.migration1_2
+import com.diegopizzo.livefootball.match.domain.repository.MatchRepository
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import kotlin.time.Duration.Companion.seconds

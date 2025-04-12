@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.diegopizzo.livefootball.core.base.DispatcherProvider
 import com.diegopizzo.livefootball.core.base.ViewState
-import com.diegopizzo.livefootball.league.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.domain.usecase.GetLeaguesUseCase
 import com.diegopizzo.livefootball.presentation.navigation.AppNavigator
 import com.diegopizzo.livefootball.presentation.navigation.Destination
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val appNavigator: AppNavigator,
-    private val leagueRepository: LeagueRepository,
+    private val getLeaguesUseCase: GetLeaguesUseCase,
     override val defaultDispatcher: CoroutineDispatcher,
 ) : ViewModel(), DispatcherProvider {
 
@@ -25,7 +25,7 @@ class MainViewModel(
 
     fun startFetchingLeagues() {
         backgroundScope.launch {
-            leagueRepository.fetchLeagues()
+            getLeaguesUseCase()
                 .onSuccess {
                     innerViewStates.postValue(ViewState.Success(MainViewState(isFetchingLeagues = false)))
                 }

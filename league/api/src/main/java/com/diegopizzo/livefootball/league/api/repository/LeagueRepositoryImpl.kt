@@ -1,0 +1,75 @@
+package com.diegopizzo.livefootball.league.api.repository
+
+import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
+import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+
+internal class LeagueRepositoryImpl(
+    private val leagueStore: LeagueStore,
+) : LeagueRepository {
+    override suspend fun fetchLeagues(): Result<Unit> {
+        return coroutineScope {
+            try {
+                // Collect results from all league fetch operations
+                val results = LeaguesAvailable.entries.map { league ->
+                    async {
+                        leagueStore.getLeague(league)
+                    }
+                }.awaitAll()
+
+                // Check for any failures in the results
+                results.forEach { result ->
+                    if (result.isFailure) {
+                        return@coroutineScope Result.failure<Unit>(
+                            result.exceptionOrNull() ?: Exception("Unknown error occurred"),
+                        )
+                    }
+                }
+
+                // If all operations were successful, return success
+                Result.success(Unit)
+            } catch (e: Exception) {
+                // Handle any exceptions that may have occurred during the process
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun getLeagues(): Result<List<LeagueData>> {
+        return coroutineScope {
+            try {
+                // Fetch all leagues concurrently and aggregate results
+                val leagues = LeaguesAvailable.entries.map { league ->
+                    async { leagueStore.getLeague(league) }
+                }.awaitAll().map { it.getOrThrow() }
+
+                Result.success(leagues)
+            } catch (e: Exception) {
+                // Handle any exceptions that may have occurred during the process
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun getLeagueIds(): Result<List<Long>> {
+        return coroutineScope {
+            try {
+                // Fetch all leagues concurrently and aggregate results
+                val leagues = LeaguesAvailable.entries.map { league ->
+                    async { leagueStore.getLeague(league) }
+                }.awaitAll()
+                    .map { it.getOrThrow() }
+                    .map { it.id }
+
+                Result.success(leagues)
+            } catch (e: Exception) {
+                // Handle any exceptions that may have occurred during the process
+                Result.failure(e)
+            }
+        }
+    }
+}

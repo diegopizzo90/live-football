@@ -2,8 +2,8 @@ package com.diegopizzo.livefootball.match.presentation.config
 
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapperImpl
-import com.diegopizzo.livefootball.match.presentation.usecase.GetMatchesByDateUseCase
-import com.diegopizzo.livefootball.match.presentation.usecase.GetMatchesByDateUseCaseImpl
+import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchCoordinator
+import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchCoordinatorImpl
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,13 +15,9 @@ private val matchViewDataMapperModule = module {
     }
 }
 
-private val getMatchesByDateUseCaseModule = module {
-    factory<GetMatchesByDateUseCase> {
-        GetMatchesByDateUseCaseImpl(
-            matchRepository = get(),
-            leagueRepository = get(),
-            refreshIntervalMs = 60000, // 1 minute,
-        )
+private val matchCoordinator = module {
+    factory<MatchCoordinator> {
+        MatchCoordinatorImpl(get(), get())
     }
 }
 
@@ -34,7 +30,7 @@ private val matchViewModel = module {
 val matchPresentationModule = module {
     includes(
         matchViewDataMapperModule,
-        getMatchesByDateUseCaseModule,
+        matchCoordinator,
         matchViewModel,
     )
 }

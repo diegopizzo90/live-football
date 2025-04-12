@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
 
 @Entity(
     tableName = "match_response",

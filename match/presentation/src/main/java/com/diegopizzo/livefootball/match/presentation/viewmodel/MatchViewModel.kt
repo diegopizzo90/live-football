@@ -13,7 +13,6 @@ import com.diegopizzo.livefootball.design.components.datepicker.LFDatePickerView
 import com.diegopizzo.livefootball.design.components.snackbar.LFSnackBarViewData
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
-import com.diegopizzo.livefootball.match.presentation.usecase.GetMatchesByDateUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -22,7 +21,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class MatchViewModel(
-    private val getMatchesByDateUseCase: GetMatchesByDateUseCase,
+    private val matchCoordinator: MatchCoordinator,
     override val defaultDispatcher: CoroutineDispatcher,
     private val matchViewDataMapper: MatchViewDataMapper,
     private val dateUtils: DateUtils,
@@ -56,7 +55,7 @@ class MatchViewModel(
         job?.cancel() // cancel previous job
         innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
         job = backgroundScope.launch {
-            getMatchesByDateUseCase(date = date)
+            matchCoordinator.fetchMatches(date = date)
                 .cancellable()
                 .collect { result ->
                     result.mapCatching {

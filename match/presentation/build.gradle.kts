@@ -11,8 +11,8 @@ android {
 dependencies {
     implementation(project(path = ":core"))
     implementation(project(path = ":design"))
-    implementation(project(path = ":league"))
-    implementation(project(path = ":match:api"))
+    implementation(project(path = ":league:domain"))
+    implementation(project(path = ":match:domain"))
 
     androidTestImplementation(project(path = ":android_test_utils"))
     testImplementation(project(path = ":test_utils"))

@@ -5,8 +5,10 @@ import com.diegopizzo.livefootball.BuildConfig
 import com.diegopizzo.livefootball.core.config.dateUtilsModule
 import com.diegopizzo.livefootball.core.config.fakeKtorHttpClient
 import com.diegopizzo.livefootball.core.config.ktorHttpClient
-import com.diegopizzo.livefootball.league.config.leagueModule
+import com.diegopizzo.livefootball.league.api.config.leagueApiModule
+import com.diegopizzo.livefootball.league.domain.config.leagueDomainModule
 import com.diegopizzo.livefootball.match.api.config.matchApiModule
+import com.diegopizzo.livefootball.match.domain.config.matchDomainModule
 import com.diegopizzo.livefootball.match.presentation.config.matchPresentationModule
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
 import com.diegopizzo.livefootball.presentation.viewmodel.config.mainViewModelModule
@@ -23,9 +25,11 @@ class LiveFootballApplication : Application() {
                 if (BuildConfig.IS_FAKE_NETWORK_RESPONSE) fakeKtorHttpClient() else ktorHttpClient(BuildConfig.API_KEY),
                 appNavigatorModule,
                 mainViewModelModule,
-                leagueModule,
+                leagueApiModule,
+                leagueDomainModule,
                 dateUtilsModule,
                 matchApiModule,
+                matchDomainModule,
                 matchPresentationModule,
             )
         }
