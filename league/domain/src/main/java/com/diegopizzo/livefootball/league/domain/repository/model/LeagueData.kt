@@ -1,12 +1,15 @@
-package com.diegopizzo.livefootball.league.api.repository.model
-
-import com.diegopizzo.livefootball.league.api.config.LeagueType
+package com.diegopizzo.livefootball.league.domain.repository.model
 
 data class LeagueData(
     val id: Long,
     val name: String,
     val countryName: String? = null,
     val countryCode: String? = null,
-    val type: LeagueType,
+    val type: LeagueTypeData,
     val logo: String,
 )
+
+enum class LeagueTypeData {
+    CUP,
+    LEAGUE,
+}

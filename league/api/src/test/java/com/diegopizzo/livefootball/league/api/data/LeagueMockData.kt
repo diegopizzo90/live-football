@@ -7,8 +7,9 @@ import com.diegopizzo.livefootball.league.api.network.model.CountryInfoDto
 import com.diegopizzo.livefootball.league.api.network.model.LeagueDto
 import com.diegopizzo.livefootball.league.api.network.model.LeagueInfoDto
 import com.diegopizzo.livefootball.league.api.network.model.LeagueResponseDto
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueTypeData
 
 internal val leagueResponse =
     LeagueDto(
@@ -31,7 +32,7 @@ internal val leagueResponse =
 internal val leagueData = LeagueData(
     id = 1,
     name = LeaguesAvailable.SERIE_A.leagueName,
-    type = LeagueType.LEAGUE,
+    type = LeagueTypeData.LEAGUE,
     logo = "logo",
     countryName = CountryCode.ITALY.name,
     countryCode = CountryCode.ITALY.code,

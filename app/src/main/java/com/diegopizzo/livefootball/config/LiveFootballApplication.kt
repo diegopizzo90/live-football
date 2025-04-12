@@ -6,6 +6,7 @@ import com.diegopizzo.livefootball.core.config.dateUtilsModule
 import com.diegopizzo.livefootball.core.config.fakeKtorHttpClient
 import com.diegopizzo.livefootball.core.config.ktorHttpClient
 import com.diegopizzo.livefootball.league.api.config.leagueModule
+import com.diegopizzo.livefootball.league.domain.config.leagueDomainModule
 import com.diegopizzo.livefootball.match.api.config.matchApiModule
 import com.diegopizzo.livefootball.match.presentation.config.matchPresentationModule
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
@@ -27,6 +28,7 @@ class LiveFootballApplication : Application() {
                 dateUtilsModule,
                 matchApiModule,
                 matchPresentationModule,
+                leagueDomainModule,
             )
         }
     }

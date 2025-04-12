@@ -39,6 +39,7 @@ dependencies {
     implementation(project(":design"))
     implementation(project(":core"))
     implementation(project(":league:api"))
+    implementation(project(":league:domain"))
     implementation(project(":match:api"))
     implementation(project(":match:presentation"))
     testImplementation(project(":test_utils"))

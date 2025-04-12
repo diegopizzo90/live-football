@@ -1,9 +1,8 @@
 package com.diegopizzo.livefootball.match.presentation.usecase
 
 import com.diegopizzo.livefootball.design.components.card.LFCardMatchViewData
-import com.diegopizzo.livefootball.league.api.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.domain.usecase.GetLeagueIdsUseCase
 import com.diegopizzo.livefootball.match.api.repository.MatchRepository
-import com.diegopizzo.livefootball.match.presentation.util.leagues
 import com.diegopizzo.livefootball.match.presentation.util.matchDataList
 import com.diegopizzo.livefootball.match.presentation.util.matchDataListUseCase
 import io.mockk.coEvery
@@ -22,13 +21,13 @@ class GetMatchesByDateUseCaseTest {
 
     private lateinit var getMatchesByDateUseCase: GetMatchesByDateUseCase
     private val matchRepository: MatchRepository = mockk()
-    private val leagueRepository: LeagueRepository = mockk()
+    private val getLeagueIdsUseCase: GetLeagueIdsUseCase = mockk()
 
     @Before
     fun setUp() {
         getMatchesByDateUseCase = GetMatchesByDateUseCaseImpl(
             matchRepository = matchRepository,
-            leagueRepository = leagueRepository,
+            getLeagueIdsUseCase = getLeagueIdsUseCase,
             refreshIntervalMs = 100000,
         )
     }
@@ -36,15 +35,15 @@ class GetMatchesByDateUseCaseTest {
     @Test
     fun `get matches by date successfully and verify result`() = runTest {
         val date = "2024-01-01"
-        val leagueIds = leagues.map { it.id }
-        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagueIds))
+        val leagueIds = listOf<Long>(135, 39)
+        coEvery { getLeagueIdsUseCase() }.returns(Result.success(leagueIds))
         coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.success(matchDataList))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.success(matchDataListUseCase)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 1) { getLeagueIdsUseCase() }
         coVerify(exactly = 1) { matchRepository.getMatches(date, leagueIds) }
     }
 
@@ -52,15 +51,15 @@ class GetMatchesByDateUseCaseTest {
     fun `get matches by date but leagues not found verify result`() = runTest {
         val error = Throwable("error")
         val date = "2024-01-01"
-        val leagueIds = leagues.map { it.id }
-        coEvery { leagueRepository.getLeagueIds() }.returns(Result.failure(error))
+        val leagueIds = listOf<Long>(135, 39)
+        coEvery { getLeagueIdsUseCase() }.returns(Result.failure(error))
         coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.success(matchDataList))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 1) { getLeagueIdsUseCase() }
         coVerify(exactly = 0) { matchRepository.getMatches(date, leagueIds) }
     }
 
@@ -68,15 +67,15 @@ class GetMatchesByDateUseCaseTest {
     fun `get matches by date but matches not found verify result`() = runTest {
         val date = "2024-01-01"
         val error = Throwable("error")
-        val leagueIds = leagues.map { it.id }
-        coEvery { leagueRepository.getLeagueIds() }.returns(Result.success(leagueIds))
+        val leagueIds = listOf<Long>(135, 39)
+        coEvery { getLeagueIdsUseCase() }.returns(Result.success(leagueIds))
         coEvery { matchRepository.getMatches(date, leagueIds) }.returns(Result.failure(error))
 
         val actual = getMatchesByDateUseCase(date).first()
         val expected = Result.failure<List<LFCardMatchViewData>>(error)
 
         assertEquals(expected, actual)
-        coVerify(exactly = 1) { leagueRepository.getLeagueIds() }
+        coVerify(exactly = 1) { getLeagueIdsUseCase() }
         coVerify(exactly = 1) { matchRepository.getMatches(date, leagueIds) }
     }
 }

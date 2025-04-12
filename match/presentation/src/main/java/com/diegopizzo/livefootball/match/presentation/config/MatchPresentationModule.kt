@@ -19,7 +19,7 @@ private val getMatchesByDateUseCaseModule = module {
     factory<GetMatchesByDateUseCase> {
         GetMatchesByDateUseCaseImpl(
             matchRepository = get(),
-            leagueRepository = get(),
+            getLeagueIdsUseCase = get(),
             refreshIntervalMs = 60000, // 1 minute,
         )
     }

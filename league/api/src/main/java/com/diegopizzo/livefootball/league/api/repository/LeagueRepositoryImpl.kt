@@ -1,17 +1,12 @@
 package com.diegopizzo.livefootball.league.api.repository
 
 import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
+import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-
-interface LeagueRepository {
-    suspend fun fetchLeagues(): Result<Unit>
-    suspend fun getLeagues(): Result<List<LeagueData>>
-    suspend fun getLeagueIds(): Result<List<Long>>
-}
 
 internal class LeagueRepositoryImpl(
     private val leagueStore: LeagueStore,

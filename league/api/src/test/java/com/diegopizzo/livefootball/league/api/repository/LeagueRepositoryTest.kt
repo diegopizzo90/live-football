@@ -3,6 +3,7 @@ package com.diegopizzo.livefootball.league.api.repository
 import com.diegopizzo.livefootball.league.api.data.leagueData
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
+import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
 import com.diegopizzo.livefootball.test_utils.CoroutinesTestRule
 import io.mockk.coEvery
 import io.mockk.mockk

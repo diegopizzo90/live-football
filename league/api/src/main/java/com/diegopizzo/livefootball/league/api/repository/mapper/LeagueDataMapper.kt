@@ -2,30 +2,18 @@ package com.diegopizzo.livefootball.league.api.repository.mapper
 
 import com.diegopizzo.livefootball.league.api.config.LeagueType
 import com.diegopizzo.livefootball.league.api.network.model.LeagueResponseDto
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueTypeData
 
 internal class LeagueDataMapper {
-
-    fun mapLeagueData(leagueResponse: LeagueResponseDto, leagueType: LeagueType): LeagueData {
-        with(leagueResponse) {
-            return LeagueData(
-                id = league.id,
-                name = league.name,
-                type = leagueType,
-                logo = league.logo,
-                countryName = country.name,
-                countryCode = country.code,
-            )
-        }
-    }
 
     fun mapLeagueData(leagueEntity: LeagueEntity): LeagueData {
         with(leagueEntity) {
             return LeagueData(
                 id = leagueId,
                 name = name,
-                type = leagueType,
+                type = LeagueTypeData.valueOf(leagueType.name),
                 logo = logo,
                 countryName = countryName,
                 countryCode = countryCode,

@@ -10,5 +10,5 @@ android {
 }
 
 dependencies {
-    implementation(project(path = ":league:api"))
+    implementation(project(path = ":core"))
 }

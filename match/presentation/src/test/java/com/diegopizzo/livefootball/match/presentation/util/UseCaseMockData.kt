@@ -8,10 +8,6 @@ import com.diegopizzo.livefootball.design.components.chips.LFChipViewData
 import com.diegopizzo.livefootball.design.components.datepicker.LFDatePickerViewData
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
 import com.diegopizzo.livefootball.design.components.image.PainterViewData
-import com.diegopizzo.livefootball.league.api.config.CountryCode
-import com.diegopizzo.livefootball.league.api.config.LeagueType
-import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
 import com.diegopizzo.livefootball.match.api.repository.store.model.AwayData
 import com.diegopizzo.livefootball.match.api.repository.store.model.GoalsData
 import com.diegopizzo.livefootball.match.api.repository.store.model.HomeData
@@ -19,25 +15,6 @@ import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
 import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
 import com.diegopizzo.livefootball.match.api.repository.store.model.StatusData
 import com.diegopizzo.livefootball.match.api.repository.store.model.TeamsData
-
-internal val leagues = listOf(
-    LeagueData(
-        id = 135,
-        name = LeaguesAvailable.SERIE_A.leagueName,
-        type = LeagueType.LEAGUE,
-        logo = "logo",
-        countryName = CountryCode.ITALY.name,
-        countryCode = CountryCode.ITALY.code,
-    ),
-    LeagueData(
-        id = 39,
-        name = LeaguesAvailable.PREMIER_LEAGUE.leagueName,
-        type = LeagueType.LEAGUE,
-        logo = "logo",
-        countryName = CountryCode.ENGLAND.name,
-        countryCode = CountryCode.ENGLAND.code,
-    ),
-)
 
 internal val matchDataList: List<MatchData>
     get() {

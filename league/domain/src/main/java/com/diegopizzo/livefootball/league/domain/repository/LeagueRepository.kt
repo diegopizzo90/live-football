@@ -1,6 +1,6 @@
 package com.diegopizzo.livefootball.league.domain.repository
 
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
 
 interface LeagueRepository {
     suspend fun fetchLeagues(): Result<Unit>

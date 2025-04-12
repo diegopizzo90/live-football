@@ -15,6 +15,7 @@ ksp {
 
 dependencies {
     implementation(project(path = ":core"))
+    implementation(project(path = ":league:domain"))
 
     implementation(libs.room)
     implementation(libs.room.coroutines)

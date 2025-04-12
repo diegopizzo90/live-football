@@ -1,6 +1,6 @@
 package com.diegopizzo.livefootball.match.presentation.usecase
 
-import com.diegopizzo.livefootball.league.api.repository.LeagueRepository
+import com.diegopizzo.livefootball.league.domain.usecase.GetLeagueIdsUseCase
 import com.diegopizzo.livefootball.match.api.repository.MatchRepository
 import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
 import kotlinx.coroutines.delay
@@ -17,7 +17,7 @@ interface GetMatchesByDateUseCase {
 
 internal class GetMatchesByDateUseCaseImpl(
     private val matchRepository: MatchRepository,
-    private val leagueRepository: LeagueRepository,
+    private val getLeagueIdsUseCase: GetLeagueIdsUseCase,
     private val refreshIntervalMs: Long,
 ) : GetMatchesByDateUseCase {
 
@@ -27,7 +27,7 @@ internal class GetMatchesByDateUseCaseImpl(
     ): Flow<Result<List<MatchData>>> {
         return flow {
             while (true) {
-                val leagueIds = leagueRepository.getLeagueIds()
+                val leagueIds = getLeagueIdsUseCase()
                 if (leagueIds.isFailure) emit(Result.failure(leagueIds.exceptionOrNull()!!))
 
                 val matches = matchRepository.getMatches(

@@ -3,7 +3,7 @@ package com.diegopizzo.livefootball.league.api.repository.store
 import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
 import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
-import com.diegopizzo.livefootball.league.api.repository.model.LeagueData
+import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDao
 import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
 import kotlinx.coroutines.flow.flow
