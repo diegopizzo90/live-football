@@ -2,9 +2,9 @@ package com.diegopizzo.livefootball.match.presentation.config
 
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapperImpl
+import com.diegopizzo.livefootball.match.presentation.viewmodel.AndroidMatchViewModel
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchCoordinator
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchCoordinatorImpl
-import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,9 +21,9 @@ private val matchCoordinator = module {
     }
 }
 
-private val matchViewModel = module {
+private val androidMatchViewModel = module {
     viewModel {
-        MatchViewModel(get(), Dispatchers.IO, get(), get())
+        AndroidMatchViewModel(get(), Dispatchers.IO, get(), get())
     }
 }
 
@@ -31,6 +31,6 @@ val matchPresentationModule = module {
     includes(
         matchViewDataMapperModule,
         matchCoordinator,
-        matchViewModel,
+        androidMatchViewModel,
     )
 }

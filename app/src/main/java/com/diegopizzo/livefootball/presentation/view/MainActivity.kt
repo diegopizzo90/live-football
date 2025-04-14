@@ -11,20 +11,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.diegopizzo.livefootball.design.theme.LFTheme
 import com.diegopizzo.livefootball.match.presentation.view.MatchScreen
-import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
+import com.diegopizzo.livefootball.match.presentation.viewmodel.AndroidMatchViewModel
 import com.diegopizzo.livefootball.presentation.navigation.Destination
 import com.diegopizzo.livefootball.presentation.navigation.NavHost
 import com.diegopizzo.livefootball.presentation.navigation.NavigationIntent
 import com.diegopizzo.livefootball.presentation.navigation.composable
-import com.diegopizzo.livefootball.presentation.viewmodel.MainViewModel
+import com.diegopizzo.livefootball.presentation.viewmodel.AndroidMainViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val mainViewModel: MainViewModel by viewModel()
-    private val matchViewModel: MatchViewModel by viewModel()
+    private val mainViewModel: AndroidMainViewModel by viewModel()
+    private val matchViewModel: AndroidMatchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,8 +42,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SetupNavGraph(
-    mainViewModel: MainViewModel,
-    matchViewModel: MatchViewModel,
+    mainViewModel: AndroidMainViewModel,
+    matchViewModel: AndroidMatchViewModel,
 ) {
     val navController = rememberNavController()
 
