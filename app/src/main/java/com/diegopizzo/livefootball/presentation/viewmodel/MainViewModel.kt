@@ -1,42 +1,41 @@
 package com.diegopizzo.livefootball.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.diegopizzo.livefootball.core.base.DispatcherProvider
 import com.diegopizzo.livefootball.core.base.ViewState
 import com.diegopizzo.livefootball.league.domain.usecase.GetLeaguesUseCase
 import com.diegopizzo.livefootball.presentation.navigation.AppNavigator
 import com.diegopizzo.livefootball.presentation.navigation.Destination
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val appNavigator: AppNavigator,
     private val getLeaguesUseCase: GetLeaguesUseCase,
-    override val defaultDispatcher: CoroutineDispatcher,
-) : ViewModel(), DispatcherProvider {
+    private val coroutineScope: CoroutineScope,
+    private val dispatcher: CoroutineDispatcher,
+) {
 
     val navigationChannel = appNavigator.navigationChannel
 
-    private val innerViewStates: MutableLiveData<ViewState<MainViewState>> = MutableLiveData()
-    val viewStates: LiveData<ViewState<MainViewState>> = innerViewStates
+    private val innerViewStates: MutableStateFlow<ViewState<MainViewState>> = MutableStateFlow(ViewState.Loading())
+    val viewStates: StateFlow<ViewState<MainViewState>> = innerViewStates
 
     fun startFetchingLeagues() {
-        backgroundScope.launch {
+        coroutineScope.launch(dispatcher) {
             getLeaguesUseCase()
                 .onSuccess {
-                    innerViewStates.postValue(ViewState.Success(MainViewState(isFetchingLeagues = false)))
+                    innerViewStates.value = ViewState.Success(MainViewState(isFetchingLeagues = false))
                 }
                 .onFailure {
-                    innerViewStates.postValue(ViewState.Error())
+                    innerViewStates.value = ViewState.Error()
                 }
         }
     }
 
     fun onSplashScreenAnimationFinished() {
-        viewModelScope.launch {
+        coroutineScope.launch {
             appNavigator.navigateTo(
                 route = Destination.Home.route,
                 popUpToRoute = Destination.Splash.route,

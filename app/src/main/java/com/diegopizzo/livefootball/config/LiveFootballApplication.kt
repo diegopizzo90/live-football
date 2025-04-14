@@ -11,7 +11,7 @@ import com.diegopizzo.livefootball.match.api.config.matchApiModule
 import com.diegopizzo.livefootball.match.domain.config.matchDomainModule
 import com.diegopizzo.livefootball.match.presentation.config.matchPresentationModule
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
-import com.diegopizzo.livefootball.presentation.viewmodel.config.mainViewModelModule
+import com.diegopizzo.livefootball.presentation.viewmodel.config.androidMainViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -24,7 +24,7 @@ class LiveFootballApplication : Application() {
             modules(
                 if (BuildConfig.IS_FAKE_NETWORK_RESPONSE) fakeKtorHttpClient() else ktorHttpClient(BuildConfig.API_KEY),
                 appNavigatorModule,
-                mainViewModelModule,
+                androidMainViewModelModule,
                 leagueApiModule,
                 leagueDomainModule,
                 dateUtilsModule,

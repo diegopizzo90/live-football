@@ -1,10 +1,6 @@
 package com.diegopizzo.livefootball.match.presentation.viewmodel
 
 import androidx.compose.runtime.Immutable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.diegopizzo.livefootball.core.base.DispatcherProvider
 import com.diegopizzo.livefootball.core.base.ViewState
 import com.diegopizzo.livefootball.core.utils.DateUtils
 import com.diegopizzo.livefootball.design.components.card.LFCardMatchViewData
@@ -14,21 +10,25 @@ import com.diegopizzo.livefootball.design.components.snackbar.LFSnackBarViewData
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper
 import com.diegopizzo.livefootball.match.presentation.mapper.MatchViewDataMapper.Companion.LIVE_EVENT
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class MatchViewModel(
     private val matchCoordinator: MatchCoordinator,
-    override val defaultDispatcher: CoroutineDispatcher,
+    private val coroutineScope: CoroutineScope,
+    private val dispatcher: CoroutineDispatcher,
     private val matchViewDataMapper: MatchViewDataMapper,
     private val dateUtils: DateUtils,
-) : ViewModel(), DispatcherProvider {
+) {
 
-    private val innerViewStates: MutableLiveData<ViewState<MatchViewState>> = MutableLiveData()
-    internal val viewStates: LiveData<ViewState<MatchViewState>> = innerViewStates
+    private val innerViewStates: MutableStateFlow<ViewState<MatchViewState>> = MutableStateFlow(ViewState.Loading())
+    internal val viewStates: StateFlow<ViewState<MatchViewState>> = innerViewStates
 
     private val currentViewData: MatchViewState?
         get() = (viewStates.value as? ViewState.Success)?.data
@@ -53,15 +53,15 @@ class MatchViewModel(
         currentDateSelected = date
         clearFilter()
         job?.cancel() // cancel previous job
-        innerViewStates.postValue(ViewState.Loading(showShimmer = showShimmer))
-        job = backgroundScope.launch {
+        innerViewStates.value = ViewState.Loading(showShimmer = showShimmer)
+        job = coroutineScope.launch(dispatcher) {
             matchCoordinator.fetchMatches(date = date)
                 .cancellable()
                 .collect { result ->
                     result.mapCatching {
                         matchViewDataMapper.mapViewData(it, currentMatchFilterCriteria, date)
                     }.onSuccess {
-                        innerViewStates.postValue(ViewState.Success(it))
+                        innerViewStates.value = ViewState.Success(it)
                     }.onFailure {
                         onError(snackbarMessage)
                     }
@@ -71,10 +71,10 @@ class MatchViewModel(
 
     private suspend fun onError(snackbarMessage: String?) {
         if (snackbarMessage != null && currentViewData != null) {
-            innerViewStates.postValue(ViewState.Success(currentViewData!!))
+            innerViewStates.value = ViewState.Success(currentViewData!!)
             showSnackbar(message = snackbarMessage)
         } else {
-            innerViewStates.postValue(ViewState.Error())
+            innerViewStates.value = ViewState.Error()
         }
     }
 
@@ -89,7 +89,7 @@ class MatchViewModel(
     }
 
     private fun stopLoading() {
-        innerViewStates.postValue(ViewState.Loading(isLoading = false, showShimmer = false))
+        innerViewStates.value = ViewState.Loading(isLoading = false, showShimmer = false)
     }
 
     fun onChipClick(chip: LFChipViewData, currentViewState: MatchViewState) {
@@ -106,7 +106,7 @@ class MatchViewModel(
             leagues = updatedLeagues,
         )
 
-        innerViewStates.postValue(ViewState.Success(newViewState))
+        innerViewStates.value = ViewState.Success(newViewState)
     }
 
     private suspend fun showSnackbar(message: String) {

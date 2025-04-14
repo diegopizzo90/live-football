@@ -60,6 +60,7 @@ import com.diegopizzo.livefootball.design.util.applyHazeEffect
 import com.diegopizzo.livefootball.design.util.conditional
 import com.diegopizzo.livefootball.match.presentation.R
 import com.diegopizzo.livefootball.match.presentation.view.util.MatchScreenPreviewParameterProvider
+import com.diegopizzo.livefootball.match.presentation.viewmodel.AndroidMatchViewModel
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewEffect
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewState
@@ -69,12 +70,12 @@ import dev.chrisbanes.haze.haze
 
 @Composable
 fun MatchScreen(
-    viewModel: MatchViewModel,
+    viewModel: AndroidMatchViewModel,
 ) {
-    val nullableViewState by viewModel.viewStates.observeAsState()
+    val nullableViewState by viewModel.viewStates.collectAsState()
     val effect by viewModel.effect.collectAsState(null)
 
-    val viewState = nullableViewState ?: return
+    val viewState = nullableViewState
     var showTopBar by remember { mutableStateOf(true) }
     val snackbarState = remember { SnackbarHostState() }
 
