@@ -1,0 +1,36 @@
+CREATE TABLE LeagueEntity (
+    leagueId INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL,
+    logo TEXT NOT NULL,
+    countryName TEXT,
+    countryCode TEXT,
+    leagueType TEXT NOT NULL
+);
+
+CREATE UNIQUE INDEX league_name_index ON LeagueEntity(name);
+
+selectAll:
+SELECT * FROM LeagueEntity;
+
+selectByName:
+SELECT * FROM LeagueEntity
+WHERE name = ?;
+
+selectByCountry:
+SELECT * FROM LeagueEntity
+WHERE countryCode = ?;
+
+insertLeague:
+INSERT OR REPLACE INTO LeagueEntity(leagueId, name, logo, countryName, countryCode, leagueType)
+VALUES (?, ?, ?, ?, ?, ?);
+
+deleteLeague:
+DELETE FROM LeagueEntity
+WHERE leagueId = ?;
+
+deleteAll:
+DELETE FROM LeagueEntity;
+
+deleteByName:
+DELETE FROM LeagueEntity
+WHERE name = ?;

@@ -4,12 +4,16 @@ plugins {
     id(libs.plugins.liveFootball.plugin.get().pluginId)
 }
 
+liveFootballPlugin {
+    composeEnabled = false
+}
+
 android {
     namespace = "com.diegopizzo.livefootball.android_test_utils"
 }
 
 dependencies {
-    api(libs.android.coroutines.test)
+    api(libs.coroutines.test)
     api(libs.androidx.junit)
     api(libs.androidx.espresso.core)
 }

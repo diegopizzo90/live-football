@@ -25,7 +25,8 @@ dependencies {
 
     api(libs.junit)
     api(libs.mockk)
-    api(libs.android.coroutines.test)
+    api(libs.coroutines.test)
     api(libs.junit)
     api(libs.ktor.test.mock)
+    api(libs.sqldelight.driver.jvm)
 }

@@ -31,7 +31,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -62,7 +61,6 @@ import com.diegopizzo.livefootball.match.presentation.R
 import com.diegopizzo.livefootball.match.presentation.view.util.MatchScreenPreviewParameterProvider
 import com.diegopizzo.livefootball.match.presentation.viewmodel.AndroidMatchViewModel
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewEffect
-import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewModel
 import com.diegopizzo.livefootball.match.presentation.viewmodel.MatchViewState
 import com.diegopizzo.livefootball.match.presentation.viewmodel.filterByMatchCriteria
 import dev.chrisbanes.haze.HazeState

@@ -2,6 +2,7 @@ plugins {
     id(libs.plugins.android.application.get().pluginId)
     id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
     id(libs.plugins.liveFootball.plugin.get().pluginId)
+    id(libs.plugins.compose.compiler.get().pluginId)
 }
 
 android {
@@ -36,6 +37,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.compose.navigation)
+    implementation(libs.ktor.android)
+    implementation(libs.sqldelight.android.driver)
     implementation(project(":design"))
     implementation(project(":core"))
     implementation(project(":league:api"))

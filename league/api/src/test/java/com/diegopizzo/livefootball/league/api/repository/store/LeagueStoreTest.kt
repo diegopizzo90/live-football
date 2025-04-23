@@ -6,7 +6,7 @@ import com.diegopizzo.livefootball.league.api.data.leagueEntity
 import com.diegopizzo.livefootball.league.api.data.leagueResponse
 import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDao
+import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDbRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -19,7 +19,7 @@ class LeagueStoreTest {
 
     private lateinit var leagueStore: LeagueStore
     private val api: LeagueApi = mockk()
-    private val dao: LeagueDao = mockk()
+    private val dao: LeagueDbRepository = mockk()
 
     @Before
     fun setUp() {

@@ -2,7 +2,7 @@ package com.diegopizzo.livefootball.core.config
 
 import android.util.Log
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -24,9 +24,9 @@ internal const val NETWORK_TIME_OUT = 10_000L
 internal const val RAPID_API_HEADER_KEY_NAME = "x-rapidapi-key"
 internal const val BASE_URL = "https://api-football-v1.p.rapidapi.com/v3/"
 
-fun ktorHttpClient(apiKey: String) = module {
+fun ktorHttpClient(apiKey: String, engine: HttpClientEngine) = module {
     single {
-        HttpClient(Android) {
+        HttpClient(engine) {
             install(ContentNegotiation) {
                 json(
                     Json {

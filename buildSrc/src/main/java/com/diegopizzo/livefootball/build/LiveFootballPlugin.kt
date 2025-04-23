@@ -19,6 +19,10 @@ private const val COMPILE_SDK = 35
 private const val TARGET_SDK = 33
 private const val MIN_SDK = 29
 
+abstract class LiveFootballPluginExtension {
+    var composeEnabled: Boolean = true
+}
+
 class LiveFootballPlugin : Plugin<Project> {
 
     private lateinit var versionCatalog: VersionCatalog
@@ -27,6 +31,8 @@ class LiveFootballPlugin : Plugin<Project> {
         versionCatalog =
             target.extensions.getByType(VersionCatalogsExtension::class.java).named("libs")
 
+        val extension = target.extensions.create("liveFootballPlugin", LiveFootballPluginExtension::class.java)
+
         target.configureDetekt()
         target.configureKtlint()
         target.configureKotlinSerialization()
@@ -34,8 +40,14 @@ class LiveFootballPlugin : Plugin<Project> {
         target.plugins.all {
             when (this) {
                 is LibraryPlugin -> {
-                    target.extensions.configure(LibraryExtension::class.java, configureLibrary)
-                    target.configureComposeCompiler()
+                    target.extensions.configure(LibraryExtension::class.java) {
+                        configureLibrary(target, this, extension)
+                    }
+                    target.afterEvaluate {
+                        if (extension.composeEnabled) {
+                            target.configureComposeCompiler()
+                        }
+                    }
                 }
 
                 is AppPlugin -> {
@@ -45,58 +57,69 @@ class LiveFootballPlugin : Plugin<Project> {
                     }.getProperty("API_KEY_VALUE")
 
                     target.extensions.configure(ApplicationExtension::class.java) {
-                        configureApp(this, getAppVersion(), apiKey)
+                        configureApp(target, this, getAppVersion(), apiKey, extension)
                     }
-                    target.configureComposeCompiler()
+
+                    target.afterEvaluate {
+                        if (extension.composeEnabled) {
+                            target.configureComposeCompiler()
+                        }
+                    }
                 }
             }
         }
     }
 
-    private val configureLibrary: (LibraryExtension) -> Unit = { library ->
-        library.apply {
-            compileSdk = COMPILE_SDK
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
-            }
+    private val configureLibrary: (Project, LibraryExtension, LiveFootballPluginExtension) -> Unit =
+        { project, library, extension ->
+            library.apply {
+                compileSdk = COMPILE_SDK
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_11
+                    targetCompatibility = JavaVersion.VERSION_11
+                }
 
-            defaultConfig {
-                minSdk = MIN_SDK
-                multiDexEnabled = true
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-            }
+                defaultConfig {
+                    minSdk = MIN_SDK
+                    multiDexEnabled = true
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                }
 
-            buildFeatures.buildConfig = false
-            buildFeatures.compose = true
+                buildFeatures.buildConfig = false
+                project.afterEvaluate {
+                    buildFeatures.compose = extension.composeEnabled
+                }
+            }
         }
-    }
 
-    private val configureApp: (ApplicationExtension, AppVersion, String) -> Unit = { app, appVersion, apiKey ->
-        app.apply {
-            compileSdk = COMPILE_SDK
-            compileOptions {
-                sourceCompatibility = JavaVersion.VERSION_11
-                targetCompatibility = JavaVersion.VERSION_11
+    private val configureApp: (Project, ApplicationExtension, AppVersion, String, LiveFootballPluginExtension) -> Unit =
+        { project, app, appVersion, apiKey, extension ->
+            app.apply {
+                compileSdk = COMPILE_SDK
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_11
+                    targetCompatibility = JavaVersion.VERSION_11
+                }
+
+                defaultConfig {
+                    minSdk = MIN_SDK
+                    targetSdk = TARGET_SDK
+                    multiDexEnabled = true
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    versionCode = appVersion.versionCode
+                    versionName = appVersion.versionName
+                    buildConfigField("String", "API_KEY", apiKey)
+                    buildConfigField("Boolean", "IS_FAKE_NETWORK_RESPONSE", "false")
+                }
+
+                sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("src/androidTest/assets"))
+
+                buildFeatures.buildConfig = true
+                project.afterEvaluate {
+                    buildFeatures.compose = extension.composeEnabled
+                }
             }
-
-            defaultConfig {
-                minSdk = MIN_SDK
-                targetSdk = TARGET_SDK
-                multiDexEnabled = true
-                testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                versionCode = appVersion.versionCode
-                versionName = appVersion.versionName
-                buildConfigField("String", "API_KEY", apiKey)
-                buildConfigField("Boolean", "IS_FAKE_NETWORK_RESPONSE", "false")
-            }
-
-            sourceSets.getByName("androidTest").assets.setSrcDirs(listOf("src/androidTest/assets"))
-
-            buildFeatures.buildConfig = true
-            buildFeatures.compose = true
         }
-    }
 
     private fun getAppVersion(): AppVersion {
         val properties = Properties().apply {

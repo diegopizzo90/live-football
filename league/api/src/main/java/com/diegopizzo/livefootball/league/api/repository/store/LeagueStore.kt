@@ -3,9 +3,9 @@ package com.diegopizzo.livefootball.league.api.repository.store
 import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
 import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDao
-import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
+import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDbRepository
 import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
+import database.LeagueEntity
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import org.mobilenativefoundation.store.core5.ExperimentalStoreApi
@@ -24,14 +24,14 @@ internal interface LeagueStore {
 
 internal class LeagueStoreImpl(
     api: LeagueApi,
-    dao: LeagueDao,
+    dbRepository: LeagueDbRepository,
     private val mapper: LeagueDataMapper,
     ttlCacheInMinutes: Int,
 ) : LeagueStore {
 
     private val store: Store<LeaguesAvailable, Result<LeagueData>> = StoreBuilder.from(
         fetcher = provideFetcher(api),
-        sourceOfTruth = provideSourceOfTruth(dao),
+        sourceOfTruth = provideSourceOfTruth(dbRepository),
     ).cachePolicy(
         MemoryPolicy.builder<Any, Any>()
             .setExpireAfterWrite(ttlCacheInMinutes.minutes)
@@ -49,11 +49,11 @@ internal class LeagueStoreImpl(
     }
 
     private fun provideSourceOfTruth(
-        dao: LeagueDao,
+        dbRepository: LeagueDbRepository,
     ): SourceOfTruth<LeaguesAvailable, LeagueEntity, Result<LeagueData>> = SourceOfTruth.of(
         reader = { key: LeaguesAvailable ->
             flow {
-                emit(dao.getLeagueByName(key.leagueName))
+                emit(dbRepository.getLeagueByName(key.leagueName))
             }.map {
                 it?.let {
                     try {
@@ -65,12 +65,12 @@ internal class LeagueStoreImpl(
             }
         },
         writer = { _: LeaguesAvailable, input: LeagueEntity ->
-            dao.insertLeague(input)
+            dbRepository.insertLeague(input)
         },
         delete = { key: LeaguesAvailable ->
-            dao.deleteByName(key.leagueName)
+            dbRepository.deleteByName(key.leagueName)
         },
-        deleteAll = { dao.deleteAll() },
+        deleteAll = { dbRepository.deleteAll() },
     )
 
     override suspend fun getLeague(leagueAvailable: LeaguesAvailable): Result<LeagueData> {
