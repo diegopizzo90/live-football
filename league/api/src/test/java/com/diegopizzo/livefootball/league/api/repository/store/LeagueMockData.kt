@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.league.api.repository.store.dao
+package com.diegopizzo.livefootball.league.api.repository.store
 
 import com.diegopizzo.livefootball.league.api.config.CountryCode
 import com.diegopizzo.livefootball.league.api.config.LeagueType

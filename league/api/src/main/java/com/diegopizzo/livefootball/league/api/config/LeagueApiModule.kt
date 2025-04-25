@@ -7,8 +7,8 @@ import com.diegopizzo.livefootball.league.api.repository.LeagueRepositoryImpl
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStoreImpl
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDbRepository
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDbRepositoryImpl
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepository
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepositoryImpl
 import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
 import org.koin.dsl.module
 import sqldelight.database.LeagueDatabase
@@ -41,7 +41,7 @@ private fun leagueDatabaseModule(driverFactory: SqlDriverFactory) =
         }
     }
 
-private val leagueDatabaseDaoModule = module {
+private val leagueDatabaseRepositoryModule = module {
     single<LeagueDbRepository> {
         LeagueDbRepositoryImpl(get<LeagueDatabase>().leagueQueries)
     }
@@ -59,7 +59,7 @@ fun leagueApiModule(driverFactory: SqlDriverFactory) = module {
         leagueRepositoryModule,
         leagueMapperModule,
         leagueDatabaseModule(driverFactory),
-        leagueDatabaseDaoModule,
+        leagueDatabaseRepositoryModule,
         leagueStoreModule,
     )
 }

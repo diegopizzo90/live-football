@@ -11,8 +11,8 @@ import com.diegopizzo.livefootball.match.api.repository.store.entity.GoalsEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.HomeEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchResponseEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchDayEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.TeamsEntity
@@ -28,7 +28,7 @@ import com.diegopizzo.livefootball.match.domain.repository.model.TeamsData
 
 internal interface MatchMapper {
     fun mapToMatchData(data: List<MatchEntity>): List<MatchData>
-    fun mapToMatchData(dto: MatchResponseDto, date: String, season: String): MatchesResponseEntity
+    fun mapToMatchData(dto: MatchResponseDto, date: String, season: String): MatchesEntity
 }
 
 internal class MatchMapperImpl : MatchMapper {
@@ -48,13 +48,13 @@ internal class MatchMapperImpl : MatchMapper {
         }
     }
 
-    override fun mapToMatchData(dto: MatchResponseDto, date: String, season: String): MatchesResponseEntity {
-        val matchResponse = MatchResponseEntity(
+    override fun mapToMatchData(dto: MatchResponseDto, date: String, season: String): MatchesEntity {
+        val matchResponse = MatchDayEntity(
             date = date,
             season = season,
         )
-        return MatchesResponseEntity(
-            matchResponse = matchResponse,
+        return MatchesEntity(
+            matchDay = matchResponse,
             matches = dto.response.map {
                 MatchEntity(
                     matchId = it.match.id,

@@ -22,11 +22,6 @@ dependencies {
     implementation(project(path = ":core"))
     implementation(project(path = ":match:domain"))
 
-    implementation(libs.room)
-    implementation(libs.room.coroutines)
-    annotationProcessor(libs.room.compiler)
-    ksp(libs.room.compiler)
-
     androidTestImplementation(project(":android_test_utils"))
     testImplementation(project(":test_utils"))
 }

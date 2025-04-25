@@ -1,4 +1,4 @@
-package com.diegopizzo.livefootball.league.api.repository.store.dao
+package com.diegopizzo.livefootball.league.api.repository.store
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Test
 import sqldelight.database.LeagueDatabase
 
-class LeagueDaoTest {
+class LeagueDbRepositoryTest {
 
     private lateinit var driver: SqlDriver
     private lateinit var database: LeagueDatabase

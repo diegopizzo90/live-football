@@ -39,7 +39,7 @@ class LiveFootballApplication : Application() {
                 leagueApiModule(AndroidSqlDriverFactory(this@LiveFootballApplication)),
                 leagueDomainModule,
                 dateUtilsModule,
-                matchApiModule,
+                matchApiModule(AndroidSqlDriverFactory(this@LiveFootballApplication)),
                 matchDomainModule,
                 matchPresentationModule,
             )

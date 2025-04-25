@@ -1,20 +1,17 @@
 package com.diegopizzo.livefootball.match.api.config
 
-import androidx.room.Room
+import com.diegopizzo.livefootball.core.utils.SqlDriverFactory
 import com.diegopizzo.livefootball.core.utils.getSeasonYear
 import com.diegopizzo.livefootball.match.api.network.MatchApi
 import com.diegopizzo.livefootball.match.api.network.MatchApiImpl
 import com.diegopizzo.livefootball.match.api.repository.MatchRepositoryImpl
 import com.diegopizzo.livefootball.match.api.repository.store.MatchStore
 import com.diegopizzo.livefootball.match.api.repository.store.MatchStoreImpl
-import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDao
-import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepository
-import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepositoryImpl
-import com.diegopizzo.livefootball.match.api.repository.store.database.MatchDatabase
-import com.diegopizzo.livefootball.match.api.repository.store.database.migration1_2
+import com.diegopizzo.livefootball.match.api.repository.store.MatchDbRepository
+import com.diegopizzo.livefootball.match.api.repository.store.MatchDbRepositoryImpl
 import com.diegopizzo.livefootball.match.domain.repository.MatchRepository
-import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
+import sqldelight.database.MatchDatabase
 import kotlin.time.Duration.Companion.seconds
 
 private val matchNetworkModule = module {
@@ -41,17 +38,19 @@ private val matchRepositoryModule = module {
     }
 }
 
-private val matchDatabaseModule = module {
-    single {
-        Room.databaseBuilder(androidApplication(), MatchDatabase::class.java, "lf-match-db")
-            .addMigrations(migration1_2)
-            .build()
+private fun matchDatabaseModule(driverFactory: SqlDriverFactory) =
+    module {
+        single {
+            val schema = MatchDatabase.Schema
+            val dbName = "lf-match-db"
+            val driver = driverFactory.createDriver(schema, dbName)
+            MatchDatabase(driver)
+        }
     }
-}
 
-private val matchDaoModule = module {
-    single {
-        provideMatchDao(get())
+private val matchDatabaseRepositoryModule = module {
+    single<MatchDbRepository> {
+        MatchDbRepositoryImpl(get<MatchDatabase>().matchQueries)
     }
 }
 
@@ -61,18 +60,14 @@ private val matchDbRepositoryModule = module {
     }
 }
 
-private fun provideMatchDao(database: MatchDatabase): MatchDao {
-    return database.matchDao()
-}
-
-val matchApiModule = module {
+fun matchApiModule(driverFactory: SqlDriverFactory) = module {
     includes(
         matchNetworkModule,
         matchMapperModule,
         matchStoreModule,
         matchRepositoryModule,
-        matchDatabaseModule,
-        matchDaoModule,
+        matchDatabaseModule(driverFactory),
+        matchDatabaseRepositoryModule,
         matchDbRepositoryModule,
     )
 }

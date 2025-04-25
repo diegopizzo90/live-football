@@ -3,10 +3,9 @@ package com.diegopizzo.livefootball.match.api.repository.store
 import com.diegopizzo.livefootball.core.utils.DateUtils
 import com.diegopizzo.livefootball.match.api.network.MatchApi
 import com.diegopizzo.livefootball.match.api.network.util.matchResponseDto
-import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepository
 import com.diegopizzo.livefootball.match.api.repository.store.data.matchDataList
 import com.diegopizzo.livefootball.match.api.repository.store.data.matchEntityList
-import com.diegopizzo.livefootball.match.api.repository.store.data.matchesResponseEntity
+import com.diegopizzo.livefootball.match.api.repository.store.data.matchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.mapper.MatchMapperImpl
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -40,10 +39,10 @@ class MatchStoreTest {
         val season = "2024"
 
         coEvery { api.getMatches(date, season) } returns Result.success(matchResponseDto)
-        coEvery { matchDbRepository.insertMatchesWithResponse(date, season, matchEntityList) }.returns(Unit)
-        coEvery { matchDbRepository.getMatchesResponseByDateAndSeason(date, season) }.returnsMany(
+        coEvery { matchDbRepository.insertMatches(date, season, matchEntityList) }.returns(Unit)
+        coEvery { matchDbRepository.getMatchesByDateAndSeason(date, season) }.returnsMany(
             null,
-            matchesResponseEntity,
+            matchesEntity,
         )
         coEvery { dateUtils.isToday(date) } returns false
 

@@ -51,9 +51,6 @@ kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serial
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "compose-lottie" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 store5 = { module = "org.mobilenativefoundation.store:store5", version.ref = "store5" }
-room = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-coroutines = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "sqldelight" }
 sqldelight-android-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }

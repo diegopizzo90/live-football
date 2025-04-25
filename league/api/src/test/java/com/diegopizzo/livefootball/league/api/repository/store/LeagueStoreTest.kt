@@ -6,7 +6,6 @@ import com.diegopizzo.livefootball.league.api.data.leagueEntity
 import com.diegopizzo.livefootball.league.api.data.leagueResponse
 import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDbRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

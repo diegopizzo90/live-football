@@ -5,8 +5,8 @@ import com.diegopizzo.livefootball.match.api.repository.store.entity.GoalsEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.HomeEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchResponseEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchDayEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.TeamsEntity
@@ -163,8 +163,8 @@ internal val matchEntityList = listOf(
     ),
 )
 
-internal val matchesResponseEntity = MatchesResponseEntity(
-    matchResponse = MatchResponseEntity(
+internal val matchesEntity = MatchesEntity(
+    matchDay = MatchDayEntity(
         date = "2024-01-01",
         season = "2024",
     ),
