@@ -8,11 +8,11 @@ import org.junit.Test
 
 class MatchDataMapperTest {
 
-    private lateinit var mapper: com.diegopizzo.livefootball.match.api.repository.store.mapper.MatchMapper
+    private lateinit var mapper: MatchMapper
 
     @Before
     fun setup() {
-        mapper = com.diegopizzo.livefootball.match.api.repository.store.mapper.MatchMapperImpl()
+        mapper = MatchMapperImpl()
     }
 
     @Test

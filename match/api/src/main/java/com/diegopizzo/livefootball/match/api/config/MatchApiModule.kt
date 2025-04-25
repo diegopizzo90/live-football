@@ -54,12 +54,6 @@ private val matchDatabaseRepositoryModule = module {
     }
 }
 
-private val matchDbRepositoryModule = module {
-    single<MatchDbRepository> {
-        MatchDbRepositoryImpl(get())
-    }
-}
-
 fun matchApiModule(driverFactory: SqlDriverFactory) = module {
     includes(
         matchNetworkModule,
@@ -68,6 +62,5 @@ fun matchApiModule(driverFactory: SqlDriverFactory) = module {
         matchRepositoryModule,
         matchDatabaseModule(driverFactory),
         matchDatabaseRepositoryModule,
-        matchDbRepositoryModule,
     )
 }

@@ -5,7 +5,7 @@ import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
 import database.MatchQueries
 
 data class MatchDayEntity(
-    val matchDayId: Long,
+    val matchDayId: Long = 0L,
     val date: String,
     val season: String,
 )
