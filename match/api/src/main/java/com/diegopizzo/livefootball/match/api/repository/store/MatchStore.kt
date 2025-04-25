@@ -2,8 +2,7 @@ package com.diegopizzo.livefootball.match.api.repository.store
 
 import com.diegopizzo.livefootball.core.utils.DateUtils
 import com.diegopizzo.livefootball.match.api.network.MatchApi
-import com.diegopizzo.livefootball.match.api.repository.store.dao.MatchDbRepository
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.mapper.MatchMapper
 import com.diegopizzo.livefootball.match.domain.repository.model.MatchData
 import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
@@ -42,7 +41,7 @@ internal class MatchStoreImpl(
             .build(),
     ).build()
 
-    private fun provideFetcher(): Fetcher<MatchKeyStore, MatchesResponseEntity> = Fetcher.of { key: MatchKeyStore ->
+    private fun provideFetcher(): Fetcher<MatchKeyStore, MatchesEntity> = Fetcher.of { key: MatchKeyStore ->
         api.getMatches(
             date = key.date,
             season = key.season,
@@ -63,10 +62,10 @@ internal class MatchStoreImpl(
         }.getOrThrow()
     }
 
-    private fun provideSourceOfTruth(): SourceOfTruth<MatchKeyStore, MatchesResponseEntity, List<MatchData>> =
+    private fun provideSourceOfTruth(): SourceOfTruth<MatchKeyStore, MatchesEntity, List<MatchData>> =
         SourceOfTruth.of(
             nonFlowReader = { key: MatchKeyStore ->
-                val matchesResponseEntity = matchDbRepository.getMatchesResponseByDateAndSeason(key.date, key.season)
+                val matchesResponseEntity = matchDbRepository.getMatchesByDateAndSeason(key.date, key.season)
                 if (matchesResponseEntity == null) {
                     null
                 } else {
@@ -74,7 +73,7 @@ internal class MatchStoreImpl(
                 }
             },
             writer = { key, matches ->
-                matchDbRepository.insertMatchesWithResponse(
+                matchDbRepository.insertMatches(
                     matchDate = key.date,
                     season = key.season,
                     matches = matches.matches,

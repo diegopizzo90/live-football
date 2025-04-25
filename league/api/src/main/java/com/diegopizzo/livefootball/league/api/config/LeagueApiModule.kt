@@ -1,17 +1,17 @@
 package com.diegopizzo.livefootball.league.api.config
 
-import androidx.room.Room
+import com.diegopizzo.livefootball.core.utils.SqlDriverFactory
 import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.network.LeagueApiImpl
 import com.diegopizzo.livefootball.league.api.repository.LeagueRepositoryImpl
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueStoreImpl
-import com.diegopizzo.livefootball.league.api.repository.store.dao.LeagueDao
-import com.diegopizzo.livefootball.league.api.repository.store.database.LeagueDatabase
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepository
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepositoryImpl
 import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
-import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
+import sqldelight.database.LeagueDatabase
 
 private val apiModule = module {
     single<LeagueApi> {
@@ -31,20 +31,20 @@ private val leagueMapperModule = module {
     }
 }
 
-private val leagueDatabaseModule = module {
-    single {
-        Room.databaseBuilder(androidApplication(), LeagueDatabase::class.java, "lf-league-db").build()
+private fun leagueDatabaseModule(driverFactory: SqlDriverFactory) =
+    module {
+        single {
+            val schema = LeagueDatabase.Schema
+            val dbName = "lf-league-db"
+            val driver = driverFactory.createDriver(schema, dbName)
+            LeagueDatabase(driver)
+        }
     }
-}
 
-private val leagueDaoModule = module {
-    single {
-        provideLeagueDao(get())
+private val leagueDatabaseRepositoryModule = module {
+    single<LeagueDbRepository> {
+        LeagueDbRepositoryImpl(get<LeagueDatabase>().leagueQueries)
     }
-}
-
-private fun provideLeagueDao(database: LeagueDatabase): LeagueDao {
-    return database.leagueDao()
 }
 
 private val leagueStoreModule = module {
@@ -53,13 +53,13 @@ private val leagueStoreModule = module {
     }
 }
 
-val leagueApiModule = module {
+fun leagueApiModule(driverFactory: SqlDriverFactory) = module {
     includes(
         apiModule,
         leagueRepositoryModule,
         leagueMapperModule,
-        leagueDatabaseModule,
-        leagueDaoModule,
+        leagueDatabaseModule(driverFactory),
+        leagueDatabaseRepositoryModule,
         leagueStoreModule,
     )
 }

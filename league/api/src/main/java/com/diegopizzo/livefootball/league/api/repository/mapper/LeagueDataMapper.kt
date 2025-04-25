@@ -2,9 +2,9 @@ package com.diegopizzo.livefootball.league.api.repository.mapper
 
 import com.diegopizzo.livefootball.league.api.config.LeagueType
 import com.diegopizzo.livefootball.league.api.network.model.LeagueResponseDto
-import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.livefootball.league.domain.repository.model.LeagueData
 import com.diegopizzo.livefootball.league.domain.repository.model.LeagueTypeData
+import database.LeagueEntity
 
 internal class LeagueDataMapper {
 
@@ -13,7 +13,7 @@ internal class LeagueDataMapper {
             return LeagueData(
                 id = leagueId,
                 name = name,
-                type = LeagueTypeData.valueOf(leagueType.name),
+                type = LeagueTypeData.valueOf(leagueType),
                 logo = logo,
                 countryName = countryName,
                 countryCode = countryCode,
@@ -29,7 +29,7 @@ internal class LeagueDataMapper {
                 logo = league.logo,
                 countryName = country.name,
                 countryCode = country.code,
-                leagueType = LeagueType.fromValue(league.type) ?: LeagueType.LEAGUE,
+                leagueType = LeagueType.fromValue(league.type)?.name ?: LeagueType.LEAGUE.name,
             )
         }
     }

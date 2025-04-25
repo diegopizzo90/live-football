@@ -5,20 +5,20 @@ import com.diegopizzo.livefootball.match.api.repository.store.entity.GoalsEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.HomeEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.LeagueEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchResponseEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesResponseEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchDayEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.StatusEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.TeamsEntity
-import com.diegopizzo.livefootball.match.api.repository.store.model.AwayData
-import com.diegopizzo.livefootball.match.api.repository.store.model.GoalsData
-import com.diegopizzo.livefootball.match.api.repository.store.model.HomeData
-import com.diegopizzo.livefootball.match.api.repository.store.model.LeagueData
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchData
-import com.diegopizzo.livefootball.match.api.repository.store.model.MatchStatus
-import com.diegopizzo.livefootball.match.api.repository.store.model.PenaltyData
-import com.diegopizzo.livefootball.match.api.repository.store.model.StatusData
-import com.diegopizzo.livefootball.match.api.repository.store.model.TeamsData
+import com.diegopizzo.livefootball.match.domain.repository.model.AwayData
+import com.diegopizzo.livefootball.match.domain.repository.model.GoalsData
+import com.diegopizzo.livefootball.match.domain.repository.model.HomeData
+import com.diegopizzo.livefootball.match.domain.repository.model.LeagueData
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchData
+import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
+import com.diegopizzo.livefootball.match.domain.repository.model.PenaltyData
+import com.diegopizzo.livefootball.match.domain.repository.model.StatusData
+import com.diegopizzo.livefootball.match.domain.repository.model.TeamsData
 
 internal val matchEntityList = listOf(
     MatchEntity(
@@ -163,8 +163,8 @@ internal val matchEntityList = listOf(
     ),
 )
 
-internal val matchesResponseEntity = MatchesResponseEntity(
-    matchResponse = MatchResponseEntity(
+internal val matchesEntity = MatchesEntity(
+    matchDay = MatchDayEntity(
         date = "2024-01-01",
         season = "2024",
     ),

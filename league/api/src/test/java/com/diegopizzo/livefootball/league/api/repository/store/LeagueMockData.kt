@@ -1,9 +1,9 @@
-package com.diegopizzo.livefootball.league.api.store.dao
+package com.diegopizzo.livefootball.league.api.repository.store
 
 import com.diegopizzo.livefootball.league.api.config.CountryCode
 import com.diegopizzo.livefootball.league.api.config.LeagueType
 import com.diegopizzo.livefootball.league.api.config.LeaguesAvailable
-import com.diegopizzo.livefootball.league.api.repository.store.entity.LeagueEntity
+import database.LeagueEntity
 
 internal val leagueEntity1 = LeagueEntity(
     leagueId = 1,
@@ -11,7 +11,7 @@ internal val leagueEntity1 = LeagueEntity(
     logo = "logo",
     countryName = CountryCode.ITALY.name,
     countryCode = CountryCode.ITALY.code,
-    leagueType = LeagueType.LEAGUE,
+    leagueType = LeagueType.LEAGUE.name,
 )
 
 internal val leagueEntity2 = LeagueEntity(
@@ -20,5 +20,5 @@ internal val leagueEntity2 = LeagueEntity(
     logo = "logo",
     countryName = CountryCode.ENGLAND.name,
     countryCode = CountryCode.ENGLAND.code,
-    leagueType = LeagueType.LEAGUE,
+    leagueType = LeagueType.LEAGUE.name,
 )

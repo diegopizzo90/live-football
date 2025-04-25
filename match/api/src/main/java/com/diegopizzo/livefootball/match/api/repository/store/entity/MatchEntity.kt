@@ -1,93 +1,94 @@
 package com.diegopizzo.livefootball.match.api.repository.store.entity
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
-import androidx.room.Relation
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchDbMapper.toSqlDelightEntity
 import com.diegopizzo.livefootball.match.domain.repository.model.MatchStatus
+import database.MatchQueries
 
-@Entity(
-    tableName = "match_response",
-    indices = [Index(value = ["date", "season"], unique = true)],
-)
-internal data class MatchResponseEntity(
-    @PrimaryKey(autoGenerate = true) val matchResponseId: Long = 0L,
+data class MatchDayEntity(
+    val matchDayId: Long = 0L,
     val date: String,
     val season: String,
 )
 
-@Entity(
-    tableName = "match",
-    foreignKeys = [
-        ForeignKey(
-            entity = MatchResponseEntity::class,
-            parentColumns = ["matchResponseId"],
-            childColumns = ["matchResponseFkId"],
-            onDelete = ForeignKey.CASCADE,
-        ),
-    ],
-    indices = [
-        Index(value = ["matchResponseFkId"]),
-    ],
-)
-internal data class MatchEntity(
-    @PrimaryKey val matchId: Long,
+data class MatchEntity(
+    val matchId: Long,
     val timezone: String,
     val date: String,
     val timestampUtc: Long,
-    @Embedded val status: StatusEntity,
-    @Embedded val league: LeagueEntity,
-    @Embedded val teams: TeamsEntity,
-    @Embedded val goals: GoalsEntity,
-    @Embedded val penalty: PenaltyEntity? = null,
-    val matchResponseFkId: Long = 0,
+    val status: StatusEntity,
+    val league: LeagueEntity,
+    val teams: TeamsEntity,
+    val goals: GoalsEntity,
+    val penalty: PenaltyEntity? = null,
+    val matchDayFkId: Long = 0L,
 )
 
-internal data class MatchesResponseEntity(
-    @Embedded val matchResponse: MatchResponseEntity,
-    @Relation(
-        parentColumn = "matchResponseId",
-        entityColumn = "matchResponseFkId",
-    )
+data class MatchesEntity(
+    val matchDay: MatchDayEntity,
     val matches: List<MatchEntity>,
 )
 
-internal data class StatusEntity(
+data class StatusEntity(
     val matchStatus: String? = MatchStatus.NOT_AVAILABLE.shortName,
     val elapsed: Int? = null,
 )
 
-internal data class LeagueEntity(
+data class LeagueEntity(
     val idLeague: Long,
     val nameLeague: String,
     val logoLeague: String? = null,
 )
 
-internal data class TeamsEntity(
-    @Embedded val home: HomeEntity,
-    @Embedded val away: AwayEntity,
+data class TeamsEntity(
+    val home: HomeEntity,
+    val away: AwayEntity,
 )
 
-internal data class HomeEntity(
+data class HomeEntity(
     val idHome: Long,
     val nameHome: String,
     val logoHome: String,
 )
 
-internal data class AwayEntity(
+data class AwayEntity(
     val idAway: Long,
     val nameAway: String,
     val logoAway: String,
 )
 
-internal data class GoalsEntity(
+data class GoalsEntity(
     val home: Int? = null,
     val away: Int? = null,
 )
 
-internal data class PenaltyEntity(
+data class PenaltyEntity(
     val homePenaltyScore: Int? = null,
     val awayPenaltyScore: Int? = null,
 )
+
+fun MatchEntity.insertInto(matchQueries: MatchQueries) {
+    val sql = this.toSqlDelightEntity()
+    matchQueries.insertMatch(
+        matchId = sql.matchId,
+        timezone = sql.timezone,
+        date = sql.date,
+        timestampUtc = sql.timestampUtc,
+        matchStatus = sql.matchStatus,
+        elapsed = sql.elapsed,
+        idLeague = sql.idLeague,
+        nameLeague = sql.nameLeague,
+        logoLeague = sql.logoLeague,
+        idHome = sql.idHome,
+        nameHome = sql.nameHome,
+        logoHome = sql.logoHome,
+        idAway = sql.idAway,
+        nameAway = sql.nameAway,
+        logoAway = sql.logoAway,
+        goalsHome = sql.goalsHome,
+        goalsAway = sql.goalsAway,
+        homePenaltyScore = sql.homePenaltyScore,
+        awayPenaltyScore = sql.awayPenaltyScore,
+        matchDayFkId = sql.matchDayFkId,
+    )
+}
+

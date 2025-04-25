@@ -2,6 +2,7 @@ plugins {
     id(libs.plugins.android.library.get().pluginId)
     id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
     id(libs.plugins.liveFootball.plugin.get().pluginId)
+    id(libs.plugins.compose.compiler.get().pluginId)
 }
 
 android {
@@ -14,13 +15,15 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     //Compose
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.coil)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.uiTooling) {
+    api(platform(libs.compose.bom))
+    api(libs.compose.coil)
+    api(libs.compose.ui)
+    api(libs.compose.uiTooling) {
         exclude(group = "androidx.compose.material", module = "material")
     }
-    implementation(libs.compose.design)
+    api(libs.compose.design)
+    api(libs.compose.activity)
+
     api(libs.compose.lottie)
     api(libs.compose.haze)
 }

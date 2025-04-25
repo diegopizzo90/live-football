@@ -1,0 +1,58 @@
+CREATE TABLE MatchDayEntity (
+    matchDayId INTEGER PRIMARY KEY AUTOINCREMENT,
+    date TEXT NOT NULL,
+    season TEXT NOT NULL,
+    UNIQUE(date, season)
+);
+
+CREATE TABLE MatchEntity (
+    matchId INTEGER NOT NULL PRIMARY KEY,
+    timezone TEXT NOT NULL,
+    date TEXT NOT NULL,
+    timestampUtc INTEGER NOT NULL,
+    matchStatus TEXT,
+    elapsed INTEGER,
+    idLeague INTEGER NOT NULL,
+    nameLeague TEXT NOT NULL,
+    logoLeague TEXT,
+    idHome INTEGER NOT NULL,
+    nameHome TEXT NOT NULL,
+    logoHome TEXT NOT NULL,
+    idAway INTEGER NOT NULL,
+    nameAway TEXT NOT NULL,
+    logoAway TEXT NOT NULL,
+    goalsHome INTEGER,
+    goalsAway INTEGER,
+    homePenaltyScore INTEGER,
+    awayPenaltyScore INTEGER,
+    matchDayFkId INTEGER NOT NULL REFERENCES MatchDayEntity(matchDayId) ON DELETE CASCADE
+);
+
+insertMatchDay:
+INSERT INTO MatchDayEntity(date, season)
+VALUES (?, ?);
+
+insertMatch:
+INSERT INTO MatchEntity(
+    matchId, timezone, date, timestampUtc, matchStatus, elapsed,
+    idLeague, nameLeague, logoLeague,
+    idHome, nameHome, logoHome,
+    idAway, nameAway, logoAway,
+    goalsHome, goalsAway, homePenaltyScore, awayPenaltyScore, matchDayFkId
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteAllMatchDays:
+DELETE FROM MatchDayEntity;
+
+deleteMatchDayByDateAndSeason:
+DELETE FROM MatchDayEntity
+WHERE date = ? AND season = ?;
+
+selectMatchDay:
+SELECT * FROM MatchDayEntity
+WHERE date = ? AND season = ?;
+
+selectMatchesByMatchDayId:
+SELECT * FROM MatchEntity
+WHERE matchDayFkId = ?;
