@@ -1,6 +1,5 @@
 package com.diegopizzo.livefootball.core.config
 
-import android.util.Log
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -16,6 +15,7 @@ import io.ktor.http.headersOf
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.dsl.module
+import co.touchlab.kermit.Logger as kermitLog
 
 private val responseHeaders = headersOf("Content-Type" to listOf(ContentType.Application.Json.toString()))
 
@@ -43,7 +43,7 @@ fun fakeKtorHttpClient() = module {
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        Log.v("Logger Ktor =>", message)
+                        kermitLog.d { "Logger Ktor => $message" }
                     }
                 }
                 level = LogLevel.ALL
@@ -51,7 +51,7 @@ fun fakeKtorHttpClient() = module {
 
             install(ResponseObserver) {
                 onResponse { response ->
-                    Log.d("FAKE HTTP call:", "${response.status.value}")
+                    kermitLog.d { "FAKE HTTP call: ${response.status.value}" }
                 }
             }
 

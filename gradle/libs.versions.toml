@@ -1,6 +1,5 @@
 [versions]
-agp = "8.7.3"
-gradlePlugin = "2.0.0"
+agp = "8.9.2"
 kotlin = "2.0.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -11,7 +10,7 @@ compose-bom = "2024.12.01"
 compose-coil = "2.7.0"
 compose-activity = "1.9.3"
 compose-haze = "0.9.0-rc02"
-jvmTarget = "11"
+jvmTarget = "17"
 ktlint = "1.1.1"
 detekt = "1.23.6"
 coroutines = "1.8.1"
@@ -20,16 +19,17 @@ ktor = "2.3.12"
 kotlinSerialization = "1.6.3"
 compose-lottie = "6.3.0"
 compose-navigation = "2.8.5"
-material = "1.12.0"
 mockk = "1.13.11"
 store5 = "5.1.0-alpha04"
-room = "2.6.1"
-ksp = "2.0.0-1.0.23"
 sqldelight = "2.0.0"
+kotlinStdlib = "2.0.20"
+kotlinTest = "2.0.20"
+kermit = "2.0.0"
+runner = "1.5.2"
+core = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-gradle-plugin = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "gradlePlugin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -38,7 +38,8 @@ ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
@@ -46,7 +47,7 @@ ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", ve
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
-ktor-test-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "compose-lottie" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
@@ -55,11 +56,11 @@ sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.
 sqldelight-android-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-driver-jvm = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "compose-coil" }
 compose-design = { module = "androidx.compose.material3:material3" }
-compose-foundation = { module = "androidx.compose.foundation:foundation" }
 compose-ui = { module = "androidx.compose.ui:ui" }
 compose-uiTooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-activity" }
@@ -70,6 +71,10 @@ gradlePlugin-agp = { module = "com.android.tools.build:gradle", version.ref = "a
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 gradlePlugin-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -78,5 +83,6 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 liveFootball-plugin = { id = "lf-plugin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ksp-plugin = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 sqldelight-plugin = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }

@@ -33,8 +33,9 @@ plugins {
     id(libs.plugins.android.library.get().pluginId) apply false
     id(libs.plugins.jetbrains.kotlin.android.get().pluginId) apply false
     id(libs.plugins.compose.compiler.get().pluginId) version libs.versions.kotlin apply false
-    id(libs.plugins.ksp.plugin.get().pluginId) version libs.versions.ksp apply false
     id(libs.plugins.jetbrains.kotlin.serialization.get().pluginId) version libs.versions.kotlin
+    id(libs.plugins.kotlin.multiplatform.get().pluginId) apply false
+    id(libs.plugins.android.kotlin.multiplatform.library.get().pluginId) apply false
 }
 
 allprojects {

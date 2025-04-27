@@ -27,6 +27,6 @@ dependencies {
     api(libs.mockk)
     api(libs.coroutines.test)
     api(libs.junit)
-    api(libs.ktor.test.mock)
+    api(libs.ktor.mock)
     api(libs.sqldelight.driver.jvm)
 }
