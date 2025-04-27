@@ -124,6 +124,11 @@ internal class MatchStoreImpl(
     }
 
     private fun isFreshDataRequired(matchData: List<MatchData>, date: String): Boolean {
+        // If the date is in the past, check if any match has NOT_STARTED value
+        if (dateUtils.isInThePast(date)) {
+            return matchData.any { it.status.matchStatus == MatchStatus.NOT_STARTED }
+        }
+
         // If the date is not today or in the past, check if any match is still playing
         if (!dateUtils.isToday(date) || dateUtils.isInThePast(date)) {
             return matchData.any { isMatchPlaying(it.status.matchStatus) }

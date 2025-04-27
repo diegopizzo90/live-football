@@ -29,11 +29,11 @@ CREATE TABLE MatchEntity (
 );
 
 insertMatchDay:
-INSERT INTO MatchDayEntity(date, season)
+INSERT OR REPLACE INTO MatchDayEntity(date, season)
 VALUES (?, ?);
 
 insertMatch:
-INSERT INTO MatchEntity(
+INSERT OR REPLACE INTO MatchEntity(
     matchId, timezone, date, timestampUtc, matchStatus, elapsed,
     idLeague, nameLeague, logoLeague,
     idHome, nameHome, logoHome,
