@@ -1,20 +1,41 @@
 plugins {
+    id(libs.plugins.kotlin.multiplatform.get().pluginId)
     id(libs.plugins.android.library.get().pluginId)
-    id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
     id(libs.plugins.liveFootball.plugin.get().pluginId)
     id(libs.plugins.compose.compiler.get().pluginId)
 }
 
-android {
-    namespace = "com.diegopizzo.livefootball.match.presentation"
+kotlin {
+    androidTarget()
+    iosX64()
+    iosSimulatorArm64()
+    iosArm64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(":core"))
+                implementation(project(":league:domain"))
+                implementation(project(":match:domain"))
+                implementation(project(":design"))
+            }
+        }
+        androidMain {
+            dependencies {
+                implementation(project(":design"))
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(project(":test_utils"))
+            }
+        }
+        iosMain {
+            dependencies {}
+        }
+    }
 }
 
-dependencies {
-    implementation(project(path = ":core"))
-    implementation(project(path = ":design"))
-    implementation(project(path = ":league:domain"))
-    implementation(project(path = ":match:domain"))
-
-    androidTestImplementation(project(path = ":android_test_utils"))
-    testImplementation(project(path = ":test_utils"))
+android {
+    namespace = "com.diegopizzo.livefootball.match.presentation"
 }

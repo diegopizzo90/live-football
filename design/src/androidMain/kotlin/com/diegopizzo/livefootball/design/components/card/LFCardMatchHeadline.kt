@@ -21,7 +21,7 @@ import com.diegopizzo.livefootball.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.livefootball.design.components.cell.LFCellResultViewData
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalDivider
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
 import com.diegopizzo.livefootball.design.tokens.SpaceTokens
@@ -52,12 +52,6 @@ fun LFCardMatchHeadline(
         }
     }
 }
-
-@Immutable
-data class LFCardMatchHeadlineViewData(
-    val cellHeadlineViewData: LFCellHeadlineViewData,
-    val matches: List<LFCellMatchViewData>,
-)
 
 private class LFCardMatchHeadlinePreviewParameterProvider : PreviewParameterProvider<LFCardMatchHeadlineViewData> {
     override val values: Sequence<LFCardMatchHeadlineViewData>
@@ -90,7 +84,9 @@ private fun LFCardMatchHeadlinePreview(
 private val defaultPreviewValue
     get() = LFCardMatchHeadlineViewData(
         cellHeadlineViewData = LFCellHeadlineViewData(
-            icon = LFIconViewData(drawableResourcePainter(Icons.ItalyFlag)),
+            icon = LFIconViewData(
+                painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
+            ),
             headlineText = "Euro Cup 2024",
             subtitle = "Group Stage",
         ),
@@ -98,13 +94,13 @@ private val defaultPreviewValue
             LFCellMatchViewData(
                 cellIconHome = LFCellIconViewData(
                     icon = LFIconViewData(
-                        painter = drawableResourcePainter(Icons.ItalyFlag),
+                        painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                     ),
                     text = "HomeHome Home",
                 ),
                 cellIconAway = LFCellIconViewData(
                     icon = LFIconViewData(
-                        painter = drawableResourcePainter(Icons.ItalyFlag),
+                        painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                     ),
                     text = "Away",
                 ),
@@ -113,13 +109,13 @@ private val defaultPreviewValue
             LFCellMatchViewData(
                 cellIconHome = LFCellIconViewData(
                     icon = LFIconViewData(
-                        painter = drawableResourcePainter(Icons.ItalyFlag),
+                        painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                     ),
                     text = "Home Home",
                 ),
                 cellIconAway = LFCellIconViewData(
                     icon = LFIconViewData(
-                        painter = drawableResourcePainter(Icons.ItalyFlag),
+                        painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                     ),
                     text = "Away",
                 ),

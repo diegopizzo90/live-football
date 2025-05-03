@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,15 +18,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.diegopizzo.livefootball.design.components.datepicker.DatePickerUtils.getDayName
+import com.diegopizzo.livefootball.design.components.datepicker.DatePickerUtils.getDayNumber
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.livefootball.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIcon
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.text.LFBodySmall
 import com.diegopizzo.livefootball.design.components.text.LFLabelLarge
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
+import com.diegopizzo.livefootball.design.theme.getIconRes
 import com.diegopizzo.livefootball.design.tokens.ShapeTokens
 import com.diegopizzo.livefootball.design.tokens.SpaceTokens
 import com.diegopizzo.livefootball.design.util.conditional
@@ -58,7 +60,7 @@ fun LFDatePicker(
         }
         LFIcon(
             viewData = LFIconViewData(
-                PainterViewData.drawableResourcePainter(Icons.Calendar),
+                painter = PainterResource.DrawableResource(getIconRes(Icons.Calendar)),
             ),
             modifier = Modifier
                 .clickable {
@@ -74,7 +76,11 @@ private fun RowScope.LFDayPicker(
     modifier: Modifier = Modifier,
     onClick: (date: String) -> Unit = {},
 ) {
-    with(viewData) {
+    val updatedViewData = viewData.copy(
+        dayName = getDayName(viewData.fullDate),
+        dayNumber = getDayNumber(viewData.fullDate),
+    )
+    with(updatedViewData) {
         Column(
             modifier = modifier
                 .weight(1f)
@@ -101,15 +107,6 @@ private fun RowScope.LFDayPicker(
     }
 }
 
-@Immutable
-data class LFDatePickerViewData(
-    val dayName: String,
-    val dayNumber: String,
-    val fullDate: String,
-    val millisUtc: Long? = null,
-    val selected: Boolean = false,
-)
-
 private class LFDatePickerPreviewParameterProvider : PreviewParameterProvider<List<LFDatePickerViewData>> {
     private val default
         get() = LFDatePickerViewData(
@@ -122,12 +119,12 @@ private class LFDatePickerPreviewParameterProvider : PreviewParameterProvider<Li
         get() = listOf(
             listOf(
                 default,
-                default.copy(dayName = "Tue", dayNumber = "2"),
-                default.copy(dayName = "Wed", dayNumber = "3"),
-                default.copy(dayName = "Thu", dayNumber = "4", selected = true),
-                default.copy(dayName = "Fri", dayNumber = "5"),
-                default.copy(dayName = "Sat", dayNumber = "6"),
-                default.copy(dayName = "Sun", dayNumber = "7"),
+                default.copy(dayName = "Tue", dayNumber = "2", fullDate = "2024-01-02"),
+                default.copy(dayName = "Wed", dayNumber = "3", fullDate = "2024-01-03"),
+                default.copy(dayName = "Thu", dayNumber = "4", fullDate = "2024-01-04", selected = true),
+                default.copy(dayName = "Fri", dayNumber = "5", fullDate = "2024-01-05"),
+                default.copy(dayName = "Sat", dayNumber = "6", fullDate = "2024-01-06"),
+                default.copy(dayName = "Sun", dayNumber = "7", fullDate = "2024-01-07"),
             ),
         ).asSequence()
 }

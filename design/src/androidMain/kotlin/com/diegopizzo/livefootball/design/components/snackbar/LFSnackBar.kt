@@ -6,13 +6,10 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarVisuals
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -23,19 +20,17 @@ import com.diegopizzo.livefootball.design.theme.LFTheme
 fun LFSnackbar(
     viewData: LFSnackBarViewData,
     modifier: Modifier = Modifier,
+    onDismiss: () -> Unit = {},
+    onPerformAction: () -> Unit = {},
 ) {
-    val label = viewData.actionLabel ?: if (!viewData.withDismissActionIcon && viewData.withDismissActionText) {
-        stringResource(R.string.dismiss)
-    } else {
-        null
-    }
-
-    val snackbarViewData = viewData.copy(
-        actionLabel = label,
+    val adaptedViewData = viewData.copy(
+        actionLabel = viewData.actionLabel ?: if (!viewData.withDismissActionIcon && viewData.withDismissActionText) {
+            stringResource(R.string.dismiss)
+        } else null,
     )
 
     Snackbar(
-        snackbarData = snackbarViewData,
+        snackbarData = AndroidSnackbarDataAdapter(adaptedViewData, onDismiss, onPerformAction),
         modifier = modifier,
         shape = SnackbarDefaults.shape,
         containerColor = MaterialTheme.colorScheme.inverseSurface,
@@ -43,57 +38,6 @@ fun LFSnackbar(
         actionColor = MaterialTheme.colorScheme.inverseOnSurface,
         actionContentColor = MaterialTheme.colorScheme.inverseOnSurface,
         dismissActionContentColor = MaterialTheme.colorScheme.inverseOnSurface,
-    )
-}
-
-@Immutable
-data class LFSnackBarViewData(
-    val message: String,
-    val actionLabel: String? = null,
-    val withDismissActionIcon: Boolean = false,
-    val withDismissActionText: Boolean = true,
-    val duration: LFSnackBarDuration = LFSnackBarDuration.Short,
-    val onDismiss: () -> Unit = {},
-    val onPerformAction: () -> Unit = {},
-) : SnackbarData {
-    override val visuals: SnackbarVisuals = object : SnackbarVisuals {
-        override val actionLabel: String? = this@LFSnackBarViewData.actionLabel?.toUpperCase(Locale.current)
-        override val duration: SnackbarDuration = this@LFSnackBarViewData.duration.toSnackbarDuration()
-        override val message: String = this@LFSnackBarViewData.message
-        override val withDismissAction: Boolean = this@LFSnackBarViewData.withDismissActionIcon
-    }
-
-    override fun dismiss() = onDismiss()
-    override fun performAction() = onPerformAction()
-}
-
-@Immutable
-enum class LFSnackBarDuration {
-    /** Show the Snackbar for a short period of time */
-    Short,
-
-    /** Show the Snackbar for a long period of time */
-    Long,
-
-    /** Show the Snackbar indefinitely until explicitly dismissed or action is clicked */
-    Indefinite,
-    ;
-
-    internal fun toSnackbarDuration() = when (this) {
-        Short -> SnackbarDuration.Short
-        Long -> SnackbarDuration.Long
-        Indefinite -> SnackbarDuration.Indefinite
-    }
-}
-
-fun SnackbarData.toLFSnackbarViewData(): LFSnackBarViewData {
-    return LFSnackBarViewData(
-        message = visuals.message,
-        actionLabel = visuals.actionLabel,
-        withDismissActionIcon = visuals.withDismissAction,
-        duration = LFSnackBarDuration.Short,
-        onDismiss = { dismiss() },
-        onPerformAction = { performAction() },
     )
 }
 

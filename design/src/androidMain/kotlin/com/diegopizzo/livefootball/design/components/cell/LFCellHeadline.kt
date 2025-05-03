@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIcon
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.text.LFBodyMedium
 import com.diegopizzo.livefootball.design.components.text.LFHeadlineMedium
 import com.diegopizzo.livefootball.design.theme.Icons
@@ -48,13 +47,6 @@ fun LFCellHeadline(
     }
 }
 
-@Immutable
-data class LFCellHeadlineViewData(
-    val icon: LFIconViewData,
-    val headlineText: String,
-    val subtitle: String,
-)
-
 @Preview("Default", "LFCellHeadline", showBackground = true)
 @Preview("Dark theme", "LFCellHeadline", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -73,7 +65,9 @@ private class LFCellHeadlinePreviewParameterProvider : PreviewParameterProvider<
     override val values: Sequence<LFCellHeadlineViewData>
         get() = listOf(
             LFCellHeadlineViewData(
-                icon = LFIconViewData(drawableResourcePainter(Icons.ItalyFlag)),
+                icon = LFIconViewData(
+                    painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
+                ),
                 headlineText = "Euro Cup 2024",
                 subtitle = "Group Stage",
             ),

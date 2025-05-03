@@ -15,7 +15,7 @@ kotlin {
     iosArm64()
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {
                 api(libs.coroutines.core)
                 api(libs.koin)
@@ -29,20 +29,21 @@ kotlin {
                 api(libs.sqldelight.runtime)
                 api(libs.sqldelight.coroutines.extensions)
                 api(libs.kermit)
+                api(libs.kotlinx.datetime)
                 implementation(libs.ktor.mock)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 api(libs.koin.android)
             }
         }
-        val iosMain by creating {
+        iosMain {
             dependencies {}
         }
     }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -20,7 +19,7 @@ import com.diegopizzo.livefootball.design.components.custom.LFPulsatingUnderline
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.livefootball.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.text.LFHeadlineMedium
 import com.diegopizzo.livefootball.design.components.text.LFHeadlineSmall
 import com.diegopizzo.livefootball.design.theme.Icons
@@ -81,23 +80,6 @@ fun LFCellMatch(
     }
 }
 
-@Immutable
-data class LFCellMatchViewData(
-    val id: Long = 0,
-    val leagueId: Long = 0,
-    val cellIconHome: LFCellIconViewData,
-    val cellIconAway: LFCellIconViewData,
-    val result: LFCellResultViewData? = null,
-    val penaltyResult: LFCellResultViewData? = null,
-    val time: String,
-    val isLiveMatch: Boolean = false,
-)
-
-data class LFCellResultViewData(
-    val resultHome: String,
-    val resultAway: String,
-)
-
 @Preview("Default", "LFCellMatch", showBackground = true)
 @Preview("Dark theme", "LFCellMatch", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -117,13 +99,13 @@ private class LFCellMatchPreviewParameterProvider : PreviewParameterProvider<LFC
         get() = LFCellMatchViewData(
             cellIconHome = LFCellIconViewData(
                 icon = LFIconViewData(
-                    painter = drawableResourcePainter(Icons.ItalyFlag),
+                    painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 ),
                 text = "HomeHome Home",
             ),
             cellIconAway = LFCellIconViewData(
                 icon = LFIconViewData(
-                    painter = drawableResourcePainter(Icons.ItalyFlag),
+                    painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 ),
                 text = "Away",
             ),

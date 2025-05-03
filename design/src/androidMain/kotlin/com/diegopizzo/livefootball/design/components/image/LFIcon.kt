@@ -3,7 +3,6 @@ package com.diegopizzo.livefootball.design.components.image
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -11,7 +10,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
 import com.diegopizzo.livefootball.design.tokens.ContentAlphaTokens
@@ -24,24 +22,16 @@ fun LFIcon(
 ) {
     with(viewData) {
         Icon(
-            painter = painter(),
+            painter = painter.toPainter(),
             contentDescription = contentDescription,
             modifier = modifier
-                .conditional(tint == null) {
+                .conditional(tintHex == null) {
                     alpha(if (enabled) ContentAlphaTokens.High else ContentAlphaTokens.Disabled)
                 },
-            tint = tint ?: Color.Unspecified,
+            tint = tintHex?.toComposableColor() ?: Color.Unspecified,
         )
     }
 }
-
-@Immutable
-data class LFIconViewData(
-    val painter: PainterViewData,
-    val contentDescription: String? = null,
-    val tint: Color? = null,
-    val enabled: Boolean = true,
-)
 
 @Preview("Default", "LFIcon")
 @Composable
@@ -61,11 +51,11 @@ private class LFIconPreviewParameterProvider : PreviewParameterProvider<LFIconVi
     override val values: Sequence<LFIconViewData>
         get() = listOf(
             LFIconViewData(
-                painter = drawableResourcePainter(Icons.ItalyFlag),
+                painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 enabled = true,
             ),
             LFIconViewData(
-                painter = drawableResourcePainter(Icons.ItalyFlag),
+                painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 enabled = false,
             ),
         ).asSequence()

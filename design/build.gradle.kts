@@ -12,10 +12,10 @@ kotlin {
     iosArm64()
 
     sourceSets {
-        val commonMain by getting {
+        commonMain {
             dependencies {}
         }
-        val androidMain by getting {
+        androidMain {
             dependencies {
                 implementation(project(":core"))
                 implementation(libs.androidx.core.ktx)
@@ -34,12 +34,12 @@ kotlin {
                 api(libs.compose.haze)
             }
         }
-        val commonTest by getting {
+        commonTest {
             dependencies {
                 implementation(kotlin("test"))
             }
         }
-        val iosMain by creating {
+        iosMain {
             dependencies {}
         }
     }

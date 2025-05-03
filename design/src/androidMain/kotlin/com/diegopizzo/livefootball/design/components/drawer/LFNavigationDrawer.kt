@@ -34,10 +34,11 @@ import androidx.compose.ui.unit.dp
 import com.diegopizzo.livefootball.design.components.divider.LFVerticalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIcon
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.text.LFHeadingLarge
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
+import com.diegopizzo.livefootball.design.theme.toHex
 import com.diegopizzo.livefootball.design.tokens.ShapeTokens
 import com.diegopizzo.livefootball.design.tokens.SpaceTokens
 import com.diegopizzo.livefootball.design.util.applyHazeEffect
@@ -163,7 +164,7 @@ private fun LFNavigationDrawerItem(
                 {
                     LFIcon(
                         viewData = it.copy(
-                            tint = if (selected) MaterialTheme.colorScheme.primary else Color.Unspecified,
+                            tintHex = if (selected) MaterialTheme.colorScheme.primary.toHex() else Color.Unspecified.toHex(),
                         ),
                         modifier = Modifier.size(32.dp),
                     )
@@ -175,13 +176,6 @@ private fun LFNavigationDrawerItem(
         )
     }
 }
-
-@Immutable
-data class LFNavigationDrawerItemViewData(
-    val label: String,
-    val icon: LFIconViewData? = null,
-    val selected: Boolean = false,
-)
 
 enum class LFModalNavigationDrawerShape(val value: Shape) {
     Zero(RectangleShape),
@@ -205,7 +199,7 @@ private fun LFNavigationDrawerPreview() {
         label = "Item 1",
         selected = true,
         icon = LFIconViewData(
-            painter = drawableResourcePainter(Icons.Goal),
+            painter = PainterResource.DrawableResource(Icons.Goal.idLightTheme),
         ),
     )
     val items = listOf(

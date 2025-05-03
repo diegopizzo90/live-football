@@ -15,7 +15,8 @@ import com.diegopizzo.livefootball.league.api.config.leagueApiModule
 import com.diegopizzo.livefootball.league.domain.config.leagueDomainModule
 import com.diegopizzo.livefootball.match.api.config.matchApiModule
 import com.diegopizzo.livefootball.match.domain.config.matchDomainModule
-import com.diegopizzo.livefootball.match.presentation.config.matchPresentationModule
+import com.diegopizzo.livefootball.match.presentation.config.matchPresentationAndroidModule
+import com.diegopizzo.livefootball.match.presentation.config.matchPresentationCommonModule
 import com.diegopizzo.livefootball.presentation.navigation.config.appNavigatorModule
 import com.diegopizzo.livefootball.presentation.viewmodel.config.androidMainViewModelModule
 import io.ktor.client.engine.android.AndroidClientEngine
@@ -41,7 +42,8 @@ class LiveFootballApplication : Application() {
                 dateUtilsModule,
                 matchApiModule(AndroidSqlDriverFactory(this@LiveFootballApplication)),
                 matchDomainModule,
-                matchPresentationModule,
+                matchPresentationCommonModule,
+                matchPresentationAndroidModule,
             )
         }
     }

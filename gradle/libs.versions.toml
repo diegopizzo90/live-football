@@ -19,14 +19,11 @@ ktor = "2.3.12"
 kotlinSerialization = "1.6.3"
 compose-lottie = "6.3.0"
 compose-navigation = "2.8.5"
-mockk = "1.13.11"
+mockative = "2.0.0"
 store5 = "5.1.0-alpha04"
 sqldelight = "2.0.0"
-kotlinStdlib = "2.0.20"
-kotlinTest = "2.0.20"
 kermit = "2.0.0"
-runner = "1.5.2"
-core = "1.5.0"
+kotlinx-datetime = "0.6.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -50,13 +47,15 @@ ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = 
 ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "compose-lottie" }
-mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+mockative = { module = "dev.mokkery:mokkery-gradle", version = "mockative" }
 store5 = { module = "org.mobilenativefoundation.store:store5", version.ref = "store5" }
 sqldelight-runtime = { group = "app.cash.sqldelight", name = "runtime", version.ref = "sqldelight" }
 sqldelight-android-driver = { group = "app.cash.sqldelight", name = "android-driver", version.ref = "sqldelight" }
 sqldelight-coroutines-extensions = { group = "app.cash.sqldelight", name = "coroutines-extensions", version.ref = "sqldelight" }
 sqldelight-driver-jvm = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
+sqldelight-driver-native = { group = "app.cash.sqldelight", name = "native-driver", version.ref = "sqldelight" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "compose-coil" }
@@ -71,10 +70,6 @@ gradlePlugin-agp = { module = "com.android.tools.build:gradle", version.ref = "a
 gradlePlugin-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
 gradlePlugin-sqldelight = { module = "app.cash.sqldelight:gradle-plugin", version.ref = "sqldelight" }
-kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
-kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
-androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
-androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -86,3 +81,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 sqldelight-plugin = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+mockative-plugin = { id = "dev.mokkery", version = "mockative" }

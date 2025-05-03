@@ -1,6 +1,8 @@
 package com.diegopizzo.livefootball.design.theme
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.Composable
 import com.diegopizzo.livefootball.design.R
 
 enum class Icons(@DrawableRes val idLightTheme: Int, @DrawableRes val idDarkTheme: Int) {
@@ -11,3 +13,6 @@ enum class Icons(@DrawableRes val idLightTheme: Int, @DrawableRes val idDarkThem
     Calendar(R.drawable.ic_calendar, R.drawable.ic_calendar),
     Menu(R.drawable.ic_menu, R.drawable.ic_menu_dark_theme),
 }
+
+@Composable
+fun getIconRes(icon: Icons): Int = if (isSystemInDarkTheme()) icon.idDarkTheme else icon.idLightTheme

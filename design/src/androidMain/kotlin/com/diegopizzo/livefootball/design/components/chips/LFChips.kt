@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIcon
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.surface.LFSurface
 import com.diegopizzo.livefootball.design.components.surface.LFSurfaceShape
 import com.diegopizzo.livefootball.design.components.text.LFTitleMedium
@@ -101,20 +100,13 @@ private fun LFChip(
     }
 }
 
-@Immutable
-data class LFChipViewData(
-    val id: Long = 0,
-    val icon: LFIconViewData? = null,
-    val text: String,
-    val isTextUppercase: Boolean = false,
-    val selected: Boolean = false,
-)
-
 private class LFChipsPreviewParameterProvider : PreviewParameterProvider<List<LFChipViewData>> {
     private val default
         get() = LFChipViewData(
             text = "Chip 1",
-            icon = LFIconViewData(drawableResourcePainter(Icons.ItalyFlag)),
+            icon = LFIconViewData(
+                painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
+            ),
             isTextUppercase = false,
             selected = false,
         )

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.diegopizzo.livefootball.design.components.divider.LFHorizontalSpacer
 import com.diegopizzo.livefootball.design.components.image.LFIcon
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.components.text.LFTitleSmall
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
@@ -82,15 +81,6 @@ private fun ContentLeftAligned(
     }
 }
 
-@Immutable
-data class LFCellEventDetailViewData(
-    val time: String,
-    val name: String,
-    val icon: LFIconViewData,
-    val score: String? = null,
-    val isLeftAligned: Boolean = true,
-)
-
 @Preview("Default", "LFCellEventDetail", showBackground = true)
 @Preview("Dark theme", "LFCellEventDetail", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -110,17 +100,23 @@ private class LFCellEventDetailPreviewParameterProvider : PreviewParameterProvid
         get() = LFCellEventDetailViewData(
             time = "27'",
             name = "P. Aubameyang",
-            icon = LFIconViewData(drawableResourcePainter(Icons.YellowCard)),
+            icon = LFIconViewData(
+                painter = PainterResource.DrawableResource(Icons.YellowCard.idLightTheme),
+            ),
         )
     override val values: Sequence<LFCellEventDetailViewData>
         get() = listOf(
             default,
             default.copy(
-                icon = LFIconViewData(drawableResourcePainter(Icons.Goal)),
+                icon = LFIconViewData(
+                    painter = PainterResource.DrawableResource(Icons.Goal.idLightTheme),
+                ),
                 score = "1 - 0",
             ),
             default.copy(
-                icon = LFIconViewData(drawableResourcePainter(Icons.Goal)),
+                icon = LFIconViewData(
+                    painter = PainterResource.DrawableResource(Icons.Goal.idLightTheme),
+                ),
                 score = "0 - 1",
                 isLeftAligned = false,
             ),

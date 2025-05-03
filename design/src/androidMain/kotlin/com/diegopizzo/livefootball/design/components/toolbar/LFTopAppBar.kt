@@ -10,17 +10,19 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.diegopizzo.livefootball.design.components.image.PainterViewData
+import com.diegopizzo.livefootball.design.components.image.PainterResource
+import com.diegopizzo.livefootball.design.components.image.toPainter
 import com.diegopizzo.livefootball.design.components.text.LFHeadingLarge
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
+import com.diegopizzo.livefootball.design.theme.getIconRes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LFTopAppBar(
     title: String,
     modifier: Modifier = Modifier,
-    icon: PainterViewData? = PainterViewData.drawableResourcePainter(Icons.Menu),
+    icon: PainterResource? = PainterResource.DrawableResource(getIconRes(Icons.Menu)),
     onNavigationIconClick: () -> Unit = {},
 ) {
     TopAppBar(
@@ -29,7 +31,7 @@ fun LFTopAppBar(
                 IconButton(
                     onClick = { onNavigationIconClick() },
                 ) {
-                    Icon(it.invoke(), contentDescription = "")
+                    Icon(it.toPainter(), contentDescription = "")
                 }
             }
         },

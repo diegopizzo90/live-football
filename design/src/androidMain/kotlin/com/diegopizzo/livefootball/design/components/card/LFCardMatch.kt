@@ -16,7 +16,7 @@ import com.diegopizzo.livefootball.design.components.cell.LFCellMatch
 import com.diegopizzo.livefootball.design.components.cell.LFCellMatchViewData
 import com.diegopizzo.livefootball.design.components.cell.LFCellResultViewData
 import com.diegopizzo.livefootball.design.components.image.LFIconViewData
-import com.diegopizzo.livefootball.design.components.image.PainterViewData.Companion.drawableResourcePainter
+import com.diegopizzo.livefootball.design.components.image.PainterResource
 import com.diegopizzo.livefootball.design.theme.Icons
 import com.diegopizzo.livefootball.design.theme.LFTheme
 import com.diegopizzo.livefootball.design.tokens.SpaceTokens
@@ -36,11 +36,6 @@ fun LFCardMatch(
         )
     }
 }
-
-@Immutable
-data class LFCardMatchViewData(
-    val match: LFCellMatchViewData,
-)
 
 private class LFCardMatchPreviewParameterProvider : PreviewParameterProvider<LFCardMatchViewData> {
     override val values: Sequence<LFCardMatchViewData>
@@ -83,13 +78,13 @@ private val defaultPreviewValue
         match = LFCellMatchViewData(
             cellIconHome = LFCellIconViewData(
                 icon = LFIconViewData(
-                    painter = drawableResourcePainter(Icons.ItalyFlag),
+                    painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 ),
                 text = "HomeHome Home",
             ),
             cellIconAway = LFCellIconViewData(
                 icon = LFIconViewData(
-                    painter = drawableResourcePainter(Icons.ItalyFlag),
+                    painter = PainterResource.DrawableResource(Icons.ItalyFlag.idLightTheme),
                 ),
                 text = "Away",
             ),
