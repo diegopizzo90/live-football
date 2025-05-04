@@ -11,6 +11,8 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.tasks.JavaExec
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
@@ -35,7 +37,6 @@ class LiveFootballPlugin : Plugin<Project> {
 
         target.configureDetekt()
         target.configureKtlint()
-        target.configureKotlinSerialization()
 
         target.plugins.all {
             when (this) {
@@ -48,6 +49,7 @@ class LiveFootballPlugin : Plugin<Project> {
                             target.configureComposeCompiler()
                         }
                     }
+                    target.configureKotlinSerialization()
                 }
 
                 is AppPlugin -> {
@@ -65,7 +67,10 @@ class LiveFootballPlugin : Plugin<Project> {
                             target.configureComposeCompiler()
                         }
                     }
+                    target.configureKotlinSerialization()
                 }
+
+                is KotlinMultiplatformPluginWrapper -> {}
             }
         }
     }
@@ -75,8 +80,8 @@ class LiveFootballPlugin : Plugin<Project> {
             library.apply {
                 compileSdk = COMPILE_SDK
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_11
-                    targetCompatibility = JavaVersion.VERSION_11
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
                 }
 
                 defaultConfig {
@@ -97,8 +102,8 @@ class LiveFootballPlugin : Plugin<Project> {
             app.apply {
                 compileSdk = COMPILE_SDK
                 compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_11
-                    targetCompatibility = JavaVersion.VERSION_11
+                    sourceCompatibility = JavaVersion.VERSION_17
+                    targetCompatibility = JavaVersion.VERSION_17
                 }
 
                 defaultConfig {

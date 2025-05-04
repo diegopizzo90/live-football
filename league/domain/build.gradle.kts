@@ -1,14 +1,41 @@
 plugins {
+    id(libs.plugins.kotlin.multiplatform.get().pluginId)
     id(libs.plugins.android.library.get().pluginId)
-    id(libs.plugins.jetbrains.kotlin.android.get().pluginId)
     id(libs.plugins.liveFootball.plugin.get().pluginId)
-    id(libs.plugins.ksp.plugin.get().pluginId)
+}
+
+liveFootballPlugin {
+    composeEnabled = false
+}
+
+kotlin {
+    androidTarget()
+    iosX64()
+    iosSimulatorArm64()
+    iosArm64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(path = ":core"))
+            }
+        }
+        androidMain {
+            dependencies {
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+        iosMain {
+            dependencies {}
+        }
+    }
 }
 
 android {
     namespace = "com.diegopizzo.livefootball.league.domain"
 }
 
-dependencies {
-    implementation(project(path = ":core"))
-}
