@@ -1,5 +1,4 @@
 rootProject.name = "Live Football"
-include(":android_test_utils")
 include(":app")
 include(":core")
 include(":design")
@@ -8,6 +7,4 @@ include(":league:domain")
 include(":match:api")
 include(":match:presentation")
 include(":test_utils")
-include(":match_details:api")
-include(":match_details:presentation")
 include(":match:domain")
