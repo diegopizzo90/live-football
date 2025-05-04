@@ -27,7 +27,6 @@ class AndroidSnackbarDataAdapter(
         LFSnackBarDuration.Long -> SnackbarDuration.Long
         LFSnackBarDuration.Indefinite -> SnackbarDuration.Indefinite
     }
-
 }
 
 fun LFSnackBarViewData.asSnackbarVisuals(

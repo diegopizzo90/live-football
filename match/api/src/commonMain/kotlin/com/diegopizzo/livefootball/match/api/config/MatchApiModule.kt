@@ -5,10 +5,10 @@ import com.diegopizzo.livefootball.core.utils.getSeasonYear
 import com.diegopizzo.livefootball.match.api.network.MatchApi
 import com.diegopizzo.livefootball.match.api.network.MatchApiImpl
 import com.diegopizzo.livefootball.match.api.repository.MatchRepositoryImpl
-import com.diegopizzo.livefootball.match.api.repository.store.MatchStore
-import com.diegopizzo.livefootball.match.api.repository.store.MatchStoreImpl
 import com.diegopizzo.livefootball.match.api.repository.store.MatchDbRepository
 import com.diegopizzo.livefootball.match.api.repository.store.MatchDbRepositoryImpl
+import com.diegopizzo.livefootball.match.api.repository.store.MatchStore
+import com.diegopizzo.livefootball.match.api.repository.store.MatchStoreImpl
 import com.diegopizzo.livefootball.match.domain.repository.MatchRepository
 import org.koin.dsl.module
 import sqldelight.database.MatchDatabase

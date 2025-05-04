@@ -3,11 +3,8 @@ package com.diegopizzo.livefootball.design.components.snackbar
 import android.content.res.Configuration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +23,9 @@ fun LFSnackbar(
     val adaptedViewData = viewData.copy(
         actionLabel = viewData.actionLabel ?: if (!viewData.withDismissActionIcon && viewData.withDismissActionText) {
             stringResource(R.string.dismiss)
-        } else null,
+        } else {
+            null
+        },
     )
 
     Snackbar(

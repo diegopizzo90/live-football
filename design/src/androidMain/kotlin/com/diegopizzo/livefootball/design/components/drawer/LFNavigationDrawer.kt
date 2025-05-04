@@ -17,7 +17,6 @@ import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -162,10 +161,14 @@ private fun LFNavigationDrawerItem(
             },
             icon = icon?.let {
                 {
+                    val tintColor = if (selected) {
+                        MaterialTheme.colorScheme.primary.toHex()
+                    } else {
+                        Color.Unspecified.toHex()
+                    }
+
                     LFIcon(
-                        viewData = it.copy(
-                            tintHex = if (selected) MaterialTheme.colorScheme.primary.toHex() else Color.Unspecified.toHex(),
-                        ),
+                        viewData = it.copy(tintHex = tintColor),
                         modifier = Modifier.size(32.dp),
                     )
                 }

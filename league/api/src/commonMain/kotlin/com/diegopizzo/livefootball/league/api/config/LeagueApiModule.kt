@@ -5,10 +5,10 @@ import com.diegopizzo.livefootball.league.api.network.LeagueApi
 import com.diegopizzo.livefootball.league.api.network.LeagueApiImpl
 import com.diegopizzo.livefootball.league.api.repository.LeagueRepositoryImpl
 import com.diegopizzo.livefootball.league.api.repository.mapper.LeagueDataMapper
-import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
-import com.diegopizzo.livefootball.league.api.repository.store.LeagueStoreImpl
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepository
 import com.diegopizzo.livefootball.league.api.repository.store.LeagueDbRepositoryImpl
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueStore
+import com.diegopizzo.livefootball.league.api.repository.store.LeagueStoreImpl
 import com.diegopizzo.livefootball.league.domain.repository.LeagueRepository
 import org.koin.dsl.module
 import sqldelight.database.LeagueDatabase

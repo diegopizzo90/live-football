@@ -21,4 +21,3 @@ object DatePickerUtils {
         return date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
     }
 }
-

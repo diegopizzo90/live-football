@@ -31,10 +31,14 @@ class LiveFootballApplication : Application() {
         startKoin {
             androidContext(this@LiveFootballApplication)
             modules(
-                if (BuildConfig.IS_FAKE_NETWORK_RESPONSE) fakeKtorHttpClient() else ktorHttpClient(
-                    BuildConfig.API_KEY,
-                    AndroidClientEngine(AndroidEngineConfig()),
-                ),
+                if (BuildConfig.IS_FAKE_NETWORK_RESPONSE) {
+                    fakeKtorHttpClient()
+                } else {
+                    ktorHttpClient(
+                        BuildConfig.API_KEY,
+                        AndroidClientEngine(AndroidEngineConfig()),
+                    )
+                },
                 appNavigatorModule,
                 androidMainViewModelModule,
                 leagueApiModule(AndroidSqlDriverFactory(this@LiveFootballApplication)),

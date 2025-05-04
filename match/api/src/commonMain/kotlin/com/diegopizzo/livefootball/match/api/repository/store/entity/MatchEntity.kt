@@ -91,4 +91,3 @@ fun MatchEntity.insertInto(matchQueries: MatchQueries) {
         matchDayFkId = sql.matchDayFkId,
     )
 }
-

@@ -75,8 +75,11 @@ sealed interface AndroidPainterResource {
             crossfade(crossfade)
             size?.let {
                 size(
-                    if (it.isUnspecified) CoilSize.ORIGINAL
-                    else CoilSize(it.width.toInt(), it.height.toInt()),
+                    if (it.isUnspecified) {
+                        CoilSize.ORIGINAL
+                    } else {
+                        CoilSize(it.width.toInt(), it.height.toInt())
+                    },
                 )
             }
         }.build()

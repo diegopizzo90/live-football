@@ -4,8 +4,8 @@ import com.diegopizzo.livefootball.match.api.repository.store.entity.AwayEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.GoalsEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.HomeEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.LeagueEntity
-import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchDayEntity
+import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.MatchesEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.PenaltyEntity
 import com.diegopizzo.livefootball.match.api.repository.store.entity.StatusEntity
